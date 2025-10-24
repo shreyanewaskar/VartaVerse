@@ -1,0 +1,293 @@
+openapi: 3.0.3
+info:
+  title: VarnaVerse API
+  version: 1.0.0
+  description: >
+    **VarnaVerse – Social Media & Review Platform**  
+    This API supports two core microservices:  
+    1. **User & Admin Management Service**  
+    2. **Content & Interaction Management Service**
+
+servers:
+  - url: https://api.varnaverse.com/v1
+    description: Production Server
+  - url: http://localhost:8080/v1
+    description: Local Development Server
+
+tags:
+  - name: User Management
+    description: Handles user accounts, profiles, authentication, and admin features.
+  - name: Content Management
+    description: Manages posts, reviews, ratings, comments, and interactions.
+
+paths:
+  # ===========================
+  # USER & ADMIN MANAGEMENT
+  # ===========================
+
+  /users/register:
+    post:
+      tags: [User Management]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username: { type: string }
+                email: { type: string, format: email }
+                password: { type: string, format: password }
+      responses:
+        "201":
+          description: User registered successfully
+        "400":
+          description: Invalid input or user already exists
+
+  /users/login:
+    post:
+      tags: [User Management]
+      summary: Authenticate user and return JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        "200":
+          description: Login successful
+        "401":
+          description: Invalid credentials
+
+  /users/forgot-password:
+    post:
+      tags: [User Management]
+      summary: Send password reset link to user email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string }
+      responses:
+        "200":
+          description: Reset link sent successfully
+
+  /users/reset-password:
+    post:
+      tags: [User Management]
+      summary: Reset password using token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token: { type: string }
+                newPassword: { type: string, format: password }
+      responses:
+        "200":
+          description: Password reset successful
+        "400":
+          description: Invalid or expired token
+
+  /users/profile/{userId}:
+    get:
+      tags: [User Management]
+      summary: Get user profile by ID
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Profile fetched successfully
+
+  /users/follow/{targetId}:
+    post:
+      tags: [User Management]
+      summary: Follow another user
+      parameters:
+        - in: path
+          name: targetId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Followed successfully
+
+  /users/unfollow/{targetId}:
+    post:
+      tags: [User Management]
+      summary: Unfollow another user
+      parameters:
+        - in: path
+          name: targetId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Unfollowed successfully
+
+  /admin/users:
+    get:
+      tags: [User Management]
+      summary: Get all users (Admin only)
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: List of users returned
+
+  /admin/posts/moderate/{postId}:
+    delete:
+      tags: [User Management]
+      summary: Delete or block a post (Admin only)
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Post removed successfully
+
+  # ===========================
+  # CONTENT & INTERACTION MANAGEMENT
+  # ===========================
+
+  /posts:
+    post:
+      tags: [Content Management]
+      summary: Create a new post or review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string }
+                content: { type: string }
+                category: { type: string, enum: [Movies, Shows, Books, News] }
+                rating: { type: integer, minimum: 1, maximum: 5 }
+      responses:
+        "201":
+          description: Post created successfully
+
+    get:
+      tags: [Content Management]
+      summary: Get all posts (with optional filters)
+      parameters:
+        - name: category
+          in: query
+          schema: { type: string }
+        - name: sort
+          in: query
+          schema: { type: string, enum: [latest, trending, top-rated] }
+      responses:
+        "200":
+          description: List of posts returned
+
+  /posts/{postId}:
+    get:
+      tags: [Content Management]
+      summary: Get post by ID
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Post details fetched successfully
+
+    delete:
+      tags: [Content Management]
+      summary: Delete post by ID (Author or Admin)
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Post deleted successfully
+
+  /posts/{postId}/like:
+    post:
+      tags: [Content Management]
+      summary: Like or unlike a post
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Like toggled successfully
+
+  /posts/{postId}/comment:
+    post:
+      tags: [Content Management]
+      summary: Add a comment on a post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: { type: string }
+      responses:
+        "201":
+          description: Comment added successfully
+
+    get:
+      tags: [Content Management]
+      summary: Get comments on a post
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Comments fetched successfully
+
+  /posts/trending:
+    get:
+      tags: [Content Management]
+      summary: Get trending posts based on engagement
+      responses:
+        "200":
+          description: Trending posts returned
+
+  /search:
+    get:
+      tags: [Content Management]
+      summary: Search posts or users
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Search results returned
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

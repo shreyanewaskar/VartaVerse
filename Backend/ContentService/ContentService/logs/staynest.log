@@ -1,0 +1,44 @@
+2025-10-15T01:17:03.570+05:30  INFO 12684 --- [ContentService] [restartedMain] c.m.V.C.ContentServiceApplication        : Starting ContentServiceApplication using Java 22 with PID 12684 (E:\Projects\VarnaVerse\Backend\ContentService\ContentService\target\classes started by hp in E:\Projects\VarnaVerse\Backend\ContentService\ContentService)
+2025-10-15T01:17:03.575+05:30  INFO 12684 --- [ContentService] [restartedMain] c.m.V.C.ContentServiceApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-10-15T01:17:03.686+05:30  INFO 12684 --- [ContentService] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-15T01:17:03.687+05:30  INFO 12684 --- [ContentService] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-15T01:17:05.299+05:30  INFO 12684 --- [ContentService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-15T01:17:05.578+05:30  INFO 12684 --- [ContentService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 246 ms. Found 1 JPA repository interface.
+2025-10-15T01:17:06.003+05:30  INFO 12684 --- [ContentService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=f515a610-1066-3251-8ae8-f2ea3f19b9ce
+2025-10-15T01:17:06.872+05:30  INFO 12684 --- [ContentService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-10-15T01:17:06.901+05:30  INFO 12684 --- [ContentService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-15T01:17:06.902+05:30  INFO 12684 --- [ContentService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-15T01:17:07.001+05:30  INFO 12684 --- [ContentService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-15T01:17:07.003+05:30  INFO 12684 --- [ContentService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3314 ms
+2025-10-15T01:17:07.349+05:30  INFO 12684 --- [ContentService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-15T01:17:07.469+05:30  INFO 12684 --- [ContentService] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-15T01:17:07.573+05:30  INFO 12684 --- [ContentService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-15T01:17:08.124+05:30  INFO 12684 --- [ContentService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-15T01:17:08.173+05:30  INFO 12684 --- [ContentService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-15T01:17:08.841+05:30  INFO 12684 --- [ContentService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3fc289b2
+2025-10-15T01:17:08.844+05:30  INFO 12684 --- [ContentService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-15T01:17:09.037+05:30  WARN 12684 --- [ContentService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-15T01:17:09.040+05:30  WARN 12684 --- [ContentService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-10-15T01:17:09.077+05:30  INFO 12684 --- [ContentService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-15T01:17:10.348+05:30  INFO 12684 --- [ContentService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-15T01:17:11.029+05:30  INFO 12684 --- [ContentService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-15T01:17:11.468+05:30  WARN 12684 --- [ContentService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-15T01:17:12.207+05:30  INFO 12684 --- [ContentService] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-10-15T01:17:12.416+05:30  INFO 12684 --- [ContentService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-10-15T01:17:12.514+05:30  INFO 12684 --- [ContentService] [restartedMain] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2025-10-15T01:17:12.578+05:30  WARN 12684 --- [ContentService] [restartedMain] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-10-15T01:17:12.639+05:30  INFO 12684 --- [ContentService] [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2025-10-15T01:17:12.686+05:30  INFO 12684 --- [ContentService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2025-10-15T01:17:12.686+05:30  INFO 12684 --- [ContentService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2025-10-15T01:17:12.694+05:30  INFO 12684 --- [ContentService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1760471232690 with initial instances count: 0
+2025-10-15T01:17:12.712+05:30  INFO 12684 --- [ContentService] [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application CONTENTSERVICE with eureka with status UP
+2025-10-15T01:17:12.767+05:30  INFO 12684 --- [ContentService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path '/'
+2025-10-15T01:17:12.769+05:30  INFO 12684 --- [ContentService] [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8087
+2025-10-15T01:17:12.815+05:30  INFO 12684 --- [ContentService] [restartedMain] c.m.V.C.ContentServiceApplication        : Started ContentServiceApplication in 10.408 seconds (process running for 11.856)
