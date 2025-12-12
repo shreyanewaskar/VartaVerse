@@ -22,4 +22,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     // API: GET /search?query=
     List<Post> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String titleQuery, String contentQuery);
+    
+    
+
 }

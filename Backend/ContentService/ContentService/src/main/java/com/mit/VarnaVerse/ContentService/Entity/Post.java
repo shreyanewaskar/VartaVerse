@@ -33,10 +33,10 @@ public class Post {
 	@Column(nullable = false)
 	private String category;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private float ratingAvg = 0.0f; 
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private long likesCount = 0L; 
 	
 	@CreationTimestamp 
@@ -44,7 +44,7 @@ public class Post {
 	private LocalDate createdAt;
 	
 	@UpdateTimestamp
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDate updatedAt;
 
 	public long getPostId() {

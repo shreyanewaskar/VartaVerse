@@ -16,7 +16,7 @@ public class FollowerController {
 
     // Placeholder for the currently authenticated user's ID. 
     // In a real app, this comes from Spring Security.
-    private static final long CURRENT_USER_ID = 1L; 
+    private static final long CURRENT_USER_ID = 6; 
 
     @Autowired
     public FollowerController(FollowerService followerService) {

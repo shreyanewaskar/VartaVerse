@@ -29,7 +29,7 @@ COPY run.sh ./run.sh
 RUN chmod +x ./run.sh
 
 # Expose ports
-EXPOSE 8761 8086 8087 3306
+EXPOSE 8761 8081 8082 3306
 
 # Start everything
 CMD ["./run.sh"]

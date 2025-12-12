@@ -2,6 +2,7 @@ package com.mit.VarnaVerse.ContentService.Services;
 
 import java.util.List;
 
+import com.mit.VarnaVerse.ContentService.Payloads.CommentCreateDTO;
 import com.mit.VarnaVerse.ContentService.Payloads.CommentResponseDTO;
 import com.mit.VarnaVerse.ContentService.Payloads.PostCreateDTO;
 import com.mit.VarnaVerse.ContentService.Payloads.PostResponseDTO;
@@ -26,11 +27,8 @@ public interface PostService {
     // API: POST /posts/{postId}/like - Likes or unlikes a post
     void toggleLike(Long postId, Long userId);
 
-    // API: POST /posts/{postId}/comment - Adds a comment
-    void addComment(Long postId, Long userId, String commentText);
-
-    // API: GET /posts/{postId}/comments - Retrieves all comments on a post
-    List<CommentResponseDTO> getCommentsByPostId(Long postId);
+    CommentResponseDTO addComment(Long postId, Long userId, CommentCreateDTO commentCreateDTO);
+   
 
     // API: POST /posts/{postId}/rate - Rates a post
     void ratePost(Long postId, Long userId, int ratingValue);
@@ -40,4 +38,10 @@ public interface PostService {
 
     // API: GET /search?query= - Searches posts
     List<PostResponseDTO> searchPosts(String query);
+    
+    List<CommentResponseDTO> getCommentsByPostId(Long postId);
+    
+    long getLikesCount(Long postId);
+    
+    long getCommentsCount(Long postId);
 }

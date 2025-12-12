@@ -69,8 +69,8 @@ The `docker-compose.yml` file handles the construction and networking of all com
 | Component | Access URL | Port | Notes |
 | :--- | :--- | :--- | :--- |
 | **React Frontend** | `http://localhost:3000` | 3000 | User interface for interaction. |
-| **User & Admin Management Service** | `http://localhost:8080` | 8080 | Handles user-centric APIs. |
-| **Content & Interaction Service** | `http://localhost:8081` | 8081 | Handles post, comment, and like APIs. |
+| **User & Admin Management Service** | `http://localhost:8081` | 8081 | Handles user-centric APIs. |
+| **Content & Interaction Service** | `http://localhost:8082` | 8082 | Handles post, comment, and like APIs. |
 | **MySQL Database** | N/A (Internal) | 3306 | Single database instance for simplified local setup. |
 
 3.  **Stopping & Cleanup:**
@@ -85,7 +85,7 @@ The `docker-compose.yml` file handles the construction and networking of all com
 
 The service separation ensures clear ownership of data and functionality. All endpoints require **JWT Authorization** unless explicitly stated as public (e.g., `/register`, `/login`).
 
-### I. User & Admin Management Service (`http://localhost:8080/users/`)
+### I. User & Admin Management Service (`http://localhost:8081/users/`)
 
 This service manages the identity lifecycle and community structure.
 
@@ -99,7 +99,7 @@ This service manages the identity lifecycle and community structure.
 | `/admin/dashboard` | `GET` | Analytics and management view for Admins. | Admin Role Secured |
 | `/admin/users/{userId}` | `DELETE` | Admin action to remove or ban a user. | Admin Role Secured |
 
-### II. Content & Interaction Management Service (`http://localhost:8081/posts/`)
+### II. Content & Interaction Management Service (`http://localhost:8082/posts/`)
 
 This service handles all content creation, engagement metrics, and discovery.
 

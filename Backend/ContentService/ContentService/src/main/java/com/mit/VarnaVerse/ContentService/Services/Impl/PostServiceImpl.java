@@ -1,19 +1,25 @@
 package com.mit.VarnaVerse.ContentService.Services.Impl;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mit.VarnaVerse.ContentService.Entity.Comment;
+import com.mit.VarnaVerse.ContentService.Entity.Like;
 import com.mit.VarnaVerse.ContentService.Entity.Post;
 import com.mit.VarnaVerse.ContentService.Exception.ResourceNotFoundException;
+import com.mit.VarnaVerse.ContentService.Payloads.CommentCreateDTO;
 import com.mit.VarnaVerse.ContentService.Payloads.CommentResponseDTO;
 import com.mit.VarnaVerse.ContentService.Payloads.PostCreateDTO;
 import com.mit.VarnaVerse.ContentService.Payloads.PostResponseDTO;
+import com.mit.VarnaVerse.ContentService.Repository.CommentRepository;
+import com.mit.VarnaVerse.ContentService.Repository.LikeRepository;
 import com.mit.VarnaVerse.ContentService.Repository.PostRepository;
 import com.mit.VarnaVerse.ContentService.Services.PostService;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -21,21 +27,25 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private LikeRepository likeRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
     // --- Core CRUD ---
 
     @Override
     public PostResponseDTO createPost(PostCreateDTO postCreateDTO, Long userId) {
         Post post = new Post();
-        // Assume mapping from DTO to Entity
         post.setUserId(userId);
         post.setTitle(postCreateDTO.getTitle());
         post.setContent(postCreateDTO.getContent());
         post.setCategory(postCreateDTO.getCategory());
-        post.setLikesCount(0); // Initialize
-        post.setRatingAvg((float) 0.0); // Initialize
+        post.setLikesCount(0L);
+        post.setRatingAvg(0.0f);
 
         Post savedPost = postRepository.save(post);
-        // Assume mapping from Entity to ResponseDTO
         return new PostResponseDTO(savedPost);
     }
 
@@ -46,20 +56,16 @@ public class PostServiceImpl implements PostService {
         return new PostResponseDTO(post);
     }
 
-    // --- Retrieval and Filtering ---
-
     @Override
     public List<PostResponseDTO> getAllPosts(String category, String sort) {
         List<Post> posts;
-
         if (category != null && !category.isEmpty()) {
             posts = postRepository.findByCategory(category);
         } else if ("top-rated".equalsIgnoreCase(sort)) {
-            posts = postRepository.findTop10ByOrderByRatingAvgDesc(); // Top-rated logic
-        } else { // Default to latest
-            posts = postRepository.findAll(); // Simple, real-world would use Pageable
+            posts = postRepository.findTop10ByOrderByRatingAvgDesc();
+        } else {
+            posts = postRepository.findAll();
         }
-
         return posts.stream()
                 .map(PostResponseDTO::new)
                 .collect(Collectors.toList());
@@ -81,8 +87,6 @@ public class PostServiceImpl implements PostService {
                 .collect(Collectors.toList());
     }
 
-    // --- Update/Delete/Interactions ---
-
     @Override
     public PostResponseDTO updatePost(Long postId, PostCreateDTO postUpdateDTO, long userId) {
         Post post = postRepository.findById(postId)
@@ -100,43 +104,88 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Long postId, Long userId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found."));
-
-       
         postRepository.delete(post);
     }
 
+    // --- Like / Unlike ---
     @Override
     public void toggleLike(Long postId, Long userId) {
-        // Implementation would involve checking a 'Like' repository table.
-        // Simplified: If liked, decrement; else, increment.
-        Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post not found."));
-        // Assuming a simpler logic for demonstration: always increment for this basic structure.
-        post.setLikesCount(post.getLikesCount() + 1);
+        Optional<Like> existingLike = likeRepository.findByPostIdAndUserId(postId, userId);
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found."));
+
+        if (existingLike.isPresent()) {
+            likeRepository.delete(existingLike.get());
+            post.setLikesCount(post.getLikesCount() - 1);
+        } else {
+            Like like = new Like();
+            like.setPostId(postId);
+            like.setUserId(userId);
+            likeRepository.save(like);
+            post.setLikesCount(post.getLikesCount() + 1);
+        }
         postRepository.save(post);
     }
 
+    // --- Comment ---
     @Override
-    public void addComment(Long postId, Long userId, String commentText) {
-        // Implementation would involve creating a new 'Comment' entity and saving it.
-        // Omitted: CommentRepository/Entity logic.
-        getPostById(postId); // Ensures post exists
-        System.out.println("Comment added to post " + postId);
+    public CommentResponseDTO addComment(Long postId, Long userId, CommentCreateDTO commentCreateDTO) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
+
+        Comment comment = new Comment();
+        comment.setPostId(postId);
+        comment.setUserId(userId);
+        comment.setText(commentCreateDTO.getText());
+
+        Comment saved = commentRepository.save(comment);
+
+        LocalDateTime createdAt = saved.getCreatedAt() != null ? saved.getCreatedAt().atStartOfDay() : LocalDateTime.now();
+        LocalDateTime updatedAt = saved.getUpdatedAt() != null ? saved.getUpdatedAt().atStartOfDay() : LocalDateTime.now();
+
+        return new CommentResponseDTO(
+                saved.getCommentId(),
+                saved.getPostId(),
+                saved.getUserId(),
+                saved.getText(),
+                createdAt
+        );
     }
 
     @Override
-    public List<CommentResponseDTO> getCommentsByPostId(Long postId) {
-        // Implementation would involve fetching comments from the CommentRepository.
-        getPostById(postId); // Ensures post exists
-        return List.of(new CommentResponseDTO("Dummy Comment 1"), new CommentResponseDTO("Dummy Comment 2"));
+    public long getCommentsCount(Long postId) {
+        return commentRepository.countByPostId(postId);
     }
 
+    // --- Rating ---
     @Override
     public void ratePost(Long postId, Long userId, int ratingValue) {
-        // Implementation would involve saving a 'Rating' entity and recalculating the post's rating_avg.
-        Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post not found."));
-        
-        // Simplified avg recalculation (In real life, this needs to check existing rating and update)
-        post.setRatingAvg((post.getRatingAvg() + ratingValue) / 2); 
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found."));
+        // Simplified avg (in real, track all ratings)
+        post.setRatingAvg((post.getRatingAvg() + ratingValue) / 2.0f);
         postRepository.save(post);
+    }
+
+    // --- Count ---
+    @Override
+    public long getLikesCount(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
+        return post.getLikesCount();
+    }
+    
+    @Override
+    public List<CommentResponseDTO> getCommentsByPostId(Long postId) {
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        return comments.stream()
+                .map(c -> new CommentResponseDTO(
+                        c.getCommentId(),
+                        c.getPostId(),
+                        c.getUserId(),
+                        c.getText(),
+                        c.getCreatedAt().atStartOfDay()
+                ))
+                .collect(Collectors.toList());
     }
 }

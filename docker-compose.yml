@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: vartaverse-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Pass@12345
+      MYSQL_DATABASE: VartaVerse
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - vartaverse-network
+
+  eureka-server:
+    build: .
+    container_name: vartaverse-eureka
+    ports:
+      - "8761:8761"
+    command: ["java", "-jar", "eureka-server.jar"]
+    networks:
+      - vartaverse-network
+    depends_on:
+      - mysql
+
+  user-service:
+    build: .
+    container_name: vartaverse-user-service
+    ports:
+      - "8081:8081"
+    command: ["java", "-jar", "user-service.jar"]
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/VartaVerse
+    networks:
+      - vartaverse-network
+    depends_on:
+      - mysql
+      - eureka-server
+
+  content-service:
+    build: .
+    container_name: vartaverse-content-service
+    ports:
+      - "8082:8082"
+    command: ["java", "-jar", "content-service.jar"]
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/VartaVerse
+    networks:
+      - vartaverse-network
+    depends_on:
+      - mysql
+      - eureka-server
+      - user-service
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: vartaverse-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_USER_SERVICE_URL=http://localhost:8081
+      - VITE_CONTENT_SERVICE_URL=http://localhost:8082
+    networks:
+      - vartaverse-network
+    depends_on:
+      - user-service
+      - content-service
+
+volumes:
+  mysql_data:
+
+networks:
+  vartaverse-network:
+    driver: bridge
