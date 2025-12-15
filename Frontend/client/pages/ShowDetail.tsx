@@ -8,7 +8,7 @@ export default function ShowDetail() {
   const navigate = useNavigate();
   const [show, setShow] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [comments, setComments] = useState<string[]>([]);
+  const [comments, setComments] = useState<any[]>([]);
   const [newComment, setNewComment] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
 
@@ -18,7 +18,10 @@ export default function ShowDetail() {
       
       try {
         setLoading(true);
-        const post = await contentApi.getPost(id);
+        const [post, commentsResponse] = await Promise.all([
+          contentApi.getPost(id),
+          contentApi.getComments(id)
+        ]);
         
         try {
           const content = JSON.parse(post.content);
@@ -40,6 +43,8 @@ export default function ShowDetail() {
             rating: 4.0
           });
         }
+        
+        setComments(commentsResponse.comments || []);
       } catch (err) {
         console.error('Failed to load show:', err);
       } finally {
@@ -55,8 +60,8 @@ export default function ShowDetail() {
     
     try {
       setSubmittingComment(true);
-      await contentApi.addComment(id, { text: newComment });
-      setComments([...comments, newComment]);
+      const comment = await contentApi.addComment(id, { text: newComment });
+      setComments([...comments, comment]);
       setNewComment("");
     } catch (err) {
       console.error('Failed to add comment:', err);
@@ -160,8 +165,13 @@ export default function ShowDetail() {
               <div className="space-y-3">
                 {comments.length > 0 ? (
                   comments.map((comment, index) => (
-                    <div key={index} className="p-3 bg-media-frozen-water/30 rounded-lg">
-                      <p className="text-media-dark-raspberry">{comment}</p>
+                    <div key={comment.commentId || index} className="p-3 bg-media-frozen-water/30 rounded-lg">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-semibold text-media-berry-crush">
+                          {comment.userName || comment.userEmail || comment.user?.name || comment.user?.email || 'Anonymous'}
+                        </span>
+                      </div>
+                      <p className="text-media-dark-raspberry">{comment.text || comment}</p>
                     </div>
                   ))
                 ) : (

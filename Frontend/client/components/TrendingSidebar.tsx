@@ -1,22 +1,24 @@
+import { useState, useEffect } from "react";
 import { TrendingUp, ChevronRight } from "lucide-react";
-
-interface TrendingItem {
-  id: string;
-  title: string;
-  category: string;
-  posts: number;
-  isTrending: boolean;
-}
-
-const trendingItems: TrendingItem[] = [
-  { id: "1", title: "Indie Cinema Revival", category: "Movies", posts: 2840, isTrending: true },
-  { id: "2", title: "Mind-Bending Sci-Fi", category: "TV Shows", posts: 1562, isTrending: true },
-  { id: "3", title: "Book Club Picks", category: "Books", posts: 912, isTrending: false },
-  { id: "4", title: "Summer Blockbusters", category: "Movies", posts: 3124, isTrending: true },
-  { id: "5", title: "Underrated Gems", category: "TV Shows", posts: 756, isTrending: false },
-];
+import { contentApi } from "@/lib/content-api";
 
 export default function TrendingSidebar() {
+  const [trendingPosts, setTrendingPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadTrendingPosts = async () => {
+      try {
+        const posts = await contentApi.getTrendingPosts();
+        setTrendingPosts(posts);
+      } catch (err) {
+        console.error('Failed to load trending posts:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadTrendingPosts();
+  }, []);
   return (
     <aside className="hidden lg:flex flex-col w-72 gap-4">
       {/* Trending Card */}
@@ -29,27 +31,35 @@ export default function TrendingSidebar() {
         </div>
 
         <div className="divide-y divide-media-frozen-water max-h-96 overflow-y-auto">
-          {trendingItems.map((item) => (
-            <button
-              key={item.id}
-              className="w-full p-4 hover:bg-media-frozen-water/40 smooth-all transition-colors text-left group"
-            >
-              <div className="flex items-start justify-between mb-1">
-                <div className="flex-1">
-                  <h4 className="font-semibold text-media-dark-raspberry group-hover:text-media-berry-crush smooth-all line-clamp-2">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs text-media-berry-crush/60 mt-1">{item.category}</p>
-                </div>
-                {item.isTrending && (
+          {loading ? (
+            <div className="p-4 text-center text-media-dark-raspberry/60">
+              Loading trending posts...
+            </div>
+          ) : trendingPosts.length > 0 ? (
+            trendingPosts.map((post) => (
+              <button
+                key={post.postId}
+                className="w-full p-4 hover:bg-media-frozen-water/40 smooth-all transition-colors text-left group"
+              >
+                <div className="flex items-start justify-between mb-1">
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-media-dark-raspberry group-hover:text-media-berry-crush smooth-all line-clamp-2">
+                      {post.title}
+                    </h4>
+                    <p className="text-xs text-media-berry-crush/60 mt-1 capitalize">{post.category || 'General'}</p>
+                  </div>
                   <div className="flex-shrink-0 ml-2 px-2 py-1 rounded-lg bg-gradient-to-r from-media-powder-blush to-media-berry-crush text-white text-xs font-bold">
                     Trending
                   </div>
-                )}
-              </div>
-              <p className="text-xs text-media-berry-crush/50 mt-2">{item.posts.toLocaleString()} posts</p>
-            </button>
-          ))}
+                </div>
+                <p className="text-xs text-media-berry-crush/50 mt-2">{post.likesCount || 0} likes</p>
+              </button>
+            ))
+          ) : (
+            <div className="p-4 text-center text-media-dark-raspberry/60">
+              No trending posts available
+            </div>
+          )}
         </div>
 
         <div className="p-4 border-t border-media-frozen-water">

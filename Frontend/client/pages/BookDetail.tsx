@@ -8,7 +8,7 @@ export default function BookDetail() {
   const navigate = useNavigate();
   const [book, setBook] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [comments, setComments] = useState<string[]>([]);
+  const [comments, setComments] = useState<any[]>([]);
   const [newComment, setNewComment] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
 
@@ -18,7 +18,10 @@ export default function BookDetail() {
       
       try {
         setLoading(true);
-        const post = await contentApi.getPost(id);
+        const [post, commentsResponse] = await Promise.all([
+          contentApi.getPost(id),
+          contentApi.getComments(id)
+        ]);
         
         try {
           const content = JSON.parse(post.content);
@@ -42,6 +45,8 @@ export default function BookDetail() {
             rating: 4.0
           });
         }
+        
+        setComments(commentsResponse.comments || []);
       } catch (err) {
         console.error('Failed to load book:', err);
       } finally {
@@ -57,8 +62,8 @@ export default function BookDetail() {
     
     try {
       setSubmittingComment(true);
-      await contentApi.addComment(id, { text: newComment });
-      setComments([...comments, newComment]);
+      const comment = await contentApi.addComment(id, { text: newComment });
+      setComments([...comments, comment]);
       setNewComment("");
     } catch (err) {
       console.error('Failed to add comment:', err);
@@ -181,8 +186,13 @@ export default function BookDetail() {
             <div className="space-y-3">
               {comments.length > 0 ? (
                 comments.map((comment, index) => (
-                  <div key={index} className="p-3 bg-media-frozen-water/30 rounded-lg">
-                    <p className="text-media-dark-raspberry">{comment}</p>
+                  <div key={comment.commentId || index} className="p-3 bg-media-frozen-water/30 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-semibold text-media-berry-crush">
+                        {comment.userName || comment.userEmail || comment.user?.name || comment.user?.email || 'Anonymous'}
+                      </span>
+                    </div>
+                    <p className="text-media-dark-raspberry">{comment.text || comment}</p>
                   </div>
                 ))
               ) : (

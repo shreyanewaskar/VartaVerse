@@ -130,7 +130,7 @@ public class PostController {
         return ResponseEntity.ok(count);
     }
     
-    @GetMapping("/posts/{postId}/comments")
+    @GetMapping("/{postId}/comments")
     public List<CommentResponseDTO> getCommentsByPost(@PathVariable Long postId) {
         return postService.getCommentsByPostId(postId);
     }
@@ -250,47 +250,8 @@ public class PostController {
             return ResponseEntity.status(500).body("{\"error\":\"Failed to fetch default books\"}");
         }
     }
-    // Get movie details by IMDb ID
-    @GetMapping("/{imdbId}")
-    public ResponseEntity<String> getMovieDetails(@PathVariable String imdbId) {
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-            String url = OMDB_BASE_URL + "?i=" + imdbId + "&apikey=" + OMDB_API_KEY;
-            String response = restTemplate.getForObject(url, String.class);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("{\"error\":\"Failed to fetch movie details\"}");
-        }
-    }
-
-    // Add a comment for a movie
-    @PostMapping("/{imdbId}/comments")
-    public ResponseEntity<String> addComment(
-            @PathVariable String imdbId,
-            @RequestBody Map<String, String> commentData
-    ) {
-        String comment = commentData.get("comment");
-        // Store comment in DB or in-memory map
-        // Example: commentService.addComment(imdbId, comment);
-        return ResponseEntity.ok("{\"message\":\"Comment added successfully\"}");
-    }
-
-    // Get comments for a movie
-    @GetMapping("/{imdbId}/comments")
-    public ResponseEntity<List<String>> getComments(@PathVariable String imdbId) {
-        // Example: List<String> comments = commentService.getComments(imdbId);
-        List<String> comments = new ArrayList<>(); // placeholder
-        return ResponseEntity.ok(comments);
-    }
-    @GetMapping
-    public ResponseEntity<List<PostResponseDTO>> getPosts(
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) String sort
-    ) {
-        List<PostResponseDTO> posts = postService.getAllPosts(category, sort);
-        return ResponseEntity.ok(posts);
-    }
+       
+ 
 }
 
 

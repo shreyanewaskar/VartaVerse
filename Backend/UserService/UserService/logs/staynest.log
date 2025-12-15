@@ -1,26 +1,26 @@
-2025-12-12T17:47:55.953+05:30  INFO 22184 --- [UserService] [restartedMain] c.m.V.U.UserServiceApplication           : Starting UserServiceApplication using Java 22.0.2 with PID 22184 (C:\Users\sachi\Downloads\VarnaVerse (2)\VarnaVerse\Backend\UserService\UserService\target\classes started by sachi in C:\Users\sachi\Downloads\VarnaVerse (2)\VarnaVerse\Backend\UserService\UserService)
-2025-12-12T17:47:55.968+05:30  INFO 22184 --- [UserService] [restartedMain] c.m.V.U.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
-2025-12-12T17:47:56.077+05:30  INFO 22184 --- [UserService] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-12-12T17:47:56.078+05:30  INFO 22184 --- [UserService] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-12-12T17:47:57.643+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'corsConfigurationSource' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=corsConfig; factoryMethodName=corsConfigurationSource; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/mit/VarnaVerse/UserService/Config/CorsConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=corsConfigurationSource; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/mit/VarnaVerse/UserService/Config/SecurityConfig.class]]
-2025-12-12T17:47:58.111+05:30  INFO 22184 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-12T17:47:58.481+05:30  INFO 22184 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 345 ms. Found 2 JPA repository interfaces.
-2025-12-12T17:47:59.500+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=65ffbf34-de3b-3d97-ac30-1fa89cb38277
-2025-12-12T17:48:00.464+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
-2025-12-12T17:48:00.503+05:30  INFO 22184 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-12T17:48:00.503+05:30  INFO 22184 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
-2025-12-12T17:48:00.620+05:30  INFO 22184 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-12T17:48:00.621+05:30  INFO 22184 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4542 ms
-2025-12-12T17:48:00.936+05:30  INFO 22184 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-12T17:48:01.083+05:30  INFO 22184 --- [UserService] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
-2025-12-12T17:48:01.169+05:30  INFO 22184 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-12T17:48:01.749+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-12T17:48:01.796+05:30  INFO 22184 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-12T17:48:02.614+05:30  INFO 22184 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@29bfbf3f
-2025-12-12T17:48:02.618+05:30  INFO 22184 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-12T17:48:02.773+05:30  WARN 22184 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-12-12T17:48:02.775+05:30  WARN 22184 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-12-12T17:48:02.811+05:30  INFO 22184 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-12-15T22:02:02.208+05:30  INFO 13396 --- [UserService] [restartedMain] c.m.V.U.UserServiceApplication           : Starting UserServiceApplication using Java 22.0.2 with PID 13396 (C:\Users\sachi\Downloads\VarnaVerse (2)\VarnaVerse\Backend\UserService\UserService\target\classes started by sachi in C:\Users\sachi\Downloads\VarnaVerse (2)\VarnaVerse\Backend\UserService\UserService)
+2025-12-15T22:02:02.224+05:30  INFO 13396 --- [UserService] [restartedMain] c.m.V.U.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-12-15T22:02:02.335+05:30  INFO 13396 --- [UserService] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-15T22:02:02.335+05:30  INFO 13396 --- [UserService] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-15T22:02:03.918+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'corsConfigurationSource' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=corsConfig; factoryMethodName=corsConfigurationSource; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/mit/VarnaVerse/UserService/Config/CorsConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=corsConfigurationSource; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/mit/VarnaVerse/UserService/Config/SecurityConfig.class]]
+2025-12-15T22:02:04.391+05:30  INFO 13396 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-15T22:02:04.695+05:30  INFO 13396 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 280 ms. Found 2 JPA repository interfaces.
+2025-12-15T22:02:05.399+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=65ffbf34-de3b-3d97-ac30-1fa89cb38277
+2025-12-15T22:02:06.346+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2025-12-15T22:02:06.389+05:30  INFO 13396 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-15T22:02:06.390+05:30  INFO 13396 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-12-15T22:02:06.492+05:30  INFO 13396 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-15T22:02:06.493+05:30  INFO 13396 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4156 ms
+2025-12-15T22:02:06.798+05:30  INFO 13396 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-15T22:02:06.924+05:30  INFO 13396 --- [UserService] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-12-15T22:02:07.007+05:30  INFO 13396 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-15T22:02:07.661+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-15T22:02:07.732+05:30  INFO 13396 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-15T22:02:08.425+05:30  INFO 13396 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@77a7aa99
+2025-12-15T22:02:08.428+05:30  INFO 13396 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-15T22:02:08.566+05:30  WARN 13396 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-15T22:02:08.573+05:30  WARN 13396 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-12-15T22:02:08.630+05:30  INFO 13396 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -28,31 +28,31 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-12-12T17:48:04.188+05:30  INFO 22184 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-12T17:48:04.370+05:30  INFO 22184 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-12T17:48:05.231+05:30  WARN 22184 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-12-12T17:48:05.428+05:30  INFO 22184 --- [UserService] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-12-12T17:48:06.788+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-12-12T17:48:07.820+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
-2025-12-12T17:48:08.878+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
-2025-12-12T17:48:08.919+05:30  INFO 22184 --- [UserService] [restartedMain] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
-2025-12-12T17:48:09.014+05:30  WARN 22184 --- [UserService] [restartedMain] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2025-12-12T17:48:09.065+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
-2025-12-12T17:48:09.132+05:30  INFO 22184 --- [UserService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
-2025-12-12T17:48:09.133+05:30  INFO 22184 --- [UserService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
-2025-12-12T17:48:09.137+05:30  INFO 22184 --- [UserService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1765541889135 with initial instances count: 0
-2025-12-12T17:48:09.147+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application USERSERVICE with eureka with status UP
-2025-12-12T17:48:09.186+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path '/'
-2025-12-12T17:48:09.188+05:30  INFO 22184 --- [UserService] [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8083
-2025-12-12T17:48:10.206+05:30  INFO 22184 --- [UserService] [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
-2025-12-12T17:48:10.221+05:30  INFO 22184 --- [UserService] [restartedMain] c.m.V.U.UserServiceApplication           : Started UserServiceApplication in 16.493 seconds (process running for 18.104)
-2025-12-12T17:54:03.938+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-12T17:54:03.968+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-12T17:54:04.074+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 105 ms
-2025-12-12T17:54:05.832+05:30  WARN 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : JWT expired: JWT expired at 2025-12-06T15:18:13Z. Current time: 2025-12-12T12:24:05Z, a difference of 507952826 milliseconds.  Allowed clock skew: 0 milliseconds.
-2025-12-12T17:54:06.243+05:30 ERROR 22184 --- [UserService] [http-nio-8083-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-06T15:18:13Z. Current time: 2025-12-12T12:24:06Z, a difference of 507953202 milliseconds.  Allowed clock skew: 0 milliseconds.] with root cause
+2025-12-15T22:02:09.974+05:30  INFO 13396 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-15T22:02:10.172+05:30  INFO 13396 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-15T22:02:10.931+05:30  WARN 13396 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-15T22:02:11.133+05:30  INFO 13396 --- [UserService] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-15T22:02:12.393+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-12-15T22:02:13.440+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2025-12-15T22:02:14.517+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2025-12-15T22:02:14.595+05:30  INFO 13396 --- [UserService] [restartedMain] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2025-12-15T22:02:14.690+05:30  WARN 13396 --- [UserService] [restartedMain] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-12-15T22:02:14.750+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2025-12-15T22:02:14.815+05:30  INFO 13396 --- [UserService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2025-12-15T22:02:14.815+05:30  INFO 13396 --- [UserService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2025-12-15T22:02:14.820+05:30  INFO 13396 --- [UserService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1765816334818 with initial instances count: 0
+2025-12-15T22:02:14.831+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application USERSERVICE with eureka with status UP
+2025-12-15T22:02:14.872+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path '/'
+2025-12-15T22:02:14.875+05:30  INFO 13396 --- [UserService] [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8083
+2025-12-15T22:02:15.893+05:30  INFO 13396 --- [UserService] [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2025-12-15T22:02:15.906+05:30  INFO 13396 --- [UserService] [restartedMain] c.m.V.U.UserServiceApplication           : Started UserServiceApplication in 15.916 seconds (process running for 17.269)
+2025-12-15T22:04:50.792+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-15T22:04:50.793+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-15T22:04:50.796+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-12-15T22:04:50.989+05:30  WARN 13396 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : JWT expired: JWT expired at 2025-12-12T22:10:37Z. Current time: 2025-12-15T16:34:50Z, a difference of 239053987 milliseconds.  Allowed clock skew: 0 milliseconds.
+2025-12-15T22:04:51.055+05:30 ERROR 13396 --- [UserService] [http-nio-8083-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-12T22:10:37Z. Current time: 2025-12-15T16:34:51Z, a difference of 239054043 milliseconds.  Allowed clock skew: 0 milliseconds.] with root cause
 
-io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-06T15:18:13Z. Current time: 2025-12-12T12:24:06Z, a difference of 507953202 milliseconds.  Allowed clock skew: 0 milliseconds.
+io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-12T22:10:37Z. Current time: 2025-12-15T16:34:51Z, a difference of 239054043 milliseconds.  Allowed clock skew: 0 milliseconds.
 	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:427) ~[jjwt-impl-0.11.5.jar:0.11.5]
 	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529) ~[jjwt-impl-0.11.5.jar:0.11.5]
 	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589) ~[jjwt-impl-0.11.5.jar:0.11.5]
@@ -170,10 +170,10 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-06T15:18:13Z. Curren
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
 	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
 
-2025-12-12T17:54:08.722+05:30  WARN 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : JWT expired: JWT expired at 2025-12-06T15:18:13Z. Current time: 2025-12-12T12:24:08Z, a difference of 507955719 milliseconds.  Allowed clock skew: 0 milliseconds.
-2025-12-12T17:54:08.743+05:30 ERROR 22184 --- [UserService] [http-nio-8083-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-06T15:18:13Z. Current time: 2025-12-12T12:24:08Z, a difference of 507955734 milliseconds.  Allowed clock skew: 0 milliseconds.] with root cause
+2025-12-15T22:04:52.176+05:30  WARN 13396 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : JWT expired: JWT expired at 2025-12-12T22:10:37Z. Current time: 2025-12-15T16:34:52Z, a difference of 239055176 milliseconds.  Allowed clock skew: 0 milliseconds.
+2025-12-15T22:04:52.182+05:30 ERROR 13396 --- [UserService] [http-nio-8083-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-12T22:10:37Z. Current time: 2025-12-15T16:34:52Z, a difference of 239055180 milliseconds.  Allowed clock skew: 0 milliseconds.] with root cause
 
-io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-06T15:18:13Z. Current time: 2025-12-12T12:24:08Z, a difference of 507955734 milliseconds.  Allowed clock skew: 0 milliseconds.
+io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-12T22:10:37Z. Current time: 2025-12-15T16:34:52Z, a difference of 239055180 milliseconds.  Allowed clock skew: 0 milliseconds.
 	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:427) ~[jjwt-impl-0.11.5.jar:0.11.5]
 	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529) ~[jjwt-impl-0.11.5.jar:0.11.5]
 	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589) ~[jjwt-impl-0.11.5.jar:0.11.5]
@@ -291,10 +291,10 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-06T15:18:13Z. Curren
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
 	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
 
-2025-12-12T17:54:10.861+05:30  WARN 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : JWT expired: JWT expired at 2025-12-06T15:18:13Z. Current time: 2025-12-12T12:24:10Z, a difference of 507957860 milliseconds.  Allowed clock skew: 0 milliseconds.
-2025-12-12T17:54:10.868+05:30 ERROR 22184 --- [UserService] [http-nio-8083-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-06T15:18:13Z. Current time: 2025-12-12T12:24:10Z, a difference of 507957867 milliseconds.  Allowed clock skew: 0 milliseconds.] with root cause
+2025-12-15T22:04:54.212+05:30  WARN 13396 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : JWT expired: JWT expired at 2025-12-12T22:10:37Z. Current time: 2025-12-15T16:34:54Z, a difference of 239057211 milliseconds.  Allowed clock skew: 0 milliseconds.
+2025-12-15T22:04:54.221+05:30 ERROR 13396 --- [UserService] [http-nio-8083-exec-4] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-12T22:10:37Z. Current time: 2025-12-15T16:34:54Z, a difference of 239057219 milliseconds.  Allowed clock skew: 0 milliseconds.] with root cause
 
-io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-06T15:18:13Z. Current time: 2025-12-12T12:24:10Z, a difference of 507957867 milliseconds.  Allowed clock skew: 0 milliseconds.
+io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-12T22:10:37Z. Current time: 2025-12-15T16:34:54Z, a difference of 239057219 milliseconds.  Allowed clock skew: 0 milliseconds.
 	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:427) ~[jjwt-impl-0.11.5.jar:0.11.5]
 	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529) ~[jjwt-impl-0.11.5.jar:0.11.5]
 	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589) ~[jjwt-impl-0.11.5.jar:0.11.5]
@@ -412,85 +412,25 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-12-06T15:18:13Z. Curren
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.46.jar:10.1.46]
 	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
 
-2025-12-12T17:54:13.678+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.AuthController        : Login attempt as USER for email: shreya@gmail.com
-2025-12-12T17:54:16.135+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.AuthController        : Login successful as USER: shreya@gmail.com
-2025-12-12T18:30:34.683+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T18:30:34.853+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T18:30:34.869+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T18:36:39.597+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T18:36:39.612+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T18:36:39.617+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T18:48:22.308+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T18:48:22.372+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T18:48:22.378+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T18:57:21.876+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T18:57:21.900+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T18:57:21.914+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T19:02:37.918+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T19:02:37.947+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T19:02:37.956+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T19:37:48.388+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T19:37:48.430+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T19:37:48.436+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T19:44:57.629+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T19:44:57.640+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T19:44:57.645+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T19:45:25.333+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T19:45:25.341+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T19:45:25.369+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T19:48:23.789+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T19:48:23.795+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T19:48:23.802+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T19:50:27.824+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T19:50:27.831+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T19:50:27.840+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T19:53:55.608+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T19:53:55.619+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T19:53:55.624+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:26:37.878+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:26:37.897+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:26:37.925+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:29:31.215+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:29:31.219+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:29:31.231+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:32:20.217+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:32:20.223+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:32:20.236+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:32:28.117+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:32:28.173+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:32:48.067+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:32:48.074+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:32:48.081+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:33:19.041+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:33:19.045+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:33:19.050+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:35:43.120+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:35:43.125+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:35:43.129+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:52:43.345+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:52:43.357+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:52:43.362+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:54:23.451+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:54:23.455+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:54:23.460+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:54:25.256+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:54:25.268+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:54:25.320+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:54:51.819+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:54:51.826+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:54:51.832+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:54:53.410+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:54:53.416+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:54:53.423+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:56:56.477+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:56:56.480+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:56:56.485+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:57:03.842+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:57:03.847+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:57:03.853+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:57:28.964+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:57:28.972+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:57:28.980+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
-2025-12-12T20:57:32.430+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya@gmail.com
-2025-12-12T20:57:32.434+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya@gmail.com
-2025-12-12T20:57:32.440+05:30  INFO 22184 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya@gmail.com
+2025-12-15T22:05:01.579+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.AuthController        : Login attempt as USER for email: shreya12345@gmail.com
+2025-12-15T22:05:02.161+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.AuthController        : Login successful as USER: shreya12345@gmail.com
+2025-12-15T22:05:13.989+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12345@gmail.com
+2025-12-15T22:05:13.994+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12345@gmail.com
+2025-12-15T22:05:14.002+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12345@gmail.com
+2025-12-15T22:09:24.941+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12345@gmail.com
+2025-12-15T22:09:24.960+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12345@gmail.com
+2025-12-15T22:09:24.967+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12345@gmail.com
+2025-12-15T22:09:28.819+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12345@gmail.com
+2025-12-15T22:09:28.831+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12345@gmail.com
+2025-12-15T22:09:28.842+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12345@gmail.com
+2025-12-15T22:09:38.850+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12345@gmail.com
+2025-12-15T22:09:38.902+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12345@gmail.com
+2025-12-15T22:09:38.916+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12345@gmail.com
+2025-12-15T22:09:42.497+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12345@gmail.com
+2025-12-15T22:09:42.501+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12345@gmail.com
+2025-12-15T22:09:42.509+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12345@gmail.com
+2025-12-15T22:10:54.552+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12345@gmail.com
+2025-12-15T22:10:54.558+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12345@gmail.com
+2025-12-15T22:10:54.570+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12345@gmail.com
+2025-12-15T22:19:42.072+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12345@gmail.com
+2025-12-15T22:19:42.071+05:30  INFO 13396 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12345@gmail.com
