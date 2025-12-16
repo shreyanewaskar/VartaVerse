@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, ImageIcon, Video, Hash } from "lucide-react";
+import { X, ImageIcon, Video, Hash, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
 import MediaSelector from "@/components/MediaSelector";
@@ -36,6 +36,8 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, defaul
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   
   // Movie-specific fields
   const [director, setDirector] = useState("");
@@ -68,6 +70,18 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, defaul
     try {
       setIsSubmitting(true);
       
+      let imageUrl = null;
+      if (selectedImage) {
+        const reader = new FileReader();
+        const imageData = await new Promise<string>((resolve) => {
+          reader.onload = (e) => resolve(e.target?.result as string);
+          reader.readAsDataURL(selectedImage);
+        });
+        const imageKey = `post_image_${Date.now()}`;
+        localStorage.setItem(imageKey, imageData);
+        imageUrl = imageKey;
+      }
+      
       let postContent = content.trim();
       
       // For movie category, create structured content
@@ -76,9 +90,17 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, defaul
           director: director.trim(),
           genre: genre.trim(),
           year: year.trim(),
-          description: description.trim()
+          description: description.trim(),
+          imageUrl: imageUrl
         };
         postContent = JSON.stringify(movieData);
+      } else if (imageUrl) {
+        // For regular posts, add image to content
+        const postData = {
+          text: content.trim(),
+          imageUrl: imageUrl
+        };
+        postContent = JSON.stringify(postData);
       }
       
       const postData = {
@@ -103,6 +125,8 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, defaul
       setGenre("");
       setYear("");
       setDescription("");
+      setSelectedImage(null);
+      setImagePreview(null);
       
       onPostCreated?.();
       onClose();
@@ -115,6 +139,23 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, defaul
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
   };
 
   if (!isOpen) return null;
@@ -297,11 +338,36 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, defaul
               </>
             )}
 
+            {/* Image Upload */}
+            {imagePreview && (
+              <div className="relative">
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-full h-48 object-cover rounded-2xl"
+                />
+                <button
+                  type="button"
+                  onClick={removeImage}
+                  className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+
             {/* Media Toolbar */}
             <div className="flex items-center gap-3 pt-4 border-t border-media-frozen-water">
-              <button className="p-2.5 rounded-lg hover:bg-media-pearl-aqua/20 smooth-all group cursor-pointer">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageSelect}
+                className="hidden"
+                id="image-upload"
+              />
+              <label htmlFor="image-upload" className="p-2.5 rounded-lg hover:bg-media-pearl-aqua/20 smooth-all group cursor-pointer">
                 <ImageIcon className="w-5 h-5 text-media-dark-raspberry group-hover:text-media-pearl-aqua group-hover:scale-110 smooth-all" />
-              </button>
+              </label>
 
               <button className="p-2.5 rounded-lg hover:bg-media-pearl-aqua/20 smooth-all group cursor-pointer">
                 <Video className="w-5 h-5 text-media-dark-raspberry group-hover:text-media-pearl-aqua group-hover:scale-110 smooth-all" />

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Search, Plus, X } from "lucide-react";
+import { Search, Plus, X, Bookmark } from "lucide-react";
 import FilterSidebar from "@/components/FilterSidebar";
 import MediaCard from "@/components/MediaCard";
 import { contentApi } from "@/lib/content-api";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
-type SortBy = "popular" | "toprated" | "newreleases" | "alphabetical";
+type SortBy = "popular" | "toprated" | "newreleases" | "alphabetical" | "bookmarks";
 
 const bookFilters = [
   {
@@ -31,22 +31,12 @@ const bookFilters = [
     ],
   },
   {
-    title: "Format",
+    title: "User Score",
     options: [
-      { id: "hardcover", label: "Hardcover" },
-      { id: "paperback", label: "Paperback" },
-      { id: "ebook", label: "E-Book" },
-      { id: "audiobook", label: "Audiobook" },
-    ],
-  },
-  {
-    title: "Author",
-    options: [
-      { id: "kingauthor", label: "Stephen King" },
-      { id: "austinauthor", label: "Jane Austen" },
-      { id: "martian", label: "Andy Weir" },
-      { id: "collinsauthor", label: "Suzanne Collins" },
-      { id: "rowlingauthor", label: "J.K. Rowling" },
+      { id: "4plus", label: "4.0+ Stars" },
+      { id: "3plus", label: "3.0+ Stars" },
+      { id: "2plus", label: "2.0+ Stars" },
+      { id: "1plus", label: "1.0+ Stars" },
     ],
   },
 ];
@@ -83,6 +73,8 @@ export default function Books() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [createdBooks, setCreatedBooks] = useState<any[]>([]);
   const [bookPosts, setBookPosts] = useState<any[]>([]);
+  const [allBooks, setAllBooks] = useState<any[]>([]);
+  const [filteredBooks, setFilteredBooks] = useState<any[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
@@ -135,6 +127,7 @@ export default function Books() {
         rating: 4.0
       };
       setCreatedBooks(prev => [newBook, ...prev]);
+      setAllBooks(prev => [newBook, ...prev]);
       
       toast({ title: "Book post created successfully!" });
       // Reload posts to get the latest from backend
@@ -160,32 +153,83 @@ export default function Books() {
     const loadBookPosts = async () => {
       try {
         setLoadingPosts(true);
-        const response = await contentApi.getPosts({ category: 'book' });
-        const bookPosts = response.posts.map(post => {
-          try {
-            const content = JSON.parse(post.content);
-            return {
-              id: post.postId,
-              title: post.title,
-              author: content.author || 'Unknown Author',
-              genre: content.genre || 'Fiction',
-              year: parseInt(content.year) || 2024,
-              rating: 4.0,
-              description: content.description || ''
-            };
-          } catch {
-            return {
-              id: post.postId,
-              title: post.title,
-              author: 'Unknown Author',
-              genre: 'Fiction',
-              year: 2024,
-              rating: 4.0,
-              description: post.content
-            };
+        
+        if (sortBy === 'bookmarks') {
+          // First API: Get all posts
+          const response = await contentApi.getPosts();
+          const allPosts = response.posts || [];
+          
+          const bookmarkedBooks = [];
+          // Filter for book category and check likes
+          for (const post of allPosts) {
+            if (post.category === 'book') {
+              try {
+                // Second API: Get likes count for each book post
+                const likesResponse = await contentApi.getLikes(post.postId);
+                if (likesResponse.count > 0) {
+                  try {
+                    const content = JSON.parse(post.content);
+                    bookmarkedBooks.push({
+                      id: post.postId,
+                      title: post.title,
+                      author: content.author || 'Unknown Author',
+                      genre: content.genre || 'Fiction',
+                      year: parseInt(content.year) || 2024,
+                      rating: 4.0,
+                      description: content.description || ''
+                    });
+                  } catch {
+                    bookmarkedBooks.push({
+                      id: post.postId,
+                      title: post.title,
+                      author: 'Unknown Author',
+                      genre: 'Fiction',
+                      year: 2024,
+                      rating: 4.0,
+                      description: post.content
+                    });
+                  }
+                }
+              } catch (err) {
+                console.error('Failed to get likes for book post:', post.postId);
+              }
+            }
           }
-        });
-        setBookPosts(bookPosts);
+          
+          setBookPosts(bookmarkedBooks);
+          setAllBooks(bookmarkedBooks);
+          setFilteredBooks(bookmarkedBooks);
+        } else {
+          const response = await contentApi.getPosts({ category: 'book' });
+          const bookPosts = response.posts.map(post => {
+            try {
+              const content = JSON.parse(post.content);
+              return {
+                id: post.postId,
+                title: post.title,
+                author: content.author || 'Unknown Author',
+                genre: content.genre || 'Fiction',
+                year: parseInt(content.year) || 2024,
+                rating: 4.0,
+                description: content.description || ''
+              };
+            } catch {
+              return {
+                id: post.postId,
+                title: post.title,
+                author: 'Unknown Author',
+                genre: 'Fiction',
+                year: 2024,
+                rating: 4.0,
+                description: post.content
+              };
+            }
+          });
+          setBookPosts(bookPosts);
+          const allBooksData = [...createdBooks, ...bookPosts];
+          setAllBooks(allBooksData);
+          setFilteredBooks(allBooksData);
+        }
       } catch (error) {
         console.error('Failed to load book posts:', error);
       } finally {
@@ -194,12 +238,49 @@ export default function Books() {
     };
 
     loadBookPosts();
-  }, []);
+  }, [sortBy]);
 
-  const allBooksWithCreated = [...createdBooks, ...bookPosts, ...allBooks];
-  const filteredBooks = allBooksWithCreated.filter((book) =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter books based on selected filters and search term
+  useEffect(() => {
+    let filtered = [...allBooks];
+
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(book => 
+        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (book.author && book.author.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+
+    // Apply sidebar filters
+    Object.entries(selectedFilters).forEach(([category, options]) => {
+      if (options.length > 0) {
+        filtered = filtered.filter(book => {
+          if (category === 'Genre') {
+            const bookGenre = (book.genre || 'fiction').toLowerCase();
+            return options.some(option => bookGenre.includes(option.toLowerCase()));
+          }
+          
+          if (category === 'Publication Year') {
+            const bookYear = book.year?.toString() || '2024';
+            return options.includes(bookYear);
+          }
+          
+          if (category === 'User Score') {
+            const rating = book.rating || 0;
+            return options.some(option => {
+              const minRating = parseInt(option.replace('plus', ''));
+              return rating >= minRating;
+            });
+          }
+          
+          return true;
+        });
+      }
+    });
+
+    setFilteredBooks(filtered);
+  }, [allBooks, selectedFilters, searchTerm]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-media-frozen-water via-white to-media-pearl-aqua/30">
@@ -245,25 +326,46 @@ export default function Books() {
           {/* Main Grid */}
           <div className="flex-1 space-y-6 animate-slide-up">
             {/* Sorting Tabs */}
-            <div className="flex gap-4 pb-4 border-b border-media-pearl-aqua/20">
-              {(["popular", "toprated", "newreleases", "alphabetical"] as const).map(
-                (tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setSortBy(tab)}
-                    className={`px-4 py-2 font-semibold capitalize relative smooth-all ${
-                      sortBy === tab
-                        ? "text-media-dark-raspberry"
-                        : "text-media-dark-raspberry/50 hover:text-media-dark-raspberry"
-                    }`}
-                  >
-                    {tab === "toprated" ? "Top Rated" : tab === "newreleases" ? "New Releases" : tab}
-                    {sortBy === tab && (
-                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-media-berry-crush to-media-pearl-aqua rounded-full" />
-                    )}
-                  </button>
-                )
-              )}
+            <div className="flex justify-between items-center pb-4 border-b border-media-pearl-aqua/20">
+              <div className="flex gap-4">
+                {(["popular", "toprated", "newreleases", "alphabetical", "bookmarks"] as const).map(
+                  (tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setSortBy(tab)}
+                      className={`px-4 py-2 font-semibold capitalize relative smooth-all flex items-center gap-2 ${
+                        sortBy === tab
+                          ? "text-media-dark-raspberry"
+                          : "text-media-dark-raspberry/50 hover:text-media-dark-raspberry"
+                      }`}
+                    >
+                      {tab === "bookmarks" && <Bookmark className="w-4 h-4" />}
+                      {tab === "toprated" ? "Top Rated" : tab === "newreleases" ? "New Releases" : tab === "bookmarks" ? "Bookmarks" : tab}
+                      {sortBy === tab && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-media-berry-crush to-media-pearl-aqua rounded-full" />
+                      )}
+                    </button>
+                  )
+                )}
+              </div>
+              <button
+                onClick={async () => {
+                  try {
+                    const bookmarkedBooks = await contentApi.getBookmarkedPosts({ category: 'book' });
+                    setFilteredBooks(bookmarkedBooks.posts || []);
+                    toast({ title: "Showing bookmarked books" });
+                  } catch (error) {
+                    console.error('Failed to load bookmarked books:', error);
+                    toast({ title: "Failed to load bookmarked books", variant: "destructive" });
+                  }
+                }}
+                className="px-4 py-2 bg-gradient-to-r from-media-powder-blush to-media-pearl-aqua text-white rounded-lg hover:shadow-lg transition-all flex items-center gap-2 font-semibold"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+                View Bookmarks
+              </button>
             </div>
 
             {/* Books Grid */}
@@ -274,21 +376,39 @@ export default function Books() {
                 </div>
               ) : filteredBooks.length > 0 ? (
                 filteredBooks.map((book) => (
-                  <MediaCard
-                    key={book.id}
-                    id={book.id}
-                    title={book.title}
-                    year={book.year}
-                    rating={book.rating}
-                    genre={book.genre}
-                    type="book"
-                    size="medium"
-                  />
+                  <div key={book.id} className="relative group">
+                    <MediaCard
+                      id={book.id}
+                      title={book.title}
+                      year={book.year}
+                      rating={book.rating}
+                      genre={book.genre}
+                      type="book"
+                      size="medium"
+                    />
+                    <button
+                      onClick={async () => {
+                        try {
+                          await contentApi.bookmarkPost(book.id.toString());
+                          toast({ title: "Book bookmarked successfully!" });
+                        } catch (error) {
+                          console.error('Failed to bookmark:', error);
+                          toast({ title: "Failed to bookmark book", variant: "destructive" });
+                        }
+                      }}
+                      className="absolute top-2 right-2 p-2 bg-white/80 hover:bg-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110"
+                      title="Bookmark this book"
+                    >
+                      <svg className="w-4 h-4 text-media-dark-raspberry" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                      </svg>
+                    </button>
+                  </div>
                 ))
               ) : (
                 <div className="col-span-full text-center py-12">
                   <p className="text-media-dark-raspberry/50 text-lg">
-                    No books found matching your search.
+                    {sortBy === 'bookmarks' ? 'No bookmarked books found.' : 'No books found matching your search.'}
                   </p>
                 </div>
               )}

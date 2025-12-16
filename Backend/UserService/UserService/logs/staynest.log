@@ -19472,3 +19472,1102 @@ Caused by: org.hibernate.AnnotationException: Entity 'com.mit.VarnaVerse.UserSer
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.11.jar:6.2.11]
 	... 104 common frames omitted
 
+2025-12-16T13:23:02.258+05:30  INFO 15960 --- [UserService] [restartedMain] c.m.V.U.UserServiceApplication           : Starting UserServiceApplication using Java 22.0.2 with PID 15960 (C:\Users\sachi\Downloads\VarnaVerse (2)\VarnaVerse\Backend\UserService\UserService\target\classes started by sachi in C:\Users\sachi\Downloads\VarnaVerse (2)\VarnaVerse\Backend\UserService\UserService)
+2025-12-16T13:23:02.262+05:30  INFO 15960 --- [UserService] [restartedMain] c.m.V.U.UserServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-12-16T13:23:02.378+05:30  INFO 15960 --- [UserService] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-16T13:23:02.384+05:30  INFO 15960 --- [UserService] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-16T13:23:03.776+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'corsConfigurationSource' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=corsConfig; factoryMethodName=corsConfigurationSource; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/mit/VarnaVerse/UserService/Config/CorsConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=corsConfigurationSource; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/mit/VarnaVerse/UserService/Config/SecurityConfig.class]]
+2025-12-16T13:23:04.181+05:30  INFO 15960 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-16T13:23:04.409+05:30  INFO 15960 --- [UserService] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 213 ms. Found 2 JPA repository interfaces.
+2025-12-16T13:23:05.080+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=65ffbf34-de3b-3d97-ac30-1fa89cb38277
+2025-12-16T13:23:06.078+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2025-12-16T13:23:06.121+05:30  INFO 15960 --- [UserService] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-16T13:23:06.122+05:30  INFO 15960 --- [UserService] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-12-16T13:23:06.240+05:30  INFO 15960 --- [UserService] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-16T13:23:06.241+05:30  INFO 15960 --- [UserService] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3854 ms
+2025-12-16T13:23:06.635+05:30  INFO 15960 --- [UserService] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-16T13:23:06.768+05:30  INFO 15960 --- [UserService] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-12-16T13:23:06.845+05:30  INFO 15960 --- [UserService] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-16T13:23:07.453+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-16T13:23:07.498+05:30  INFO 15960 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-16T13:23:08.104+05:30  INFO 15960 --- [UserService] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@48d4efec
+2025-12-16T13:23:08.108+05:30  INFO 15960 --- [UserService] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-16T13:23:08.201+05:30  WARN 15960 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-16T13:23:08.203+05:30  WARN 15960 --- [UserService] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-12-16T13:23:08.259+05:30  INFO 15960 --- [UserService] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-16T13:23:09.533+05:30  INFO 15960 --- [UserService] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-16T13:23:09.723+05:30  INFO 15960 --- [UserService] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-16T13:23:10.537+05:30  WARN 15960 --- [UserService] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-16T13:23:10.748+05:30  INFO 15960 --- [UserService] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-16T13:23:11.998+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-12-16T13:23:13.045+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2025-12-16T13:23:14.138+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2025-12-16T13:23:14.257+05:30  INFO 15960 --- [UserService] [restartedMain] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2025-12-16T13:23:14.390+05:30  WARN 15960 --- [UserService] [restartedMain] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-12-16T13:23:14.448+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2025-12-16T13:23:14.498+05:30  INFO 15960 --- [UserService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2025-12-16T13:23:14.499+05:30  INFO 15960 --- [UserService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2025-12-16T13:23:14.507+05:30  INFO 15960 --- [UserService] [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1765871594503 with initial instances count: 0
+2025-12-16T13:23:14.517+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application USERSERVICE with eureka with status UP
+2025-12-16T13:23:14.560+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path '/'
+2025-12-16T13:23:14.562+05:30  INFO 15960 --- [UserService] [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8083
+2025-12-16T13:23:15.575+05:30  INFO 15960 --- [UserService] [restartedMain] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2025-12-16T13:23:15.612+05:30  INFO 15960 --- [UserService] [restartedMain] c.m.V.U.UserServiceApplication           : Started UserServiceApplication in 15.658 seconds (process running for 17.064)
+2025-12-16T13:23:24.636+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-16T13:23:24.638+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-16T13:23:24.643+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-12-16T13:23:25.205+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:25.266+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.FollowerController    : JWT extracted for email: shreya12378@gmail.com
+2025-12-16T13:23:25.273+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.FollowerController    : User 12 attempting to follow user 1
+2025-12-16T13:23:25.435+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.FollowerController    : User 12 successfully followed user 1
+2025-12-16T13:23:28.059+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:28.066+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : JWT extracted for email: shreya12378@gmail.com
+2025-12-16T13:23:28.074+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : User 12 attempting to unfollow user 1
+2025-12-16T13:23:28.118+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : User 12 successfully unfollowed user 1
+2025-12-16T13:23:31.839+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:31.869+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:31.883+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:32.816+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:32.823+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:32.838+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:32.879+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:32.884+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:32.895+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:32.929+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:32.937+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:32.952+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:32.980+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:32.987+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:32.997+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:33.035+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.047+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.052+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:33.318+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.338+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:33.346+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.348+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.355+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.357+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.357+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.364+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.367+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:23:33.368+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:23:33.371+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:33.371+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:33.379+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:23:33.379+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:23:33.380+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:33.386+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.389+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.417+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.435+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.444+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:23:33.445+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:23:33.464+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 11
+2025-12-16T13:23:33.465+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 11
+2025-12-16T13:23:33.613+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.701+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.717+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.718+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.719+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.734+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.751+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:33.786+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:23:33.786+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:23:33.788+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:23:33.788+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:23:33.781+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.800+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:33.810+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.847+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:33.866+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:33.871+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:33.951+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:23:33.955+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.963+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:23:33.961+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:33.968+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:33.997+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:34.022+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.056+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.083+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:23:34.085+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:23:34.100+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.100+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.114+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.119+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:34.134+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:34.134+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:34.135+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:34.147+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.182+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:23:34.182+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:23:34.202+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.217+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.231+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:34.238+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.239+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.243+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:34.255+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:23:34.258+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:23:34.278+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.291+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.300+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:34.300+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:34.300+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.310+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:23:34.311+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:23:34.358+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.362+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.364+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.365+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.370+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:34.370+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:34.371+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:23:34.371+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:23:34.407+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.414+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.429+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:34.430+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:34.469+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.483+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.491+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:34.492+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:34.532+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.538+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.546+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:34.546+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:34.646+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.656+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.664+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:34.665+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:34.702+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.716+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.722+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:34.723+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:34.771+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:34.779+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:34.785+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:34.785+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:36.285+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:36.297+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.FollowerController    : JWT extracted for email: shreya12378@gmail.com
+2025-12-16T13:23:36.304+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.FollowerController    : User 12 attempting to follow user 1
+2025-12-16T13:23:36.325+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.FollowerController    : User 12 successfully followed user 1
+2025-12-16T13:23:41.450+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.450+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.455+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.456+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.461+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.467+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 11
+2025-12-16T13:23:41.468+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 11
+2025-12-16T13:23:41.471+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:41.471+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:41.471+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.483+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:23:41.484+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:23:41.504+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.511+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.512+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.516+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:41.516+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:41.517+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.531+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:23:41.534+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:23:41.565+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.582+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.590+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.590+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.599+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:41.600+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.600+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:41.603+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 11
+2025-12-16T13:23:41.604+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 11
+2025-12-16T13:23:41.612+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.614+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.622+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:23:41.622+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:23:41.623+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.639+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:41.640+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.651+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.651+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.659+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.664+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:23:41.664+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:23:41.665+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:23:41.666+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:23:41.666+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.679+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.681+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:41.684+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.687+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:41.692+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:41.717+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.719+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.720+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.721+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:41.729+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:41.730+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:41.745+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.748+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.749+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.750+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:41.752+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:41.755+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:41.775+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.779+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.780+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.780+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:41.784+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:41.784+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:41.802+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.806+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:23:41.812+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:23:41.827+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.829+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:41.833+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:23:41.860+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:23:41.862+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:23:41.865+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:24:06.500+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:06.500+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:06.509+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:06.513+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:06.516+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T13:24:06.517+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T13:24:06.519+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:24:06.519+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:24:06.550+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:06.555+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:06.560+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:24:06.561+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:24:10.308+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:10.312+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:10.318+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:10.319+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:13.461+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:13.465+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:13.475+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:13.478+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:13.478+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:13.480+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:13.483+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:24:13.483+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:24:15.065+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:15.072+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:15.083+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:24:15.154+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:15.157+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.FollowerController    : Fetching followers for user 12
+2025-12-16T13:24:15.157+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:15.159+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:24:15.162+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.FollowerController    : Found 0 followers for user 12
+2025-12-16T13:24:15.169+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:24:34.397+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.401+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.406+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:24:34.426+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.430+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.435+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:24:34.450+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.451+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.451+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:24:34.456+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.457+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:24:34.462+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:24:34.493+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.496+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.504+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:24:34.537+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.546+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.560+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:24:34.646+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.650+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.656+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.666+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.667+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:24:34.668+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.668+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.684+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:24:34.684+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:24:34.687+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.687+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.687+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.694+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 11
+2025-12-16T13:24:34.694+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:34.694+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 11
+2025-12-16T13:24:34.694+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.694+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:34.703+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:24:34.703+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:24:34.704+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:24:34.716+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.727+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:24:34.728+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:24:34.743+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.749+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.752+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.754+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.754+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:24:34.755+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.760+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.761+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.762+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:24:34.763+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:24:34.763+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:24:34.764+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:24:34.764+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:24:34.771+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:34.771+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:34.780+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.787+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.795+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:24:34.795+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:24:34.823+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.831+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.831+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.832+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.834+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:24:34.838+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.839+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:24:34.841+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:24:34.842+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:24:34.848+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.852+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.862+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:34.862+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:34.866+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:24:34.867+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:24:34.885+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.885+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.887+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:24:34.894+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.897+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:24:34.902+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.905+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:24:34.905+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:24:34.909+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.916+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:34.917+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:34.919+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.928+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.933+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:24:34.933+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:24:34.945+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.948+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.956+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:34.956+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:34.965+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.976+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:34.981+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:24:34.981+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:24:34.996+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:34.999+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:35.007+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:35.008+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:35.037+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:35.044+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:35.048+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:35.048+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:35.076+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:35.080+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:35.084+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:35.085+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:35.114+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:35.118+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:35.122+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:35.122+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:35.151+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:35.156+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:35.162+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:35.162+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:24:35.193+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:24:35.196+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:24:35.200+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:24:35.201+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:44.296+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.307+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.313+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:26:44.426+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.430+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.436+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.440+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.441+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.441+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.442+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.445+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.446+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:44.446+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:44.447+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:26:44.448+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:26:44.448+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.449+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.467+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:26:44.471+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.473+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:26:44.474+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:26:44.476+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.479+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 11
+2025-12-16T13:26:44.480+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 11
+2025-12-16T13:26:44.495+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:26:44.495+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:26:44.525+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.535+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.528+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.543+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.543+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.544+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:26:44.546+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:26:44.547+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:26:44.546+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.560+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:26:44.560+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:44.560+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:44.561+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.562+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.580+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.582+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.582+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:26:44.588+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:26:44.588+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:26:44.594+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.607+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.608+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:26:44.608+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:26:44.610+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:26:44.613+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:26:44.643+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.646+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.649+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.650+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:26:44.662+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.663+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.664+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:26:44.674+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.675+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.677+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:26:44.679+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:44.680+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:44.691+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.692+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.695+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.707+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.707+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:26:44.709+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:26:44.734+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:26:44.736+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:26:44.736+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:26:44.765+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.761+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.775+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:26:44.779+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.788+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:26:44.792+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:44.792+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:44.794+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.802+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.818+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.828+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.851+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:26:44.855+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:26:44.864+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:26:44.874+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:26:44.930+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.933+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:26:44.935+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:44.939+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:26:44.945+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:44.959+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:44.960+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:44.975+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:45.009+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:45.017+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:26:45.017+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:26:45.022+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:45.041+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:45.047+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:45.047+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:45.098+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:45.105+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:45.109+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:45.109+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:45.144+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:45.149+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:45.160+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:45.160+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:45.267+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:45.277+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:45.282+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:45.282+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:45.318+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:45.336+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:45.343+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:45.343+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:26:45.375+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:26:45.380+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:26:45.387+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:26:45.388+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:29:19.396+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:29:19.402+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:29:19.405+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:31:54.642+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:31:54.649+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:31:54.654+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:31:56.356+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:31:56.359+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:31:56.368+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:30.495+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:30.495+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:30.502+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:30.510+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:30.512+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T13:38:30.512+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T13:38:30.514+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:30.514+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:30.554+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:30.561+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:30.564+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:30.564+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:39.268+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:39.273+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:39.277+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:39.292+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:39.296+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:39.301+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:39.395+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:39.413+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:39.426+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:39.452+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:39.459+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:39.464+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:39.613+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:39.619+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:39.630+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:39.696+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:39.704+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:39.711+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:39.851+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:39.861+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:39.879+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:39.985+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:39.999+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.040+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.045+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.049+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:38:40.049+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:38:40.113+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:38:40.114+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:38:40.128+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.165+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.171+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.219+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.222+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:40.222+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:40.235+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 12
+2025-12-16T13:38:40.235+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 12
+2025-12-16T13:38:40.320+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.385+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.403+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.414+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.430+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.432+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:40.446+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:40.464+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:38:40.464+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:38:40.445+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.497+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:40.582+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.498+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:40.624+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.626+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.626+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.631+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 11
+2025-12-16T13:38:40.631+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 11
+2025-12-16T13:38:40.640+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.642+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.642+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.664+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:40.664+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:40.665+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:38:40.665+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:38:40.714+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 12
+2025-12-16T13:38:40.714+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 12
+2025-12-16T13:38:40.746+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.747+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.755+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.761+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:40.761+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:40.784+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.789+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.789+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.791+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:40.795+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:38:40.794+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.795+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:38:40.796+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:40.891+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.897+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:40.901+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.902+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:40.902+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:40.912+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:40.917+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.932+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:38:40.932+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:38:40.956+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.961+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.961+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:40.962+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.963+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:40.965+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:40.966+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:40.967+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:40.975+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:40.997+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:40.997+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:41.041+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.054+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:41.068+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:41.068+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:41.114+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.121+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.126+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:41.133+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:41.141+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:41.189+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:41.189+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:41.192+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.213+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:41.221+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:41.221+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:41.297+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.307+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:41.312+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:41.312+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:41.357+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.361+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:41.364+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:41.364+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:41.393+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.400+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:41.404+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:41.404+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:41.430+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.437+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:41.442+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:41.442+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:41.476+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.485+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:41.490+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:41.490+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:41.532+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:41.536+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:41.541+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:41.542+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:43.377+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.381+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.384+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:43.409+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.414+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.418+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:43.435+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.443+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.447+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:43.466+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.476+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.481+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:43.493+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.494+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:43.499+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:43.511+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.514+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.525+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:43.563+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.573+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.574+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.576+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.577+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.577+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.576+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.604+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.607+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.614+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 11
+2025-12-16T13:38:43.614+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 11
+2025-12-16T13:38:43.615+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.608+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.625+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:38:43.628+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:38:43.630+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:38:43.630+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:38:43.630+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:38:43.642+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:43.643+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:43.685+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.696+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:43.696+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:43.700+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.703+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:43.708+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:43.708+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.708+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.712+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.712+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.719+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T13:38:43.721+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T13:38:43.728+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.739+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.743+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.746+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.748+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:43.752+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 12
+2025-12-16T13:38:43.757+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 12
+2025-12-16T13:38:43.762+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:43.781+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:43.782+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:43.787+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.814+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:38:43.814+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:38:43.817+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.834+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.839+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.844+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.849+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.850+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 12
+2025-12-16T13:38:43.851+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 12
+2025-12-16T13:38:43.851+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:43.851+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.858+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:43.858+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:43.862+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.863+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.863+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:43.867+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:43.867+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:43.873+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.879+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:38:43.880+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:38:43.910+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.911+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.912+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:43.913+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.923+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.923+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.924+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:43.930+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.933+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.939+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:43.939+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:43.941+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:43.942+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:43.943+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T13:38:43.944+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T13:38:43.961+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.965+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.966+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T13:38:43.973+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.974+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T13:38:43.975+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:43.984+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:43.984+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:43.989+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:43.993+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:43.993+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:44.024+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:44.024+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:44.029+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:44.031+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:44.034+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:44.034+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:38:44.034+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:44.034+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:38:44.080+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:44.085+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:44.090+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:44.090+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:44.112+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:44.116+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:44.121+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:44.121+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:44.146+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:44.150+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:44.159+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:44.159+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:44.189+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:44.194+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:44.197+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:44.198+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:38:44.228+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:38:44.234+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:38:44.241+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T13:38:44.241+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T13:39:09.710+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:09.711+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:09.713+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:09.713+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:09.716+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T13:39:09.716+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:39:09.717+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T13:39:09.717+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:39:09.739+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:09.743+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:09.747+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:39:09.747+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:39:22.767+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:22.776+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:22.782+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:39:25.993+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:25.997+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:26.004+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:39:30.419+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:30.426+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:30.430+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:39:42.138+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:42.138+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:42.140+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:42.140+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:42.145+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:39:42.145+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T13:39:42.145+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:39:42.145+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T13:39:42.167+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:42.173+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:42.175+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:39:42.175+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:39:52.136+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:52.136+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:52.139+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:52.139+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:52.142+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T13:39:52.142+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T13:39:52.142+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:39:52.142+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:39:52.160+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:39:52.162+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:39:52.167+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:39:52.167+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:41:58.576+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:41:58.576+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:41:58.583+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:41:58.583+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:41:58.586+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T13:41:58.586+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:41:58.587+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T13:41:58.587+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:41:58.611+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:41:58.618+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:41:58.626+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:41:58.627+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:42:01.066+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:42:01.075+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:42:01.088+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:42:11.217+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:42:11.220+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:42:11.224+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T13:42:11.336+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:42:11.338+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:42:11.343+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:42:11.346+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:42:11.348+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T13:42:11.349+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T13:42:11.352+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:42:11.353+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:42:11.373+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:42:11.378+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:42:11.384+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:42:11.385+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:47:28.376+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:47:28.376+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:47:28.380+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:47:28.380+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:47:28.382+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T13:47:28.382+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T13:47:28.383+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:47:28.384+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:47:28.400+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:47:28.402+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:47:28.406+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:47:28.406+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:48:20.379+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:48:20.379+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:48:20.383+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:48:20.383+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:48:20.388+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T13:48:20.388+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T13:48:20.389+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:48:20.389+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T13:48:20.414+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T13:48:20.419+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T13:48:20.424+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T13:48:20.425+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T14:28:56.936+05:30  WARN 15960 --- [UserService] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=39m18s309ms411µs900ns).
+2025-12-16T14:29:35.313+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:29:35.345+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:29:35.354+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T14:31:52.300+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:31:52.347+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:31:52.369+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:31:52.374+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:31:52.409+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:31:52.409+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T14:31:52.410+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:31:52.410+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T14:32:01.642+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:01.642+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:01.649+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:01.649+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:01.652+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 10
+2025-12-16T14:32:01.652+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T14:32:01.652+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 10
+2025-12-16T14:32:01.653+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T14:32:01.683+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:01.687+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:01.693+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T14:32:01.694+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T14:32:03.292+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:03.297+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:03.300+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T14:32:13.461+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.465+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.469+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T14:32:13.488+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.491+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.496+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T14:32:13.516+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.518+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.522+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T14:32:13.542+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.547+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.552+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T14:32:13.575+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.583+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.586+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T14:32:13.605+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.608+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.616+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com
+2025-12-16T14:32:13.763+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.766+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T14:32:13.775+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T14:32:13.837+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.848+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T14:32:13.860+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T14:32:13.881+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.886+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.890+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.891+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.896+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T14:32:13.896+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T14:32:13.902+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:13.902+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:13.933+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.941+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.944+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.946+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T14:32:13.946+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.949+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T14:32:13.949+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T14:32:13.951+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.952+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.953+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T14:32:13.956+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.963+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.964+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.965+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.969+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.970+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T14:32:13.970+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 6
+2025-12-16T14:32:13.970+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T14:32:13.971+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 6
+2025-12-16T14:32:13.978+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:13.986+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.979+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:13.991+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:13.995+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:13.996+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 12
+2025-12-16T14:32:13.996+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 12
+2025-12-16T14:32:13.997+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T14:32:13.997+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T14:32:14.057+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.061+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.077+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T14:32:14.079+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 11
+2025-12-16T14:32:14.079+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 11
+2025-12-16T14:32:14.081+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T14:32:14.099+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.113+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.114+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.117+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.118+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T14:32:14.118+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T14:32:14.119+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.119+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.122+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:14.123+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:14.126+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.127+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.129+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T14:32:14.129+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.132+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T14:32:14.134+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T14:32:14.134+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T14:32:14.135+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 12
+2025-12-16T14:32:14.136+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 12
+2025-12-16T14:32:14.149+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.151+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.152+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.153+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.153+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.154+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.155+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : Fetching following list for user 12
+2025-12-16T14:32:14.156+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T14:32:14.156+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:14.156+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T14:32:14.156+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:14.159+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.FollowerController    : User 12 is following 0 users
+2025-12-16T14:32:14.167+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.171+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 1
+2025-12-16T14:32:14.171+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-1] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 1
+2025-12-16T14:32:14.181+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.183+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.184+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.187+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:14.187+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-9] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:14.190+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.197+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T14:32:14.198+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-7] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T14:32:14.219+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.222+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.222+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.227+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.228+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:14.228+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-10] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:14.231+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 9
+2025-12-16T14:32:14.231+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-6] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 9
+2025-12-16T14:32:14.248+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.250+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.252+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:14.252+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-2] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:14.264+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.272+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.275+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:14.275+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-3] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:14.287+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.289+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.292+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:14.292+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-8] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:14.307+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.310+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.313+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:14.313+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:32:14.326+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:32:14.328+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:32:14.332+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Controller.UserController        : User shreya12378@gmail.com is fetching user by ID: 7
+2025-12-16T14:32:14.332+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-4] c.m.V.U.Serivce.Impl.UserServiceImpl     : Fetching user by ID: 7
+2025-12-16T14:35:03.472+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.S.JwtAuthenticationFilter        : Authenticated user: shreya12378@gmail.com
+2025-12-16T14:35:03.476+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Extracted email from token: shreya12378@gmail.com
+2025-12-16T14:35:03.481+05:30  INFO 15960 --- [UserService] [http-nio-8083-exec-5] c.m.V.U.Controller.UserController        : Fetching current user from token: shreya12378@gmail.com

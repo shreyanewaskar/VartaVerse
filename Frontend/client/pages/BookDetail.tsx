@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Star, Calendar, BookOpen, MessageCircle, Send, User } from "lucide-react";
+import { ArrowLeft, Star, Calendar, BookOpen, MessageCircle, Send, User, Heart, MoreHorizontal, Edit, Trash2 } from "lucide-react";
 import { contentApi } from "@/lib/content-api";
 import { userApi } from "@/lib/user-api";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 export default function BookDetail() {
   const { id } = useParams<{ id: string }>();
@@ -13,6 +15,14 @@ export default function BookDetail() {
   const [newComment, setNewComment] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
   const [commentUsers, setCommentUsers] = useState<Record<string, string>>({});
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState('');
+  const [editDescription, setEditDescription] = useState('');
+  const [editLoading, setEditLoading] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const loadBook = async () => {
@@ -27,25 +37,33 @@ export default function BookDetail() {
         
         try {
           const content = JSON.parse(post.content);
-          setBook({
+          const bookData = {
             id: post.postId,
             title: post.title,
             author: content.author || 'Unknown Author',
             description: content.description || '',
             genre: content.genre || 'Fiction',
             year: parseInt(content.year) || 2024,
-            rating: 4.0
-          });
+            rating: 4.0,
+            userId: post.userId
+          };
+          setBook(bookData);
+          setEditTitle(post.title);
+          setEditDescription(content.description || '');
         } catch {
-          setBook({
+          const bookData = {
             id: post.postId,
             title: post.title,
             author: 'Unknown Author',
             description: post.content,
             genre: 'Fiction',
             year: 2024,
-            rating: 4.0
-          });
+            rating: 4.0,
+            userId: post.userId
+          };
+          setBook(bookData);
+          setEditTitle(post.title);
+          setEditDescription(post.content);
         }
         
         const commentsData = commentsResponse.comments || [];
@@ -77,6 +95,76 @@ export default function BookDetail() {
 
     loadBook();
   }, [id]);
+
+  const handleLike = async () => {
+    if (!id || likeLoading) return;
+    
+    setLikeLoading(true);
+    try {
+      await contentApi.toggleLike(id);
+      setIsLiked(!isLiked);
+      toast.success(isLiked ? "Removed like" : "Liked book");
+    } catch (error) {
+      console.error('Failed to toggle like:', error);
+      toast.error("Failed to update like");
+    } finally {
+      setLikeLoading(false);
+    }
+  };
+
+  const handleEditBook = async () => {
+    if (!id || !editTitle.trim() || !editDescription.trim()) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    
+    try {
+      setEditLoading(true);
+      
+      const updateData = {
+        title: editTitle.trim(),
+        content: JSON.stringify({
+          author: book.author,
+          description: editDescription.trim(),
+          genre: book.genre,
+          year: book.year.toString()
+        }),
+        category: "book"
+      };
+      
+      await contentApi.updatePost(id, updateData);
+      toast.success("Book updated successfully");
+      setIsEditing(false);
+      
+      setBook(prev => ({
+        ...prev,
+        title: editTitle.trim(),
+        description: editDescription.trim()
+      }));
+    } catch (error) {
+      console.error('Failed to update book:', error);
+      toast.error("Failed to update book");
+    } finally {
+      setEditLoading(false);
+    }
+  };
+
+  const handleDeleteBook = async () => {
+    if (!id) return;
+    
+    if (window.confirm('Are you sure you want to delete this book?')) {
+      try {
+        await contentApi.deletePost(id);
+        toast.success("Book deleted successfully");
+        navigate("/books");
+      } catch (error) {
+        console.error('Failed to delete book:', error);
+        toast.error("Failed to delete book");
+      }
+    }
+  };
+
+  const isOwner = user?.id === book?.userId;
 
   const handleAddComment = async () => {
     if (!newComment.trim() || !id) return;
@@ -133,9 +221,61 @@ export default function BookDetail() {
 
             {/* Book Info */}
             <div className="md:w-2/3 p-8">
-              <h1 className="text-3xl font-bold text-media-dark-raspberry mb-4">
-                {book.title}
-              </h1>
+              <div className="flex items-center justify-between mb-4">
+                {isEditing ? (
+                  <input
+                    type="text"
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                    className="text-3xl font-bold text-media-dark-raspberry border-2 border-media-pearl-aqua rounded-lg px-3 py-1 focus:outline-none focus:border-media-berry-crush flex-1 mr-4"
+                  />
+                ) : (
+                  <h1 className="text-3xl font-bold text-media-dark-raspberry">
+                    {book.title}
+                  </h1>
+                )}
+                
+                {isOwner && (
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowMenu(!showMenu)}
+                      className="p-3 rounded-full bg-white border-2 border-media-pearl-aqua text-media-dark-raspberry hover:bg-media-pearl-aqua/10 transition-all"
+                    >
+                      <MoreHorizontal className="w-6 h-6" />
+                    </button>
+                    
+                    {showMenu && (
+                      <div className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-media-pearl-aqua/30 z-20 min-w-[160px] overflow-hidden">
+                        <button
+                          onClick={() => {
+                            setShowMenu(false);
+                            setIsEditing(true);
+                          }}
+                          className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-media-dark-raspberry hover:bg-gradient-to-r hover:from-media-pearl-aqua/10 hover:to-media-powder-blush/10 w-full text-left transition-all duration-200"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-media-pearl-aqua to-media-powder-blush flex items-center justify-center">
+                            <Edit className="w-4 h-4 text-white" />
+                          </div>
+                          <span>Edit Book</span>
+                        </button>
+                        <div className="h-px bg-gradient-to-r from-transparent via-media-pearl-aqua/20 to-transparent mx-2"></div>
+                        <button
+                          onClick={() => {
+                            setShowMenu(false);
+                            handleDeleteBook();
+                          }}
+                          className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 w-full text-left transition-all duration-200"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center">
+                            <Trash2 className="w-4 h-4 text-white" />
+                          </div>
+                          <span>Delete Book</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
 
               <div className="flex flex-wrap gap-4 mb-6 text-sm text-media-dark-raspberry/70">
                 <div className="flex items-center gap-1">
@@ -168,9 +308,54 @@ export default function BookDetail() {
 
                 <div>
                   <h3 className="font-semibold text-media-dark-raspberry mb-2">Description</h3>
-                  <p className="text-media-dark-raspberry/80 leading-relaxed">
-                    {book.description || 'No description available.'}
-                  </p>
+                  {isEditing ? (
+                    <div className="space-y-3">
+                      <textarea
+                        value={editDescription}
+                        onChange={(e) => setEditDescription(e.target.value)}
+                        className="w-full px-4 py-3 border-2 border-media-pearl-aqua rounded-lg focus:outline-none focus:border-media-berry-crush resize-none h-32"
+                        placeholder="Book description..."
+                      />
+                      <div className="flex gap-2">
+                        <button
+                          onClick={handleEditBook}
+                          disabled={editLoading}
+                          className="px-4 py-2 bg-gradient-to-r from-media-berry-crush to-media-pearl-aqua text-white rounded-lg hover:shadow-lg transition-all disabled:opacity-50"
+                        >
+                          {editLoading ? 'Saving...' : 'Save Changes'}
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsEditing(false);
+                            setEditTitle(book.title);
+                            setEditDescription(book.description);
+                          }}
+                          className="px-4 py-2 border-2 border-media-pearl-aqua text-media-dark-raspberry rounded-lg hover:bg-media-pearl-aqua/10 transition-all"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-media-dark-raspberry/80 leading-relaxed">
+                      {book.description || 'No description available.'}
+                    </p>
+                  )}
+                </div>
+
+                <div className="pt-4">
+                  <button
+                    onClick={handleLike}
+                    disabled={likeLoading}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                      isLiked 
+                        ? "bg-media-berry-crush text-white" 
+                        : "bg-white border-2 border-media-berry-crush text-media-berry-crush hover:bg-media-berry-crush hover:text-white"
+                    }`}
+                  >
+                    <Heart className={`w-5 h-5 ${isLiked ? "fill-current" : ""}`} />
+                    {isLiked ? "Liked" : "Like Book"}
+                  </button>
                 </div>
               </div>
             </div>

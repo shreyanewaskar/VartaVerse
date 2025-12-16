@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Search, Plus } from "lucide-react";
+import { Search, Plus, Bookmark } from "lucide-react";
 import FilterSidebar from "@/components/FilterSidebar";
 import MediaCard from "@/components/MediaCard";
 import CreateMoviePostModal from "@/components/CreateMoviePostModal";
 import { contentApi } from "@/lib/content-api";
 
-type SortBy = "popular" | "toprated" | "newreleases" | "alphabetical";
+type SortBy = "popular" | "toprated" | "newreleases" | "alphabetical" | "bookmarks";
 
 const movieFilters = [
   {
@@ -30,22 +30,12 @@ const movieFilters = [
     ],
   },
   {
-    title: "Platform",
-    options: [
-      { id: "netflix", label: "Netflix" },
-      { id: "amazon", label: "Amazon Prime" },
-      { id: "hulu", label: "Hulu" },
-      { id: "disney", label: "Disney+" },
-      { id: "cinema", label: "Cinema" },
-    ],
-  },
-  {
     title: "User Score",
     options: [
-      { id: "9plus", label: "9.0+ Stars" },
-      { id: "8plus", label: "8.0+ Stars" },
-      { id: "7plus", label: "7.0+ Stars" },
-      { id: "6plus", label: "6.0+ Stars" },
+      { id: "4plus", label: "4.0+ Stars" },
+      { id: "3plus", label: "3.0+ Stars" },
+      { id: "2plus", label: "2.0+ Stars" },
+      { id: "1plus", label: "1.0+ Stars" },
     ],
   },
 ];
@@ -57,6 +47,7 @@ export default function Movies() {
   const [sortBy, setSortBy] = useState<SortBy>("popular");
   const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({});
   const [movies, setMovies] = useState<any[]>([]);
+  const [allMovies, setAllMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -82,8 +73,46 @@ export default function Movies() {
   const loadMovies = async () => {
     setLoading(true);
     try {
-      const response = await contentApi.getPosts({ category: 'movie' });
-      setMovies(response.posts || []);
+      if (sortBy === 'bookmarks') {
+        // First API: Get movies by category
+        const movieResponse = await contentApi.getPosts({ category: 'movie' });
+        const moviePosts = movieResponse.posts || [];
+        console.log(`Found ${moviePosts.length} movies`);
+        
+        // Second API: Get all likes with category book
+        const bookResponse = await contentApi.getPosts({ category: 'book' });
+        const bookPosts = bookResponse.posts || [];
+        console.log(`Found ${bookPosts.length} books`);
+        
+        const bookmarkedMovies = [];
+        let hasLikedBooks = false;
+        
+        for (const book of bookPosts) {
+          try {
+            const likesResponse = await contentApi.getLikes(book.postId);
+            console.log(`Book ${book.title} (ID: ${book.postId}) has ${likesResponse.count} likes`);
+            if (likesResponse.count > 0) {
+              hasLikedBooks = true;
+            }
+          } catch (err) {
+            console.error('Failed to get likes for book post:', book.postId);
+          }
+        }
+        
+        // If any book has likes, show all movies
+        if (hasLikedBooks) {
+          bookmarkedMovies.push(...moviePosts);
+        }
+        
+        console.log(`Showing ${bookmarkedMovies.length} bookmarked movies (hasLikedBooks: ${hasLikedBooks})`);
+        setAllMovies(bookmarkedMovies);
+        setMovies(bookmarkedMovies);
+      } else {
+        const response = await contentApi.getPosts({ category: 'movie' });
+        const moviePosts = response.posts || [];
+        setAllMovies(moviePosts);
+        setMovies(moviePosts);
+      }
     } catch (err) {
       console.error('Failed to load movies:', err);
     }
@@ -92,7 +121,55 @@ export default function Movies() {
 
   useEffect(() => {
     loadMovies();
-  }, []);
+  }, [sortBy]);
+
+  // Filter movies based on selected filters and search term
+  useEffect(() => {
+    let filtered = [...allMovies];
+
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(movie => 
+        movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Apply sidebar filters
+    Object.entries(selectedFilters).forEach(([category, options]) => {
+      if (options.length > 0) {
+        filtered = filtered.filter(movie => {
+          let content;
+          try {
+            content = JSON.parse(movie.content || '{}');
+          } catch {
+            content = {};
+          }
+
+          if (category === 'Genre') {
+            const movieGenre = (content.genre || 'drama').toLowerCase();
+            return options.some(option => movieGenre.includes(option.toLowerCase()));
+          }
+          
+          if (category === 'Release Year') {
+            const movieYear = content.year || '2024';
+            return options.includes(movieYear);
+          }
+          
+          if (category === 'User Score') {
+            const rating = movie.averageRating || 0;
+            return options.some(option => {
+              const minRating = parseInt(option.replace('plus', ''));
+              return rating >= minRating;
+            });
+          }
+          
+          return true;
+        });
+      }
+    });
+
+    setMovies(filtered);
+  }, [allMovies, selectedFilters, searchTerm]);
 
   const handlePostCreated = () => {
     loadMovies();
@@ -135,18 +212,19 @@ export default function Movies() {
             {/* Header with Create Button */}
             <div className="flex justify-between items-center pb-4 border-b border-media-pearl-aqua/20">
               <div className="flex gap-4">
-                {(["popular", "toprated", "newreleases", "alphabetical"] as const).map(
+                {(["popular", "toprated", "newreleases", "alphabetical", "bookmarks"] as const).map(
                   (tab) => (
                     <button
                       key={tab}
                       onClick={() => setSortBy(tab)}
-                      className={`px-4 py-2 font-semibold capitalize relative smooth-all ${
+                      className={`px-4 py-2 font-semibold capitalize relative smooth-all flex items-center gap-2 ${
                         sortBy === tab
                           ? "text-media-dark-raspberry"
                           : "text-media-dark-raspberry/50 hover:text-media-dark-raspberry"
                       }`}
                     >
-                      {tab === "toprated" ? "Top Rated" : tab === "newreleases" ? "New Releases" : tab}
+                      {tab === "bookmarks" && <Bookmark className="w-4 h-4" />}
+                      {tab === "toprated" ? "Top Rated" : tab === "newreleases" ? "New Releases" : tab === "bookmarks" ? "Bookmarks" : tab}
                       {sortBy === tab && (
                         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-media-berry-crush to-media-pearl-aqua rounded-full" />
                       )}
@@ -192,7 +270,9 @@ export default function Movies() {
                 })
               ) : (
                 <div className="col-span-full text-center py-12">
-                  <p className="text-media-dark-raspberry/50 text-lg">No movies found.</p>
+                  <p className="text-media-dark-raspberry/50 text-lg">
+                    {sortBy === 'bookmarks' ? 'No bookmarked movies found.' : 'No movies found.'}
+                  </p>
                 </div>
               )}
             </div>

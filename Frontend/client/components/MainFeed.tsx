@@ -32,6 +32,10 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
   const [commentsCount, setCommentsCount] = useState(post.commentsCount || 0);
   const [showMenu, setShowMenu] = useState(false);
   const [authorName, setAuthorName] = useState('Loading...');
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(post.title || '');
+  const [editContent, setEditContent] = useState('');
+  const [editLoading, setEditLoading] = useState(false);
   
   const isOwner = user?.id === post.userId;
   const following = followingUsers[post.userId?.toString() || ''] || false;
@@ -49,7 +53,27 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
       }
     };
     fetchAuthorName();
-  }, [post.userId]);
+    
+    // Set initial edit content
+    setEditContent(parsedContent.text || post.content || '');
+  }, [post.userId, post.content]);
+
+  // Parse content to extract image and text
+  let parsedContent = { text: post.content, imageUrl: null };
+  try {
+    const parsed = JSON.parse(post.content);
+    if (parsed.text || parsed.imageUrl) {
+      parsedContent = parsed;
+    } else if (parsed.description && parsed.imageUrl) {
+      // Movie content format
+      parsedContent = { text: parsed.description, imageUrl: parsed.imageUrl };
+    }
+  } catch {
+    // Content is plain text
+    parsedContent = { text: post.content, imageUrl: null };
+  }
+
+  const imageData = parsedContent.imageUrl ? localStorage.getItem(parsedContent.imageUrl) : null;
 
   // Transform backend data to UI format
   const displayPost = {
@@ -58,7 +82,8 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
     avatar: authorName[0] || 'A',
     color: 'from-media-berry-crush to-media-dark-raspberry',
     timestamp: new Date(post.createdAt || Date.now()).toLocaleDateString(),
-    description: post.content,
+    description: parsedContent.text,
+    imageUrl: imageData,
     rating: post.averageRating || 0,
     tags: [],
     likes: post.likesCount || 0,
@@ -228,6 +253,52 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
     }
   };
 
+  const handleEditPost = async () => {
+    if (!isAuthenticated || !post.id) return;
+    
+    if (!editTitle.trim() || !editContent.trim()) {
+      toast({ title: "Please fill in all fields", variant: "destructive" });
+      return;
+    }
+    
+    try {
+      setEditLoading(true);
+      
+      let updateContent = editContent.trim();
+      
+      // If post has image, preserve it
+      if (parsedContent.imageUrl) {
+        const contentData = {
+          text: editContent.trim(),
+          imageUrl: parsedContent.imageUrl
+        };
+        updateContent = JSON.stringify(contentData);
+      }
+      
+      const updateData = {
+        title: editTitle.trim(),
+        content: updateContent,
+        category: post.category
+      };
+      
+      await contentApi.updatePost(post.id.toString(), updateData);
+      toast({ title: "Post updated successfully" });
+      setIsEditing(false);
+      onPostDeleted?.(); // Refresh posts
+    } catch (error) {
+      console.error('Failed to update post:', error);
+      toast({ title: "Failed to update post", variant: "destructive" });
+    } finally {
+      setEditLoading(false);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setEditTitle(post.title || '');
+    setEditContent(parsedContent.text || post.content || '');
+  };
+
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg hover:-translate-y-1 smooth-all animate-slide-up mb-6">
       {/* Header */}
@@ -269,28 +340,33 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
               </button>
               
               {showMenu && (
-                <div className="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-media-frozen-water z-10">
+                <div className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-media-pearl-aqua/30 z-20 min-w-[160px] overflow-hidden backdrop-blur-sm">
                   {isOwner ? (
                     <>
                       <button
                         onClick={() => {
                           setShowMenu(false);
-                          toast({ title: "Edit functionality coming soon" });
+                          setIsEditing(true);
                         }}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-media-dark-raspberry hover:bg-media-frozen-water w-full text-left"
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-media-dark-raspberry hover:bg-gradient-to-r hover:from-media-pearl-aqua/10 hover:to-media-powder-blush/10 w-full text-left transition-all duration-200 hover:scale-[1.02]"
                       >
-                        <Edit className="w-4 h-4" />
-                        Edit
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-media-pearl-aqua to-media-powder-blush flex items-center justify-center">
+                          <Edit className="w-4 h-4 text-white" />
+                        </div>
+                        <span>Edit Post</span>
                       </button>
+                      <div className="h-px bg-gradient-to-r from-transparent via-media-pearl-aqua/20 to-transparent mx-2"></div>
                       <button
                         onClick={() => {
                           setShowMenu(false);
                           handleDeletePost();
                         }}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left"
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 w-full text-left transition-all duration-200 hover:scale-[1.02]"
                       >
-                        <Trash2 className="w-4 h-4" />
-                        Delete
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center">
+                          <Trash2 className="w-4 h-4 text-white" />
+                        </div>
+                        <span>Delete Post</span>
                       </button>
                     </>
                   ) : (
@@ -300,18 +376,18 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
                           setShowMenu(false);
                           toast({ title: "Report functionality coming soon" });
                         }}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-media-dark-raspberry hover:bg-media-frozen-water w-full text-left"
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-media-dark-raspberry hover:bg-gradient-to-r hover:from-media-pearl-aqua/10 hover:to-media-powder-blush/10 w-full text-left transition-all duration-200"
                       >
-                        Report Post
+                        <span>Report Post</span>
                       </button>
                       <button
                         onClick={() => {
                           setShowMenu(false);
                           toast({ title: "Hide functionality coming soon" });
                         }}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-media-dark-raspberry hover:bg-media-frozen-water w-full text-left"
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-media-dark-raspberry hover:bg-gradient-to-r hover:from-media-pearl-aqua/10 hover:to-media-powder-blush/10 w-full text-left transition-all duration-200"
                       >
-                        Hide Post
+                        <span>Hide Post</span>
                       </button>
                     </>
                   )}
@@ -324,8 +400,54 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
 
       {/* Content */}
       <div className="p-4">
-        <h2 className="text-lg font-bold text-media-dark-raspberry mb-2">{displayPost.title}</h2>
-        <p className="text-media-dark-raspberry/70 text-sm mb-4 leading-relaxed">{displayPost.description}</p>
+        {isEditing ? (
+          <div className="space-y-4">
+            <input
+              type="text"
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+              className="w-full px-4 py-2 border-2 border-media-frozen-water focus:border-media-pearl-aqua focus:outline-none rounded-lg text-lg font-bold text-media-dark-raspberry"
+              placeholder="Post title..."
+            />
+            <textarea
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-media-frozen-water focus:border-media-pearl-aqua focus:outline-none rounded-lg text-sm text-media-dark-raspberry resize-none h-32"
+              placeholder="Post content..."
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={handleEditPost}
+                disabled={editLoading}
+                className="px-4 py-2 bg-gradient-to-r from-media-berry-crush to-media-pearl-aqua text-white rounded-lg hover:shadow-lg transition-all disabled:opacity-50"
+              >
+                {editLoading ? 'Saving...' : 'Save'}
+              </button>
+              <button
+                onClick={handleCancelEdit}
+                className="px-4 py-2 border-2 border-media-pearl-aqua text-media-dark-raspberry rounded-lg hover:bg-media-pearl-aqua/10 transition-all"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <h2 className="text-lg font-bold text-media-dark-raspberry mb-2">{displayPost.title}</h2>
+            <p className="text-media-dark-raspberry/70 text-sm mb-4 leading-relaxed">{displayPost.description}</p>
+
+            {/* Image */}
+            {displayPost.imageUrl && (
+              <div className="mb-4">
+                <img
+                  src={displayPost.imageUrl}
+                  alt={displayPost.title}
+                  className="w-full h-64 object-cover rounded-2xl"
+                />
+              </div>
+            )}
+          </>
+        )}
 
         {/* Category Badge */}
         <div className="mb-4">

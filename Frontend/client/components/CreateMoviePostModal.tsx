@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, Film } from "lucide-react";
+import { X, Film, Upload, Image } from "lucide-react";
 import { contentApi } from "@/lib/content-api";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
@@ -19,6 +19,8 @@ export default function CreateMoviePostModal({ isOpen, onClose, onPostCreated }:
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,11 +38,25 @@ export default function CreateMoviePostModal({ isOpen, onClose, onPostCreated }:
     try {
       setIsSubmitting(true);
       
+      let imageUrl = null;
+      if (selectedImage) {
+        // Store image in localStorage with a unique key
+        const reader = new FileReader();
+        const imageData = await new Promise<string>((resolve) => {
+          reader.onload = (e) => resolve(e.target?.result as string);
+          reader.readAsDataURL(selectedImage);
+        });
+        const imageKey = `movie_image_${Date.now()}`;
+        localStorage.setItem(imageKey, imageData);
+        imageUrl = imageKey;
+      }
+      
       const movieData = {
         director: director.trim(),
         genre: genre.trim(),
         year: year.trim(),
-        description: description.trim()
+        description: description.trim(),
+        imageUrl: imageUrl
       };
 
       const postData = {
@@ -59,6 +75,8 @@ export default function CreateMoviePostModal({ isOpen, onClose, onPostCreated }:
       setGenre("");
       setYear("");
       setDescription("");
+      setSelectedImage(null);
+      setImagePreview(null);
       
       onPostCreated?.();
       onClose();
@@ -71,6 +89,23 @@ export default function CreateMoviePostModal({ isOpen, onClose, onPostCreated }:
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
   };
 
   if (!isOpen) return null;
@@ -181,6 +216,44 @@ export default function CreateMoviePostModal({ isOpen, onClose, onPostCreated }:
                 className="w-full px-4 py-3 rounded-2xl border-2 border-media-frozen-water focus:border-media-pearl-aqua focus:outline-none focus:ring-2 focus:ring-media-pearl-aqua/20 focus:shadow-lg smooth-all resize-none h-32"
                 required
               />
+            </div>
+
+            {/* Image Upload */}
+            <div>
+              <label className="block text-sm font-medium text-media-dark-raspberry mb-2">
+                Movie Poster (Optional)
+              </label>
+              {!imagePreview ? (
+                <div className="border-2 border-dashed border-media-pearl-aqua rounded-2xl p-6 text-center hover:border-media-berry-crush transition-colors">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageSelect}
+                    className="hidden"
+                    id="image-upload"
+                  />
+                  <label htmlFor="image-upload" className="cursor-pointer">
+                    <Upload className="w-12 h-12 text-media-pearl-aqua mx-auto mb-2" />
+                    <p className="text-media-dark-raspberry font-medium">Click to upload image</p>
+                    <p className="text-media-dark-raspberry/60 text-sm">PNG, JPG up to 10MB</p>
+                  </label>
+                </div>
+              ) : (
+                <div className="relative">
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-full h-48 object-cover rounded-2xl"
+                  />
+                  <button
+                    type="button"
+                    onClick={removeImage}
+                    className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Footer Buttons */}

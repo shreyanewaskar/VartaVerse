@@ -31,21 +31,12 @@ const showFilters = [
     ],
   },
   {
-    title: "Platform",
+    title: "User Score",
     options: [
-      { id: "netflix", label: "Netflix" },
-      { id: "hbo", label: "HBO Max" },
-      { id: "apple", label: "Apple TV+" },
-      { id: "disney", label: "Disney+" },
-      { id: "amazon", label: "Amazon Prime" },
-    ],
-  },
-  {
-    title: "Status",
-    options: [
-      { id: "ongoing", label: "Ongoing" },
-      { id: "completed", label: "Completed" },
-      { id: "upcoming", label: "Upcoming" },
+      { id: "4plus", label: "4.0+ Stars" },
+      { id: "3plus", label: "3.0+ Stars" },
+      { id: "2plus", label: "2.0+ Stars" },
+      { id: "1plus", label: "1.0+ Stars" },
     ],
   },
 ];
@@ -81,6 +72,8 @@ export default function Shows() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [createdShows, setCreatedShows] = useState<any[]>([]);
   const [showPosts, setShowPosts] = useState<any[]>([]);
+  const [allShows, setAllShows] = useState<any[]>([]);
+  const [filteredShows, setFilteredShows] = useState<any[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
@@ -133,6 +126,9 @@ export default function Shows() {
           }
         });
         setShowPosts(showPosts);
+        const allShowsData = [...createdShows, ...showPosts];
+        setAllShows(allShowsData);
+        setFilteredShows(allShowsData);
       } catch (error) {
         console.error('Failed to load show posts:', error);
       } finally {
@@ -143,10 +139,46 @@ export default function Shows() {
     loadShowPosts();
   }, []);
 
-  const allShowsWithCreated = [...createdShows, ...showPosts, ...allShows];
-  const filteredShows = allShowsWithCreated.filter((show) =>
-    show.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter shows based on selected filters and search term
+  useEffect(() => {
+    let filtered = [...allShows];
+
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(show => 
+        show.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Apply sidebar filters
+    Object.entries(selectedFilters).forEach(([category, options]) => {
+      if (options.length > 0) {
+        filtered = filtered.filter(show => {
+          if (category === 'Genre') {
+            const showGenre = (show.genre || 'drama').toLowerCase();
+            return options.some(option => showGenre.includes(option.toLowerCase()));
+          }
+          
+          if (category === 'Release Year') {
+            const showYear = show.year?.toString() || '2024';
+            return options.includes(showYear);
+          }
+          
+          if (category === 'User Score') {
+            const rating = show.rating || 0;
+            return options.some(option => {
+              const minRating = parseInt(option.replace('plus', ''));
+              return rating >= minRating;
+            });
+          }
+          
+          return true;
+        });
+      }
+    });
+
+    setFilteredShows(filtered);
+  }, [allShows, selectedFilters, searchTerm]);
 
   const handleCreatePost = async () => {
     if (!title.trim() || !description.trim() || !user?.id) return;
@@ -175,6 +207,7 @@ export default function Shows() {
         rating: 4.0
       };
       setCreatedShows(prev => [newShow, ...prev]);
+      setAllShows(prev => [newShow, ...prev]);
       
       toast({ title: "Show post created successfully!" });
       setTitle("");
