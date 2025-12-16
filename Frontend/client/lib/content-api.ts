@@ -152,6 +152,8 @@ export const contentApi = {
     };
   },
 
+
+
   async ratePost(postId: string, data: RatePostRequest): Promise<RatingResponse> {
     logger.info('Rating post', { postId, rating: data.ratingValue });
     await apiCall<void>(contentClient, {

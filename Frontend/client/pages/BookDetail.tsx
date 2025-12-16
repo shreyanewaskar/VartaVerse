@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Star, Calendar, BookOpen, MessageCircle, Send, User } from "lucide-react";
 import { contentApi } from "@/lib/content-api";
+import { userApi } from "@/lib/user-api";
 
 export default function BookDetail() {
   const { id } = useParams<{ id: string }>();
@@ -11,6 +12,7 @@ export default function BookDetail() {
   const [comments, setComments] = useState<any[]>([]);
   const [newComment, setNewComment] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
+  const [commentUsers, setCommentUsers] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const loadBook = async () => {
@@ -46,7 +48,26 @@ export default function BookDetail() {
           });
         }
         
-        setComments(commentsResponse.comments || []);
+        const commentsData = commentsResponse.comments || [];
+        setComments(commentsData);
+        
+        // Fetch usernames for all comments
+        const userIds = [...new Set(commentsData.map((comment: any) => comment.userId).filter(Boolean))];
+        if (userIds.length > 0) {
+          try {
+            const userPromises = userIds.map((userId: string) => 
+              userApi.getUserById(userId).catch(() => ({ name: 'Anonymous' }))
+            );
+            const users = await Promise.all(userPromises);
+            const userMap: Record<string, string> = {};
+            userIds.forEach((userId: string, index: number) => {
+              userMap[userId] = users[index]?.name || 'Anonymous';
+            });
+            setCommentUsers(userMap);
+          } catch (err) {
+            console.error('Failed to fetch usernames:', err);
+          }
+        }
       } catch (err) {
         console.error('Failed to load book:', err);
       } finally {
@@ -189,7 +210,7 @@ export default function BookDetail() {
                   <div key={comment.commentId || index} className="p-3 bg-media-frozen-water/30 rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-semibold text-media-berry-crush">
-                        {comment.userName || comment.userEmail || comment.user?.name || comment.user?.email || 'Anonymous'}
+                        {commentUsers[comment.userId] || 'Loading...'}
                       </span>
                     </div>
                     <p className="text-media-dark-raspberry">{comment.text || comment}</p>

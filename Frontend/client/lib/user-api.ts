@@ -101,26 +101,56 @@ export const userApi = {
   async followUser(targetId: string): Promise<void> {
     logger.info('Following user', { targetId });
     try {
-      return await apiCall<void>(userClient, {
+      const result = await apiCall<any>(userClient, {
         method: 'POST',
         url: `/users/follow/${targetId}`,
-      }, false);
+      });
+      console.log('Follow API result:', result);
+      return result;
     } catch (error) {
-      logger.error('Follow endpoint not implemented', error);
-      throw new Error('Follow feature not available');
+      logger.error('Follow endpoint failed', error);
+      throw error;
     }
   },
 
   async unfollowUser(targetId: string): Promise<void> {
     logger.info('Unfollowing user', { targetId });
     try {
-      return await apiCall<void>(userClient, {
+      const result = await apiCall<any>(userClient, {
         method: 'POST',
         url: `/users/unfollow/${targetId}`,
-      }, false);
+      });
+      console.log('Unfollow API result:', result);
+      return result;
     } catch (error) {
-      logger.error('Unfollow endpoint not implemented', error);
-      throw new Error('Unfollow feature not available');
+      logger.error('Unfollow endpoint failed', error);
+      throw error;
+    }
+  },
+
+  async isFollowing(targetId: string): Promise<boolean> {
+    logger.info('Checking follow status', { targetId });
+    try {
+      const currentUser = await this.getMe();
+      const following = await this.getFollowing(currentUser.id.toString());
+      console.log('Following data:', following.following);
+      console.log('Target ID to check:', targetId);
+      
+      const isFollowing = following.following.some(f => {
+        console.log('Checking follower object:', f);
+        return f.followingId === parseInt(targetId) || 
+               f.targetId === parseInt(targetId) ||
+               String(f.followingId) === targetId ||
+               String(f.targetId) === targetId ||
+               f.followerId === parseInt(targetId) ||
+               String(f.followerId) === targetId;
+      });
+      
+      console.log('Is following result:', isFollowing);
+      return isFollowing;
+    } catch (error) {
+      logger.error('Failed to check follow status', error);
+      return false;
     }
   },
 

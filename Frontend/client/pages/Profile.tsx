@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { userApi } from "@/lib/user-api";
+import { contentApi } from "@/lib/content-api";
 import { useToast } from "@/hooks/use-toast";
 import EditProfileModal from "@/components/EditProfileModal";
 import {
@@ -141,6 +142,8 @@ export default function Profile() {
   const [followingCount, setFollowingCount] = useState(0);
   const [isLoadingStats, setIsLoadingStats] = useState(true);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [userPosts, setUserPosts] = useState<any[]>([]);
+  const [loadingPosts, setLoadingPosts] = useState(true);
 
   const handleLogout = () => {
     logout();
@@ -160,32 +163,46 @@ export default function Profile() {
   const userInitials = user?.name ? getUserInitials(user.name) : 'U';
   const displayName = user?.name || 'User';
 
-  // Fetch followers and following data
+  // Fetch user data and posts
   useEffect(() => {
-    const fetchUserStats = async () => {
+    const fetchUserData = async () => {
       if (!user?.id) return;
       
       try {
         setIsLoadingStats(true);
-        const [followersData, followingData] = await Promise.all([
-          userApi.getFollowers(user.id),
-          userApi.getFollowing(user.id)
+        setLoadingPosts(true);
+        
+        // Get current user info from User Service (8083)
+        const currentUser = await userApi.getMe();
+        
+        // Fetch user stats and all posts, then filter by current user
+        const [followersData, followingData, allPostsData] = await Promise.all([
+          userApi.getFollowers(currentUser.id.toString()),
+          userApi.getFollowing(currentUser.id.toString()),
+          contentApi.getPosts({})
         ]);
+        
+        // Filter posts by current user ID
+        const currentUserPosts = (allPostsData.posts || []).filter(
+          post => post.userId === currentUser.id
+        );
         
         setFollowersCount(followersData.count);
         setFollowingCount(followingData.count);
+        setUserPosts(currentUserPosts);
       } catch (error) {
-        console.error('Failed to fetch user stats:', error);
+        console.error('Failed to fetch user data:', error);
         toast({
-          title: 'Failed to load user statistics',
+          title: 'Failed to load user data',
           variant: 'destructive'
         });
       } finally {
         setIsLoadingStats(false);
+        setLoadingPosts(false);
       }
     };
 
-    fetchUserStats();
+    fetchUserData();
   }, [user?.id, toast]);
 
   return (
@@ -321,7 +338,9 @@ export default function Profile() {
         <section className="glass rounded-2xl border border-white/50 bg-white/40 p-6 shadow-lg">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             <div className="group cursor-pointer text-center">
-              <p className="text-3xl font-bold text-media-berry-crush transition-all group-hover:scale-110">24</p>
+              <p className="text-3xl font-bold text-media-berry-crush transition-all group-hover:scale-110">
+                {loadingPosts ? '...' : userPosts.length}
+              </p>
               <p className="mt-1 text-sm text-media-dark-raspberry/70 group-hover:text-media-powder-blush transition-colors">
                 Posts
               </p>
@@ -379,49 +398,80 @@ export default function Profile() {
         {/* Content Sections */}
         {activeTab === "Posts" && (
           <section>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <div
-                  key={post.id}
-                  onMouseEnter={() => setHoveredPost(post.id)}
-                  onMouseLeave={() => setHoveredPost(null)}
-                  className="group relative overflow-hidden rounded-2xl border border-white/80 bg-white p-6 shadow-lg shadow-media-frozen-water/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-media-pearl-aqua/50"
-                >
-                  <div className="mb-4 flex h-48 items-center justify-center rounded-xl bg-gradient-to-br from-media-pearl-aqua/40 to-media-powder-blush/40 text-6xl shadow-inner">
-                    {post.emoji}
-                  </div>
-                  <h3 className="text-lg font-bold text-media-berry-crush">{post.title}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm text-media-dark-raspberry/70">{post.description}</p>
-                  <div className="mt-4 flex items-center gap-4 text-xs text-media-dark-raspberry/60">
-                    <span>{post.likes} likes</span>
-                    <span>{post.comments} comments</span>
-                    <span>{post.date}</span>
-                  </div>
-                  {hoveredPost === post.id && (
-                    <div className="absolute inset-0 flex items-center justify-center gap-2 rounded-2xl bg-white/95 backdrop-blur-sm opacity-0 transition-all duration-300 group-hover:opacity-100">
-                      <button 
-                        onClick={(e) => { e.stopPropagation(); alert("Liked!"); }}
-                        className="rounded-full bg-media-frozen-water p-3 text-media-dark-raspberry transition hover:bg-media-powder-blush/30"
-                      >
-                        <Heart className="h-5 w-5" />
-                      </button>
-                      <button 
-                        onClick={(e) => { e.stopPropagation(); alert("Comment feature coming soon!"); }}
-                        className="rounded-full bg-media-frozen-water p-3 text-media-dark-raspberry transition hover:bg-media-powder-blush/30"
-                      >
-                        <MessageCircle className="h-5 w-5" />
-                      </button>
-                      <button 
-                        onClick={(e) => { e.stopPropagation(); navigate("/bookmarks"); }}
-                        className="rounded-full bg-media-frozen-water p-3 text-media-dark-raspberry transition hover:bg-media-powder-blush/30"
-                      >
-                        <Bookmark className="h-5 w-5" />
-                      </button>
+            {loadingPosts ? (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-media-berry-crush mx-auto mb-4"></div>
+                <p className="text-media-dark-raspberry/70">Loading your posts...</p>
+              </div>
+            ) : userPosts.length > 0 ? (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {userPosts.map((post) => {
+                  const postId = post.id || post.postId;
+                  let content;
+                  try {
+                    content = JSON.parse(post.content || '{}');
+                  } catch {
+                    content = {};
+                  }
+                  
+                  return (
+                    <div
+                      key={postId}
+                      onMouseEnter={() => setHoveredPost(postId)}
+                      onMouseLeave={() => setHoveredPost(null)}
+                      className="group relative overflow-hidden rounded-2xl border border-white/80 bg-white p-6 shadow-lg shadow-media-frozen-water/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-media-pearl-aqua/50"
+                    >
+                      <div className="mb-4 flex h-48 items-center justify-center rounded-xl bg-gradient-to-br from-media-pearl-aqua/40 to-media-powder-blush/40 text-6xl shadow-inner">
+                        {post.category === 'movie' ? '🎬' : post.category === 'book' ? '📚' : post.category === 'show' ? '📺' : '📝'}
+                      </div>
+                      <h3 className="text-lg font-bold text-media-berry-crush">{post.title}</h3>
+                      <p className="mt-2 line-clamp-2 text-sm text-media-dark-raspberry/70">
+                        {content.description || post.content || 'No description available'}
+                      </p>
+                      <div className="mt-4 flex items-center gap-4 text-xs text-media-dark-raspberry/60">
+                        <span>{post.likesCount || 0} likes</span>
+                        <span>{post.commentsCount || 0} comments</span>
+                        <span>{new Date(post.createdAt || Date.now()).toLocaleDateString()}</span>
+                      </div>
+                      {hoveredPost === postId && (
+                        <div className="absolute inset-0 flex items-center justify-center gap-2 rounded-2xl bg-white/95 backdrop-blur-sm opacity-0 transition-all duration-300 group-hover:opacity-100">
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); alert("Liked!"); }}
+                            className="rounded-full bg-media-frozen-water p-3 text-media-dark-raspberry transition hover:bg-media-powder-blush/30"
+                          >
+                            <Heart className="h-5 w-5" />
+                          </button>
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); alert("Comment feature coming soon!"); }}
+                            className="rounded-full bg-media-frozen-water p-3 text-media-dark-raspberry transition hover:bg-media-powder-blush/30"
+                          >
+                            <MessageCircle className="h-5 w-5" />
+                          </button>
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); navigate("/bookmarks"); }}
+                            className="rounded-full bg-media-frozen-water p-3 text-media-dark-raspberry transition hover:bg-media-powder-blush/30"
+                          >
+                            <Bookmark className="h-5 w-5" />
+                          </button>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="text-6xl mb-4">📝</div>
+                <h3 className="text-xl font-semibold text-media-dark-raspberry mb-2">No posts yet</h3>
+                <p className="text-media-dark-raspberry/60 mb-6">Start sharing your thoughts and experiences!</p>
+                <button 
+                  onClick={() => navigate("/feed")}
+                  className="px-6 py-3 bg-gradient-to-r from-media-berry-crush to-media-dark-raspberry text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all"
+                >
+                  Create Your First Post
+                </button>
+              </div>
+            )}
           </section>
         )}
 

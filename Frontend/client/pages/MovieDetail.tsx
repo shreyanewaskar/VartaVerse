@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Star, Calendar, Clock, Globe, MessageCircle, Send } from "lucide-react";
-import { fetchMovieById, addMovieComment, getMovieComments } from "@/lib/movieApi";
+import { ArrowLeft, Star, Calendar, Film, MessageCircle, Send } from "lucide-react";
+import { contentApi } from "@/lib/content-api";
+import { userApi } from "@/lib/user-api";
 
 export default function MovieDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [movie, setMovie] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [comments, setComments] = useState<string[]>([]);
+  const [comments, setComments] = useState<any[]>([]);
   const [newComment, setNewComment] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
+  const [commentUsers, setCommentUsers] = useState<{[key: string]: string}>({});
 
   useEffect(() => {
     const loadMovie = async () => {
@@ -18,12 +20,58 @@ export default function MovieDetail() {
       
       try {
         setLoading(true);
-        const [movieData, commentsData] = await Promise.all([
-          fetchMovieById(id),
-          getMovieComments(id)
+        const [post, commentsResponse] = await Promise.all([
+          contentApi.getPost(id),
+          contentApi.getComments(id)
         ]);
-        setMovie(movieData);
+        
+        try {
+          const content = JSON.parse(post.content);
+          setMovie({
+            id: post.postId,
+            title: post.title,
+            director: content.director || 'Unknown Director',
+            description: content.description || '',
+            genre: content.genre || 'Drama',
+            year: parseInt(content.year) || 2024,
+            rating: 4.0
+          });
+        } catch {
+          setMovie({
+            id: post.postId,
+            title: post.title,
+            director: 'Unknown Director',
+            description: post.content,
+            genre: 'Drama',
+            year: 2024,
+            rating: 4.0
+          });
+        }
+        
+        const commentsData = commentsResponse.comments || [];
         setComments(commentsData);
+        
+        // Fetch usernames for all comments
+        const userPromises = commentsData.map(async (comment: any) => {
+          if (comment.userId) {
+            try {
+              const userData = await userApi.getUserById(comment.userId.toString());
+              return { userId: comment.userId, name: userData.name || userData.email || 'Anonymous' };
+            } catch (error) {
+              return { userId: comment.userId, name: 'Anonymous' };
+            }
+          }
+          return null;
+        });
+        
+        const userResults = await Promise.all(userPromises);
+        const userMap: {[key: string]: string} = {};
+        userResults.forEach(result => {
+          if (result) {
+            userMap[result.userId] = result.name;
+          }
+        });
+        setCommentUsers(userMap);
       } catch (err) {
         console.error('Failed to load movie:', err);
       } finally {
@@ -39,8 +87,8 @@ export default function MovieDetail() {
     
     try {
       setSubmittingComment(true);
-      await addMovieComment(id, newComment);
-      setComments([...comments, newComment]);
+      const comment = await contentApi.addComment(id, { text: newComment });
+      setComments([...comments, comment]);
       setNewComment("");
     } catch (err) {
       console.error('Failed to add comment:', err);
@@ -79,105 +127,91 @@ export default function MovieDetail() {
 
         {/* Movie Details */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-          <div className="md:flex">
-            {/* Movie Poster */}
-            <div className="md:w-1/3">
-              <img
-                src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder-movie.jpg"}
-                alt={movie.Title}
-                className="w-full h-96 md:h-full object-cover"
-              />
-            </div>
-
-            {/* Movie Info */}
-            <div className="md:w-2/3 p-8">
-              <h1 className="text-3xl font-bold text-media-dark-raspberry mb-4">
-                {movie.Title}
-              </h1>
-
-              <div className="flex flex-wrap gap-4 mb-6 text-sm text-media-dark-raspberry/70">
-                <div className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  {movie.Year}
-                </div>
-                <div className="flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
-                  {movie.Runtime}
-                </div>
-                <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4" />
-                  {movie.imdbRating}/10
-                </div>
-                <div className="flex items-center gap-1">
-                  <Globe className="w-4 h-4" />
-                  {movie.Language}
-                </div>
+          <div className="p-8">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-media-berry-crush to-media-dark-raspberry flex items-center justify-center">
+                <Film className="w-8 h-8 text-white" />
               </div>
-
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-semibold text-media-dark-raspberry mb-2">Genre</h3>
-                  <p className="text-media-dark-raspberry/80">{movie.Genre}</p>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-media-dark-raspberry mb-2">Director</h3>
-                  <p className="text-media-dark-raspberry/80">{movie.Director}</p>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-media-dark-raspberry mb-2">Cast</h3>
-                  <p className="text-media-dark-raspberry/80">{movie.Actors}</p>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-media-dark-raspberry mb-2">Plot</h3>
-                  <p className="text-media-dark-raspberry/80 leading-relaxed">{movie.Plot}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Comments Section */}
-          <div className="mt-6 p-6 border-t border-media-pearl-aqua/20">
-            <h3 className="text-xl font-bold text-media-dark-raspberry mb-4 flex items-center gap-2">
-              <MessageCircle className="w-5 h-5" />
-              Comments ({comments.length})
-            </h3>
-
-            {/* Add Comment */}
-            <div className="flex gap-3 mb-6">
-              <input
-                type="text"
-                placeholder="Add a comment..."
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                className="flex-1 px-4 py-2 rounded-lg border border-media-pearl-aqua/40 focus:outline-none focus:border-media-pearl-aqua"
-                onKeyPress={(e) => e.key === 'Enter' && handleAddComment()}
-              />
-              <button
-                onClick={handleAddComment}
-                disabled={!newComment.trim() || submittingComment}
-                className="px-4 py-2 bg-media-pearl-aqua text-white rounded-lg hover:bg-media-berry-crush transition-colors disabled:opacity-50 flex items-center gap-2"
-              >
-                <Send className="w-4 h-4" />
-                {submittingComment ? 'Posting...' : 'Post'}
-              </button>
-            </div>
-
-            {/* Comments List */}
-            <div className="space-y-3">
-              {comments.length > 0 ? (
-                comments.map((comment, index) => (
-                  <div key={index} className="p-3 bg-media-frozen-water/30 rounded-lg">
-                    <p className="text-media-dark-raspberry">{comment}</p>
+              <div>
+                <h1 className="text-3xl font-bold text-media-dark-raspberry mb-2">
+                  {movie.title}
+                </h1>
+                <div className="flex items-center gap-4 text-sm text-media-dark-raspberry/70">
+                  <div className="flex items-center gap-1">
+                    <Calendar className="w-4 h-4" />
+                    {movie.year}
                   </div>
-                ))
-              ) : (
-                <p className="text-media-dark-raspberry/60 text-center py-4">
-                  No comments yet. Be the first to comment!
+                  <div className="flex items-center gap-1">
+                    <Star className="w-4 h-4" />
+                    {movie.rating}/5
+                  </div>
+                  <span className="px-2 py-1 rounded-full bg-media-pearl-aqua/20 text-media-dark-raspberry text-xs font-semibold">
+                    {movie.genre}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-semibold text-media-dark-raspberry mb-3">Director</h3>
+                <p className="text-media-dark-raspberry/80">{movie.director}</p>
+              </div>
+              
+              <div>
+                <h3 className="font-semibold text-media-dark-raspberry mb-3">Description</h3>
+                <p className="text-media-dark-raspberry/80 leading-relaxed">
+                  {movie.description || 'No description available.'}
                 </p>
-              )}
+              </div>
+            </div>
+
+            {/* Comments Section */}
+            <div className="mt-8 pt-6 border-t border-media-pearl-aqua/20">
+              <h3 className="text-xl font-bold text-media-dark-raspberry mb-4 flex items-center gap-2">
+                <MessageCircle className="w-5 h-5" />
+                Comments ({comments.length})
+              </h3>
+
+              {/* Add Comment */}
+              <div className="flex gap-3 mb-6">
+                <input
+                  type="text"
+                  placeholder="Add a comment..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  className="flex-1 px-4 py-2 rounded-lg border border-media-pearl-aqua/40 focus:outline-none focus:border-media-pearl-aqua"
+                  onKeyPress={(e) => e.key === 'Enter' && handleAddComment()}
+                />
+                <button
+                  onClick={handleAddComment}
+                  disabled={!newComment.trim() || submittingComment}
+                  className="px-4 py-2 bg-media-pearl-aqua text-white rounded-lg hover:bg-media-berry-crush transition-colors disabled:opacity-50 flex items-center gap-2"
+                >
+                  <Send className="w-4 h-4" />
+                  {submittingComment ? 'Posting...' : 'Post'}
+                </button>
+              </div>
+
+              {/* Comments List */}
+              <div className="space-y-3">
+                {comments.length > 0 ? (
+                  comments.map((comment, index) => (
+                    <div key={comment.commentId || index} className="p-3 bg-media-frozen-water/30 rounded-lg">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-semibold text-media-berry-crush">
+                          {commentUsers[comment.userId] || 'Loading...'}
+                        </span>
+                      </div>
+                      <p className="text-media-dark-raspberry">{comment.text || comment}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-media-dark-raspberry/60 text-center py-4">
+                    No comments yet. Be the first to comment!
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -19,11 +19,12 @@ interface CreatePostModalProps {
   isOpen: boolean;
   onClose: () => void;
   onPostCreated?: () => void;
+  defaultCategory?: string;
 }
 
 type TabType = "post" | "review";
 
-export default function CreatePostModal({ isOpen, onClose, onPostCreated }: CreatePostModalProps) {
+export default function CreatePostModal({ isOpen, onClose, onPostCreated, defaultCategory }: CreatePostModalProps) {
   const { isAuthenticated } = useAuth();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<TabType>("post");
@@ -35,6 +36,12 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Movie-specific fields
+  const [director, setDirector] = useState("");
+  const [genre, setGenre] = useState("");
+  const [year, setYear] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleAddTag = () => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
@@ -61,10 +68,23 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
     try {
       setIsSubmitting(true);
       
+      let postContent = content.trim();
+      
+      // For movie category, create structured content
+      if (defaultCategory === "movie") {
+        const movieData = {
+          director: director.trim(),
+          genre: genre.trim(),
+          year: year.trim(),
+          description: description.trim()
+        };
+        postContent = JSON.stringify(movieData);
+      }
+      
       const postData = {
         title: title.trim(),
-        content: content.trim(),
-        category: activeTab === "review" ? "review" : "general"
+        content: postContent,
+        category: defaultCategory || (activeTab === "review" ? "review" : "general")
       };
 
       await contentApi.createPost(postData);
@@ -79,6 +99,10 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
       setSpoiler(false);
       setTags([]);
       setTagInput("");
+      setDirector("");
+      setGenre("");
+      setYear("");
+      setDescription("");
       
       onPostCreated?.();
       onClose();
@@ -172,18 +196,75 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
               />
             </div>
 
-            {/* Content Area */}
-            <div>
-              <label className="block text-sm font-medium text-media-dark-raspberry mb-2">
-                {activeTab === "review" ? "Your Review" : "Content"}
-              </label>
-              <textarea
-                placeholder="Share your thoughts, reviews, or start a discussion here..."
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                className="w-full px-4 py-3 rounded-2xl border-2 border-media-frozen-water focus:border-media-pearl-aqua focus:outline-none focus:ring-2 focus:ring-media-pearl-aqua/20 focus:shadow-lg smooth-all resize-none h-40"
-              />
-            </div>
+            {/* Movie-specific fields */}
+            {defaultCategory === "movie" && (
+              <>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-media-dark-raspberry mb-2">
+                      Director
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Director name..."
+                      value={director}
+                      onChange={(e) => setDirector(e.target.value)}
+                      className="w-full px-4 py-3 border-b-2 border-media-frozen-water focus:border-media-pearl-aqua focus:outline-none focus:ring-2 focus:ring-media-pearl-aqua/20 smooth-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-media-dark-raspberry mb-2">
+                      Genre
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Action, Drama, etc..."
+                      value={genre}
+                      onChange={(e) => setGenre(e.target.value)}
+                      className="w-full px-4 py-3 border-b-2 border-media-frozen-water focus:border-media-pearl-aqua focus:outline-none focus:ring-2 focus:ring-media-pearl-aqua/20 smooth-all"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-media-dark-raspberry mb-2">
+                    Year
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="2024"
+                    value={year}
+                    onChange={(e) => setYear(e.target.value)}
+                    className="w-full px-4 py-3 border-b-2 border-media-frozen-water focus:border-media-pearl-aqua focus:outline-none focus:ring-2 focus:ring-media-pearl-aqua/20 smooth-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-media-dark-raspberry mb-2">
+                    Description
+                  </label>
+                  <textarea
+                    placeholder="Movie description..."
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-media-frozen-water focus:border-media-pearl-aqua focus:outline-none focus:ring-2 focus:ring-media-pearl-aqua/20 focus:shadow-lg smooth-all resize-none h-32"
+                  />
+                </div>
+              </>
+            )}
+
+            {/* Content Area - Only show for non-movie posts */}
+            {defaultCategory !== "movie" && (
+              <div>
+                <label className="block text-sm font-medium text-media-dark-raspberry mb-2">
+                  {activeTab === "review" ? "Your Review" : "Content"}
+                </label>
+                <textarea
+                  placeholder="Share your thoughts, reviews, or start a discussion here..."
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-media-frozen-water focus:border-media-pearl-aqua focus:outline-none focus:ring-2 focus:ring-media-pearl-aqua/20 focus:shadow-lg smooth-all resize-none h-40"
+                />
+              </div>
+            )}
 
             {/* Review Specifics */}
             {activeTab === "review" && (
@@ -276,7 +357,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
             </button>
             <button
               onClick={handleSubmit}
-              disabled={!title || !content || isSubmitting}
+              disabled={!title || (defaultCategory === "movie" ? (!director || !genre || !year || !description) : !content) || isSubmitting}
               className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-media-berry-crush to-media-pearl-aqua text-white font-bold hover:shadow-2xl hover:-translate-y-1 smooth-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Publishing..." : (activeTab === "review" ? "Publish Review" : "Publish Post")}

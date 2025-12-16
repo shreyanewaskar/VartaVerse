@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Search } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import FilterSidebar from "@/components/FilterSidebar";
 import MediaCard from "@/components/MediaCard";
-import { fetchMovies, fetchDefaultMovies } from "@/lib/movieApi";
+import CreateMoviePostModal from "@/components/CreateMoviePostModal";
+import { contentApi } from "@/lib/content-api";
 
 type SortBy = "popular" | "toprated" | "newreleases" | "alphabetical";
 
@@ -57,6 +58,7 @@ export default function Movies() {
   const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({});
   const [movies, setMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleFilterChange = (category: string, optionId: string, checked: boolean) => {
     setSelectedFilters((prev) => {
@@ -77,53 +79,24 @@ export default function Movies() {
     setSelectedFilters({});
   };
 
-  // Load default movies on component mount
+  const loadMovies = async () => {
+    setLoading(true);
+    try {
+      const response = await contentApi.getPosts({ category: 'movie' });
+      setMovies(response.posts || []);
+    } catch (err) {
+      console.error('Failed to load movies:', err);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const loadDefaultMovies = async () => {
-      setLoading(true);
-      try {
-        const data = await fetchDefaultMovies();
-        setMovies(data);
-      } catch (err) {
-        console.error('Default movies error:', err);
-      }
-      setLoading(false);
-    };
-    loadDefaultMovies();
+    loadMovies();
   }, []);
 
-  // Search movies when user types
-  useEffect(() => {
-    if (!searchTerm) {
-      // Load default movies when search is cleared
-      const loadDefaultMovies = async () => {
-        setLoading(true);
-        try {
-          const data = await fetchDefaultMovies();
-          setMovies(data);
-        } catch (err) {
-          console.error('Default movies error:', err);
-        }
-        setLoading(false);
-      };
-      loadDefaultMovies();
-      return;
-    }
-
-    const delayDebounce = setTimeout(async () => {
-      setLoading(true);
-      try {
-        const data = await fetchMovies(searchTerm);
-        setMovies(data);
-      } catch (err) {
-        console.error('Search error:', err);
-        setMovies([]);
-      }
-      setLoading(false);
-    }, 500);
-
-    return () => clearTimeout(delayDebounce);
-  }, [searchTerm]);
+  const handlePostCreated = () => {
+    loadMovies();
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-media-frozen-water via-white to-media-pearl-aqua/30">
@@ -159,47 +132,64 @@ export default function Movies() {
 
           {/* Main Grid */}
           <div className="flex-1 space-y-6 animate-slide-up">
-            {/* Sorting Tabs */}
-            <div className="flex gap-4 pb-4 border-b border-media-pearl-aqua/20">
-              {(["popular", "toprated", "newreleases", "alphabetical"] as const).map(
-                (tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setSortBy(tab)}
-                    className={`px-4 py-2 font-semibold capitalize relative smooth-all ${
-                      sortBy === tab
-                        ? "text-media-dark-raspberry"
-                        : "text-media-dark-raspberry/50 hover:text-media-dark-raspberry"
-                    }`}
-                  >
-                    {tab === "toprated" ? "Top Rated" : tab === "newreleases" ? "New Releases" : tab}
-                    {sortBy === tab && (
-                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-media-berry-crush to-media-pearl-aqua rounded-full" />
-                    )}
-                  </button>
-                )
-              )}
+            {/* Header with Create Button */}
+            <div className="flex justify-between items-center pb-4 border-b border-media-pearl-aqua/20">
+              <div className="flex gap-4">
+                {(["popular", "toprated", "newreleases", "alphabetical"] as const).map(
+                  (tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setSortBy(tab)}
+                      className={`px-4 py-2 font-semibold capitalize relative smooth-all ${
+                        sortBy === tab
+                          ? "text-media-dark-raspberry"
+                          : "text-media-dark-raspberry/50 hover:text-media-dark-raspberry"
+                      }`}
+                    >
+                      {tab === "toprated" ? "Top Rated" : tab === "newreleases" ? "New Releases" : tab}
+                      {sortBy === tab && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-media-berry-crush to-media-pearl-aqua rounded-full" />
+                      )}
+                    </button>
+                  )
+                )}
+              </div>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-media-berry-crush to-media-dark-raspberry text-white rounded-lg hover:shadow-lg hover:scale-105 smooth-all"
+              >
+                <Plus className="w-4 h-4" />
+                Create Movie Post
+              </button>
             </div>
 
             {/* Movies Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {loading ? (
                 <div className="col-span-full text-center py-12">
-                  <p className="text-media-dark-raspberry/70 text-lg">Searching...</p>
+                  <p className="text-media-dark-raspberry/70 text-lg">Loading movies...</p>
                 </div>
               ) : movies.length > 0 ? (
-                movies.map((movie) => (
-                  <MediaCard
-                    key={movie.imdbID}
-                    id={movie.imdbID}
-                    title={movie.Title}
-                    year={movie.Year}
-                    rating={"N/A"}
-                    genre={movie.Type}
-                    type="movie"
-                    size="medium"
-                  />
-                ))
+                movies.map((movie) => {
+                  let content;
+                  try {
+                    content = JSON.parse(movie.content);
+                  } catch {
+                    content = { year: '2024', genre: 'Drama' };
+                  }
+                  return (
+                    <MediaCard
+                      key={movie.postId}
+                      id={movie.postId}
+                      title={movie.title}
+                      year={content.year || '2024'}
+                      rating={movie.averageRating || 0}
+                      genre={content.genre || 'Drama'}
+                      type="movie"
+                      size="medium"
+                    />
+                  );
+                })
               ) : (
                 <div className="col-span-full text-center py-12">
                   <p className="text-media-dark-raspberry/50 text-lg">No movies found.</p>
@@ -209,6 +199,13 @@ export default function Movies() {
           </div>
         </div>
       </div>
+      
+      {/* Create Movie Post Modal */}
+      <CreateMoviePostModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onPostCreated={handlePostCreated}
+      />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Star, Calendar, Tv, MessageCircle, Send } from "lucide-react";
 import { contentApi } from "@/lib/content-api";
+import { userApi } from "@/lib/user-api";
 
 export default function ShowDetail() {
   const { id } = useParams<{ id: string }>();
@@ -11,6 +12,7 @@ export default function ShowDetail() {
   const [comments, setComments] = useState<any[]>([]);
   const [newComment, setNewComment] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
+  const [commentUsers, setCommentUsers] = useState<{[key: string]: string}>({});
 
   useEffect(() => {
     const loadShow = async () => {
@@ -44,7 +46,30 @@ export default function ShowDetail() {
           });
         }
         
-        setComments(commentsResponse.comments || []);
+        const commentsData = commentsResponse.comments || [];
+        setComments(commentsData);
+        
+        // Fetch usernames for all comments
+        const userPromises = commentsData.map(async (comment: any) => {
+          if (comment.userId) {
+            try {
+              const userData = await userApi.getUserById(comment.userId.toString());
+              return { userId: comment.userId, name: userData.name || userData.email || 'Anonymous' };
+            } catch (error) {
+              return { userId: comment.userId, name: 'Anonymous' };
+            }
+          }
+          return null;
+        });
+        
+        const userResults = await Promise.all(userPromises);
+        const userMap: {[key: string]: string} = {};
+        userResults.forEach(result => {
+          if (result) {
+            userMap[result.userId] = result.name;
+          }
+        });
+        setCommentUsers(userMap);
       } catch (err) {
         console.error('Failed to load show:', err);
       } finally {
@@ -168,7 +193,7 @@ export default function ShowDetail() {
                     <div key={comment.commentId || index} className="p-3 bg-media-frozen-water/30 rounded-lg">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs font-semibold text-media-berry-crush">
-                          {comment.userName || comment.userEmail || comment.user?.name || comment.user?.email || 'Anonymous'}
+                          {commentUsers[comment.userId] || 'Loading...'}
                         </span>
                       </div>
                       <p className="text-media-dark-raspberry">{comment.text || comment}</p>

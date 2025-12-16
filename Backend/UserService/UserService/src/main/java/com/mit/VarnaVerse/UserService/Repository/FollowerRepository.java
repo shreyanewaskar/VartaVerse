@@ -22,4 +22,6 @@ public interface FollowerRepository extends JpaRepository<Follower, Long> {
     // FIX: Changed 'Follower_id' to 'FollowerId'
     // Retrieves the list of users that a person follows (where 'followerId' = userId)
     List<Follower> findAllByFollowerId(long userId);
+    
+  
 }
