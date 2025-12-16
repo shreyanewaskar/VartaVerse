@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Star, Calendar, Tv, MessageCircle, Send, MoreHorizontal, Edit, Trash2 } from "lucide-react";
 import { contentApi } from "@/lib/content-api";
 import { userApi } from "@/lib/user-api";
+import { TokenManager } from "@/lib/api-client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
@@ -23,7 +24,9 @@ export default function ShowDetail() {
   const [userRating, setUserRating] = useState<number>(0);
   const [hoveredStar, setHoveredStar] = useState<number | null>(null);
   const [isRatingLoading, setIsRatingLoading] = useState(false);
-  const { user } = useAuth();
+  const [showImage, setShowImage] = useState<string | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const { user, isAuthenticated } = useAuth();
 
   const displayedRating = hoveredStar ?? userRating;
 
@@ -64,6 +67,14 @@ export default function ShowDetail() {
           setUserRating(userRating || 0);
           setEditTitle(post.title);
           setEditDescription(content.description || '');
+          
+          // Load image from localStorage if available
+          if (content.imageUrl) {
+            const imageData = localStorage.getItem(content.imageUrl);
+            if (imageData) {
+              setShowImage(imageData);
+            }
+          }
         } catch {
           const showData = {
             id: post.postId,
@@ -180,7 +191,33 @@ export default function ShowDetail() {
     }
   };
 
-  const isOwner = user?.id === show?.userId;
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      if (isAuthenticated) {
+        try {
+          const token = TokenManager.getToken();
+          if (token) {
+            const response = await fetch('http://localhost:8083/users/me', {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+            if (response.ok) {
+              const userData = await response.json();
+              setCurrentUserId(userData.id?.toString());
+            }
+          }
+        } catch (error) {
+          console.error('Failed to fetch current user:', error);
+        }
+      }
+    };
+    
+    fetchCurrentUser();
+  }, [isAuthenticated]);
+  
+  const isOwner = currentUserId && show?.userId && currentUserId === show.userId.toString();
 
   const handleRateShow = async (rating: number) => {
     if (!user) {
@@ -234,42 +271,113 @@ export default function ShowDetail() {
 
         {/* Show Details */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-          <div className="p-8">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-media-powder-blush to-media-pearl-aqua flex items-center justify-center">
-                  <Tv className="w-8 h-8 text-white" />
-                </div>
-                <div>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      value={editTitle}
-                      onChange={(e) => setEditTitle(e.target.value)}
-                      className="text-3xl font-bold text-media-dark-raspberry mb-2 border-2 border-media-pearl-aqua rounded-lg px-3 py-1 focus:outline-none focus:border-media-berry-crush"
-                    />
-                  ) : (
-                    <h1 className="text-3xl font-bold text-media-dark-raspberry mb-2">
-                      {show.title}
-                    </h1>
+          {/* Show Image */}
+          {showImage && (
+            <div className="relative h-80 overflow-hidden">
+              <img
+                src={showImage}
+                alt={show.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              {isOwner && (
+                <div className="absolute top-4 right-4">
+                  <button
+                    onClick={() => setShowMenu(!showMenu)}
+                    className="p-3 rounded-full bg-white/90 backdrop-blur-sm border-2 border-white/50 text-media-dark-raspberry hover:bg-white transition-all shadow-lg"
+                  >
+                    <MoreHorizontal className="w-6 h-6" />
+                  </button>
+                  
+                  {showMenu && (
+                    <div className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-media-pearl-aqua/30 z-20 min-w-[160px] overflow-hidden">
+                      <button
+                        onClick={() => {
+                          setShowMenu(false);
+                          setIsEditing(true);
+                        }}
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-media-dark-raspberry hover:bg-gradient-to-r hover:from-media-pearl-aqua/10 hover:to-media-powder-blush/10 w-full text-left transition-all duration-200"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-media-pearl-aqua to-media-powder-blush flex items-center justify-center">
+                          <Edit className="w-4 h-4 text-white" />
+                        </div>
+                        <span>Edit Show</span>
+                      </button>
+                      <div className="h-px bg-gradient-to-r from-transparent via-media-pearl-aqua/20 to-transparent mx-2"></div>
+                      <button
+                        onClick={() => {
+                          setShowMenu(false);
+                          handleDeleteShow();
+                        }}
+                        className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 w-full text-left transition-all duration-200"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center">
+                          <Trash2 className="w-4 h-4 text-white" />
+                        </div>
+                        <span>Delete Show</span>
+                      </button>
+                    </div>
                   )}
-                  <div className="flex items-center gap-4 text-sm text-media-dark-raspberry/70">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {show.year}
+                </div>
+              )}
+              <div className="absolute bottom-6 left-8 text-white">
+                <h1 className="text-4xl font-bold mb-2">{show.title}</h1>
+                <div className="flex items-center gap-4 text-sm">
+                  <div className="flex items-center gap-1">
+                    <Calendar className="w-4 h-4" />
+                    {show.year}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    {show.rating.toFixed(1)}/5
+                  </div>
+                  <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs font-semibold">
+                    {show.genre}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          <div className="p-8">
+            {!showImage && (
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-media-powder-blush to-media-pearl-aqua flex items-center justify-center">
+                    <Tv className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={editTitle}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                        className="text-3xl font-bold text-media-dark-raspberry mb-2 border-2 border-media-pearl-aqua rounded-lg px-3 py-1 focus:outline-none focus:border-media-berry-crush"
+                      />
+                    ) : (
+                      <h1 className="text-3xl font-bold text-media-dark-raspberry mb-2">
+                        {show.title}
+                      </h1>
+                    )}
+                    <div className="flex items-center gap-4 text-sm text-media-dark-raspberry/70">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {show.year}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Star className="w-4 h-4 fill-media-powder-blush text-media-powder-blush" />
+                        {show.rating.toFixed(1)}/5
+                      </div>
+                      <span className="px-2 py-1 rounded-full bg-media-pearl-aqua/20 text-media-dark-raspberry text-xs font-semibold">
+                        {show.genre}
+                      </span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 fill-media-powder-blush text-media-powder-blush" />
-                      {show.rating.toFixed(1)}/5
-                    </div>
-                    <span className="px-2 py-1 rounded-full bg-media-pearl-aqua/20 text-media-dark-raspberry text-xs font-semibold">
-                      {show.genre}
-                    </span>
                   </div>
                 </div>
               </div>
+            )}
               
-              {isOwner && (
+              {isOwner && !showImage && (
                 <div className="relative">
                   <button
                     onClick={() => setShowMenu(!showMenu)}
@@ -309,8 +417,21 @@ export default function ShowDetail() {
                   )}
                 </div>
               )}
-            </div>
+              
 
+
+            {/* Title for shows with images */}
+            {showImage && isEditing && (
+              <div className="mb-6">
+                <input
+                  type="text"
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  className="text-3xl font-bold text-media-dark-raspberry mb-2 border-2 border-media-pearl-aqua rounded-lg px-3 py-1 focus:outline-none focus:border-media-berry-crush w-full"
+                />
+              </div>
+            )}
+            
             <div className="space-y-6">
               <div>
                 <h3 className="font-semibold text-media-dark-raspberry mb-3">Rate this Show</h3>

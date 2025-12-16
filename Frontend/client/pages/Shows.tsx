@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, Plus, X } from "lucide-react";
+import { Search, Plus, X, Upload, Image } from "lucide-react";
 import FilterSidebar from "@/components/FilterSidebar";
 import MediaCard from "@/components/MediaCard";
 import { contentApi } from "@/lib/content-api";
@@ -70,6 +70,8 @@ export default function Shows() {
   const [genre, setGenre] = useState("");
   const [year, setYear] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [createdShows, setCreatedShows] = useState<any[]>([]);
   const [showPosts, setShowPosts] = useState<any[]>([]);
   const [allShows, setAllShows] = useState<any[]>([]);
@@ -77,6 +79,8 @@ export default function Shows() {
   const [loadingPosts, setLoadingPosts] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
+
+
 
   const handleFilterChange = (category: string, optionId: string, checked: boolean) => {
     setSelectedFilters((prev) => {
@@ -184,15 +188,70 @@ export default function Shows() {
     setFilteredShows(filtered);
   }, [allShows, selectedFilters, searchTerm]);
 
+  const compressImage = (file: File, maxWidth: number = 800, quality: number = 0.7): Promise<string> => {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d')!;
+      const img = document.createElement('img');
+      
+      img.onload = () => {
+        const ratio = Math.min(maxWidth / img.width, maxWidth / img.height);
+        canvas.width = img.width * ratio;
+        canvas.height = img.height * ratio;
+        
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+        URL.revokeObjectURL(img.src);
+      };
+      
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({ title: "Image too large. Please select an image under 5MB.", variant: "destructive" });
+        return;
+      }
+      
+      setSelectedImage(file);
+      try {
+        const compressedImage = await compressImage(file);
+        setImagePreview(compressedImage);
+      } catch (error) {
+        console.error('Failed to compress image:', error);
+        toast({ title: "Failed to process image", variant: "destructive" });
+      }
+    }
+  };
+
   const handleCreatePost = async () => {
     if (!title.trim() || !description.trim() || !user?.id) return;
     
     try {
       setIsSubmitting(true);
+      
+      let imageKey = null;
+      if (selectedImage && imagePreview) {
+        imageKey = `show-image-${Date.now()}`;
+        try {
+          localStorage.setItem(imageKey, imagePreview);
+        } catch (error) {
+          if (error instanceof DOMException && error.code === 22) {
+            toast({ title: "Storage full. Please clear some space and try again.", variant: "destructive" });
+            return;
+          }
+          throw error;
+        }
+      }
+      
       const showContent = JSON.stringify({
         description: description.trim(),
         genre: genre.trim() || "Drama",
-        year: year.trim() || "2024"
+        year: year.trim() || "2024",
+        imageUrl: imageKey
       });
       
       await contentApi.createPost({
@@ -218,6 +277,8 @@ export default function Shows() {
       setDescription("");
       setGenre("");
       setYear("");
+      setSelectedImage(null);
+      setImagePreview(null);
       setShowCreateModal(false);
       // Reload posts to get the latest from backend
       setTimeout(() => {
@@ -395,6 +456,39 @@ export default function Shows() {
                 </div>
               </div>
               
+              <div>
+                <label className="block text-sm font-medium text-media-dark-raspberry mb-2">
+                  Show Image
+                </label>
+                <div className="border-2 border-dashed border-media-frozen-water rounded-xl p-4">
+                  {imagePreview ? (
+                    <div className="relative">
+                      <img src={imagePreview} alt="Preview" className="w-full h-32 object-cover rounded-lg" />
+                      <button
+                        onClick={() => {
+                          setSelectedImage(null);
+                          setImagePreview(null);
+                        }}
+                        className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="cursor-pointer flex flex-col items-center gap-2 text-media-dark-raspberry/60 hover:text-media-dark-raspberry">
+                      <Upload className="w-8 h-8" />
+                      <span className="text-sm font-medium">Click to upload image</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                </div>
+              </div>
+              
               <div className="flex gap-3 pt-4">
                 <button
                   onClick={() => setShowCreateModal(false)}
@@ -405,9 +499,14 @@ export default function Shows() {
                 <button
                   onClick={handleCreatePost}
                   disabled={!title.trim() || !description.trim() || isSubmitting}
-                  className="flex-1 px-4 py-2 bg-media-pearl-aqua text-white rounded-lg hover:bg-media-berry-crush disabled:opacity-50"
+                  className="flex-1 px-4 py-2 bg-media-pearl-aqua text-white rounded-lg hover:bg-media-berry-crush disabled:opacity-50 flex items-center justify-center gap-2"
                 >
-                  {isSubmitting ? 'Creating...' : 'Create Post'}
+                  {isSubmitting ? 'Creating...' : (
+                    <>
+                      <Plus className="w-4 h-4" />
+                      Create Post
+                    </>
+                  )}
                 </button>
               </div>
             </div>

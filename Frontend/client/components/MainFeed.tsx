@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Heart, MessageCircle, Star, MoreHorizontal, Edit, Trash2 } from "lucide-react";
+import { Heart, MessageCircle, Star, MoreHorizontal, Edit, Trash2, Bookmark } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { contentApi } from "@/lib/content-api";
 import { userApi } from "@/lib/user-api";
+import { TokenManager } from "@/lib/api-client";
 import { Post } from "@/lib/types";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
@@ -29,7 +30,7 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likesCount || 0);
-  const [commentsCount, setCommentsCount] = useState(post.commentsCount || 0);
+  const [commentsCount, setCommentsCount] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
   const [authorName, setAuthorName] = useState('Loading...');
   const [isEditing, setIsEditing] = useState(false);
@@ -37,8 +38,45 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
   const [editContent, setEditContent] = useState('');
   const [editLoading, setEditLoading] = useState(false);
   
-  const isOwner = user?.id === post.userId;
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      if (isAuthenticated) {
+        try {
+          const token = TokenManager.getToken();
+          if (token) {
+            const response = await fetch('http://localhost:8083/users/me', {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+            if (response.ok) {
+              const userData = await response.json();
+              setCurrentUserId(userData.id?.toString());
+            }
+          }
+        } catch (error) {
+          console.error('Failed to fetch current user:', error);
+        }
+      }
+    };
+    
+    fetchCurrentUser();
+  }, [isAuthenticated]);
+  
+  const isOwner = currentUserId && post.userId && currentUserId === post.userId.toString();
   const following = followingUsers[post.userId?.toString() || ''] || false;
+  
+  // Debug logging
+  console.log('Ownership check:', {
+    currentUserId,
+    postUserId: post.userId,
+    postUserIdString: post.userId?.toString(),
+    isOwner,
+    showMenu
+  });
 
   useEffect(() => {
     const fetchAuthorName = async () => {
@@ -52,11 +90,47 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
         }
       }
     };
+    
+    const checkLikeStatus = async () => {
+      if (isAuthenticated && post.id) {
+        try {
+          const response = await fetch(`http://localhost:8082/posts/${post.id}/liked`, {
+            headers: {
+              'Authorization': `Bearer ${TokenManager.getToken()}`,
+              'Content-Type': 'application/json'
+            }
+          });
+          if (response.ok) {
+            const isLiked = await response.json();
+            setLiked(isLiked);
+          }
+        } catch (error) {
+          console.error('Failed to check like status:', error);
+        }
+      }
+    };
+    
+    const fetchCommentCount = async () => {
+      if (post.id) {
+        try {
+          const response = await fetch(`http://localhost:8082/posts/${post.id}/comments/count`);
+          if (response.ok) {
+            const count = await response.json();
+            setCommentsCount(count);
+          }
+        } catch (error) {
+          console.error('Failed to fetch comment count:', error);
+        }
+      }
+    };
+    
     fetchAuthorName();
+    checkLikeStatus();
+    fetchCommentCount();
     
     // Set initial edit content
     setEditContent(parsedContent.text || post.content || '');
-  }, [post.userId, post.content]);
+  }, [post.userId, post.content, post.id, isAuthenticated]);
 
   // Parse content to extract image and text
   let parsedContent = { text: post.content, imageUrl: null };
@@ -456,23 +530,7 @@ function PostCard({ post, onPostDeleted, followingUsers, onFollowChange }: {
           </span>
         </div>
 
-        {/* Rating */}
-        <div className="flex items-center gap-2 mb-4">
-          <div className="flex gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={`star-${post.id}-${i}`}
-                className={cn(
-                  "w-4 h-4",
-                  i < Math.floor(displayPost.rating)
-                    ? "fill-media-powder-blush text-media-powder-blush"
-                    : "text-media-frozen-water"
-                )}
-              />
-            ))}
-          </div>
-          <span className="text-sm font-semibold text-media-dark-raspberry">{displayPost.rating}</span>
-        </div>
+
 
 
 

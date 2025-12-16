@@ -11,4 +11,6 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
 
     // Check if a user has liked a specific post
     Optional<Like> findByPostIdAndUserId(Long postId, Long userId);
+    
+    boolean existsByPostIdAndUserId(Long postId, Long userId);
 }

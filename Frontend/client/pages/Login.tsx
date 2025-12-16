@@ -64,7 +64,7 @@ export default function Login() {
               <div className="flex justify-center mb-8">
                 <Link to="/" className="group">
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-media-berry-crush to-media-dark-raspberry flex items-center justify-center transform group-hover:scale-110 smooth-all shadow-lg">
-                    <span className="text-white font-bold text-xl">M</span>
+                    <span className="text-white font-bold text-xl">V</span>
                   </div>
                 </Link>
               </div>

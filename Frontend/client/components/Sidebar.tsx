@@ -17,7 +17,6 @@ const navItems: NavItem[] = [
   { id: "shows", label: "Shows", icon: <Tv className="w-5 h-5" />, href: "/shows" },
   { id: "books", label: "Books", icon: <BookOpen className="w-5 h-5" />, href: "/books" },
   { id: "nostalgic-books", label: "Nostalgic Reads", icon: <Sparkles className="w-5 h-5" />, href: "/nostalgic-books" },
-  { id: "bookmarks", label: "Bookmarks", icon: <Bookmark className="w-5 h-5" />, href: "/bookmarks" },
 ];
 
 export default function Sidebar() {
@@ -33,7 +32,7 @@ export default function Sidebar() {
     if (path === "/shows") return "shows";
     if (path === "/books") return "books";
     if (path === "/nostalgic-books") return "nostalgic-books";
-    if (path === "/bookmarks") return "bookmarks";
+
     return "home";
   };
 

@@ -11,6 +11,7 @@ export default function Explore() {
   const [trendingMovies, setTrendingMovies] = useState<any[]>([]);
   const [trendingBooks, setTrendingBooks] = useState<any[]>([]);
   const [trendingShows, setTrendingShows] = useState<any[]>([]);
+  const [newPosts, setNewPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<{movies: any[], books: any[], shows: any[]}>({ movies: [], books: [], shows: [] });
@@ -114,6 +115,21 @@ export default function Explore() {
         setTrendingMovies(movies);
         setTrendingBooks(books);
         setTrendingShows(shows);
+        
+        // Load new posts (last 4 days)
+        const allPostsResponse = await contentApi.getPosts({ category: 'general', limit: 50 });
+        const currentDate = new Date();
+        const fourDaysAgo = new Date(currentDate.getTime() - (4 * 24 * 60 * 60 * 1000));
+        
+        const recentPosts = (allPostsResponse.posts || []).filter(post => {
+          const createdAt = new Date(post.createdAt || post.created_at);
+          return createdAt >= fourDaysAgo;
+        }).map(post => ({
+          ...post,
+          id: post.id || post.postId
+        }));
+        
+        setNewPosts(recentPosts);
       } catch (error) {
         console.error('Failed to load content:', error);
       } finally {
@@ -124,71 +140,38 @@ export default function Explore() {
     loadContent();
   }, []);
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = (query: string) => {
     if (!query.trim()) {
       setSearchResults({ movies: [], books: [], shows: [] });
       return;
     }
 
-    try {
-      setIsSearching(true);
-      
-      // Search across all categories
-      const [movieResults, bookResults, showResults] = await Promise.all([
-        contentApi.searchPosts({ query: query.trim(), category: 'movie' }).catch(() => ({ posts: [] })),
-        contentApi.searchPosts({ query: query.trim(), category: 'book' }).catch(() => ({ posts: [] })),
-        contentApi.searchPosts({ query: query.trim(), category: 'show' }).catch(() => ({ posts: [] }))
-      ]);
-      
-      const allPosts = [
-        ...(movieResults.posts || []),
-        ...(bookResults.posts || []),
-        ...(showResults.posts || [])
-      ];
-      
-      const processResults = async (posts: any[], category: string) => {
-        return Promise.all(
-          posts.map(async (post, index) => {
-            let content;
-            try {
-              content = JSON.parse(post.content);
-            } catch {
-              content = { year: '2024' };
-            }
-
-            let avgRating = 0;
-            try {
-              avgRating = await contentApi.getAverageRating(post.id?.toString() || post.postId?.toString());
-            } catch {
-              avgRating = post.averageRating || 0;
-            }
-
-            return {
-              id: post.id || post.postId,
-              title: post.title,
-              rank: index + 1,
-              rating: avgRating,
-              year: content.year || 2024,
-              thumbnail: category === 'movie' ? '🎬' : category === 'book' ? '📚' : '📺',
-              type: category as "movie" | "show" | "book"
-            };
-          })
-        );
-      };
-      
-      const [movieItems, bookItems, showItems] = await Promise.all([
-        processResults(movieResults.posts || [], 'movie'),
-        processResults(bookResults.posts || [], 'book'),
-        processResults(showResults.posts || [], 'show')
-      ]);
-      
-      setSearchResults({ movies: movieItems, books: bookItems, shows: showItems });
-    } catch (error) {
-      console.error('Search failed:', error);
-      setSearchResults({ movies: [], books: [], shows: [] });
-    } finally {
-      setIsSearching(false);
-    }
+    setIsSearching(true);
+    
+    const searchQuery = query.toLowerCase();
+    
+    // Filter movies locally
+    const filteredMovies = trendingMovies.filter(movie => 
+      movie.title.toLowerCase().includes(searchQuery)
+    );
+    
+    // Filter books locally
+    const filteredBooks = trendingBooks.filter(book => 
+      book.title.toLowerCase().includes(searchQuery)
+    );
+    
+    // Filter shows locally
+    const filteredShows = trendingShows.filter(show => 
+      show.title.toLowerCase().includes(searchQuery)
+    );
+    
+    setSearchResults({ 
+      movies: filteredMovies, 
+      books: filteredBooks, 
+      shows: filteredShows 
+    });
+    
+    setIsSearching(false);
   };
 
   useEffect(() => {
@@ -196,7 +179,7 @@ export default function Explore() {
       handleSearch(searchTerm);
     }, 300);
     return () => clearTimeout(timeoutId);
-  }, [searchTerm]);
+  }, [searchTerm, trendingMovies, trendingBooks, trendingShows]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-media-frozen-water via-white to-media-pearl-aqua/30">
@@ -240,7 +223,7 @@ export default function Explore() {
           ))}
         </div>
 
-        {/* Search Results or Trending Carousels */}
+        {/* Content based on active tab */}
         {searchTerm ? (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-media-dark-raspberry">
@@ -273,6 +256,61 @@ export default function Explore() {
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-media-berry-crush mx-auto mb-4"></div>
             <p className="text-media-dark-raspberry/70">Loading content...</p>
+          </div>
+        ) : activeTab === "new" ? (
+          <div className="space-y-8">
+            <h2 className="text-2xl font-bold text-media-dark-raspberry">
+              New Posts (Last 4 Days)
+            </h2>
+            {newPosts.length > 0 ? (
+              <div className="space-y-8">
+                {/* New Movies */}
+                {(() => {
+                  const newMovies = newPosts.filter(post => post.category === 'movie').map((post, index) => ({
+                    id: post.id,
+                    title: post.title,
+                    rank: index + 1,
+                    rating: post.ratingAvg || 0,
+                    year: new Date(post.createdAt || post.created_at).getFullYear(),
+                    thumbnail: "🎬",
+                    type: "movie" as const
+                  }));
+                  return newMovies.length > 0 ? <TrendingCarousel title="New Movies" items={newMovies} /> : null;
+                })()}
+                
+                {/* New Books */}
+                {(() => {
+                  const newBooks = newPosts.filter(post => post.category === 'book').map((post, index) => ({
+                    id: post.id,
+                    title: post.title,
+                    rank: index + 1,
+                    rating: post.ratingAvg || 0,
+                    year: new Date(post.createdAt || post.created_at).getFullYear(),
+                    thumbnail: "📚",
+                    type: "book" as const
+                  }));
+                  return newBooks.length > 0 ? <TrendingCarousel title="New Books" items={newBooks} /> : null;
+                })()}
+                
+                {/* New Shows */}
+                {(() => {
+                  const newShows = newPosts.filter(post => post.category === 'show').map((post, index) => ({
+                    id: post.id,
+                    title: post.title,
+                    rank: index + 1,
+                    rating: post.ratingAvg || 0,
+                    year: new Date(post.createdAt || post.created_at).getFullYear(),
+                    thumbnail: "📺",
+                    type: "show" as const
+                  }));
+                  return newShows.length > 0 ? <TrendingCarousel title="New Shows" items={newShows} /> : null;
+                })()}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-media-dark-raspberry/70">No new posts from the last 4 days</p>
+              </div>
+            )}
           </div>
         ) : (
           <div className="space-y-8">

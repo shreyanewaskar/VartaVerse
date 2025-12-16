@@ -45,6 +45,8 @@ public interface PostService {
 
     Integer getUserRating(Long postId, Long userId);
     
+    boolean hasUserLikedPost(Long postId, Long userId);
+    
     long getLikesCount(Long postId);
     
     long getCommentsCount(Long postId);

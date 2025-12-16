@@ -190,6 +190,11 @@ public class PostServiceImpl implements PostService {
         post.setRatingAvg((float) avg);
         postRepository.save(post);
     }
+    
+    @Override
+    public boolean hasUserLikedPost(Long postId, Long userId) {
+        return likeRepository.existsByPostIdAndUserId(postId, userId);
+    }
 
     // --- Count ---
     @Override

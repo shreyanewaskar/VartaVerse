@@ -7,7 +7,7 @@ export default function LandingNavBar() {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-media-berry-crush to-media-dark-raspberry flex items-center justify-center transform group-hover:scale-110 smooth-all shadow-lg">
-            <span className="text-white font-bold text-lg">M</span>
+            <span className="text-white font-bold text-lg">V</span>
           </div>
           <span className="font-bold text-media-dark-raspberry group-hover:text-media-berry-crush smooth-all">
             VartaVerse

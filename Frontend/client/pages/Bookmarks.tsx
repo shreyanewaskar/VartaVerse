@@ -16,6 +16,7 @@ import {
   BookOpen,
   FileText,
   Plus,
+  Search,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -158,12 +159,28 @@ export default function Bookmarks() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<BookmarkItem | null>(null);
   const [showFolders, setShowFolders] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredBookmarks = bookmarks.filter((item) => {
+    // Search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      const matchesSearch = 
+        item.title.toLowerCase().includes(query) ||
+        item.subtitle?.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query) ||
+        item.type.toLowerCase().includes(query) ||
+        item.folder?.toLowerCase().includes(query);
+      if (!matchesSearch) return false;
+    }
+    
+    // Folder filter
     if (selectedFolder) {
       const folder = folders.find((f) => f.id === selectedFolder);
       if (folder && item.folder !== folder.name) return false;
     }
+    
+    // Category filter
     if (activeCategory === "All") return true;
     return item.type === activeCategory.toLowerCase().slice(0, -1) as BookmarkItem["type"];
   });
@@ -268,6 +285,28 @@ export default function Bookmarks() {
           </div>
         </header>
 
+        {/* Search Bar */}
+        <div className="relative">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-media-dark-raspberry/50" />
+            <input
+              type="text"
+              placeholder="Search bookmarks..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-2xl border border-white/50 bg-white/70 py-3 pl-12 pr-4 text-sm font-medium text-media-dark-raspberry placeholder-media-dark-raspberry/50 shadow-md transition focus:border-media-pearl-aqua focus:outline-none focus:ring-2 focus:ring-media-pearl-aqua/20"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-media-dark-raspberry/50 hover:bg-media-pearl-aqua/20 hover:text-media-dark-raspberry"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+        </div>
+
         {/* Category Filter Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
@@ -360,6 +399,24 @@ export default function Bookmarks() {
           </div>
         )}
 
+        {/* Search Results Info */}
+        {searchQuery && (
+          <div className="flex items-center gap-2 text-sm text-media-dark-raspberry/70">
+            <Search className="h-4 w-4" />
+            <span>
+              {sortedBookmarks.length} result{sortedBookmarks.length !== 1 ? 's' : ''} for "{searchQuery}"
+            </span>
+            {sortedBookmarks.length > 0 && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="ml-2 text-media-pearl-aqua hover:text-media-berry-crush"
+              >
+                Clear search
+              </button>
+            )}
+          </div>
+        )}
+
         {/* Content */}
         {sortedBookmarks.length === 0 ? (
           /* Empty State */
@@ -367,9 +424,14 @@ export default function Bookmarks() {
             <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-media-pearl-aqua/40 to-media-powder-blush/40 text-5xl shadow-inner">
               📑
             </div>
-            <h2 className="mb-2 text-2xl font-bold text-media-berry-crush">No bookmarks yet.</h2>
+            <h2 className="mb-2 text-2xl font-bold text-media-berry-crush">
+              {searchQuery ? 'No results found' : 'No bookmarks yet.'}
+            </h2>
             <p className="mb-6 text-center text-media-dark-raspberry/70">
-              Save posts, books, movies, or shows to revisit anytime.
+              {searchQuery 
+                ? `No bookmarks match "${searchQuery}". Try a different search term.`
+                : 'Save posts, books, movies, or shows to revisit anytime.'
+              }
             </p>
             <button
               onClick={() => navigate("/feed")}

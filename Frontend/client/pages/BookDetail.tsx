@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Star, Calendar, BookOpen, MessageCircle, Send, User, Heart, MoreHorizontal, Edit, Trash2 } from "lucide-react";
 import { contentApi } from "@/lib/content-api";
 import { userApi } from "@/lib/user-api";
+import { TokenManager } from "@/lib/api-client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
@@ -25,7 +26,8 @@ export default function BookDetail() {
   const [userRating, setUserRating] = useState<number>(0);
   const [hoveredStar, setHoveredStar] = useState<number | null>(null);
   const [isRatingLoading, setIsRatingLoading] = useState(false);
-  const { user } = useAuth();
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const { user, isAuthenticated } = useAuth();
 
   const displayedRating = hoveredStar ?? userRating;
 
@@ -182,7 +184,33 @@ export default function BookDetail() {
     }
   };
 
-  const isOwner = user?.id === book?.userId;
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      if (isAuthenticated) {
+        try {
+          const token = TokenManager.getToken();
+          if (token) {
+            const response = await fetch('http://localhost:8083/users/me', {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+            if (response.ok) {
+              const userData = await response.json();
+              setCurrentUserId(userData.id?.toString());
+            }
+          }
+        } catch (error) {
+          console.error('Failed to fetch current user:', error);
+        }
+      }
+    };
+    
+    fetchCurrentUser();
+  }, [isAuthenticated]);
+  
+  const isOwner = currentUserId && book?.userId && currentUserId === book.userId.toString();
 
   const handleRateBook = async (rating: number) => {
     if (!user) {

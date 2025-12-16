@@ -164,6 +164,13 @@ public class PostController {
         Integer rating = postService.getUserRating(postId, userId);
         return ResponseEntity.ok(rating); // will return 3 if user hasn't rated
     }
+    
+    @GetMapping("/{postId}/liked")
+    public ResponseEntity<Boolean> getLikeStatus(@PathVariable Long postId) {
+        Long userId = getUserIdFromUserService(); 
+        boolean liked = postService.hasUserLikedPost(postId, userId);
+        return ResponseEntity.ok(liked);
+    }
  
        
  
