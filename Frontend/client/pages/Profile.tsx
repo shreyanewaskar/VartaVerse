@@ -5,6 +5,7 @@ import { userApi } from "@/lib/user-api";
 import { contentApi } from "@/lib/content-api";
 import { useToast } from "@/hooks/use-toast";
 import EditProfileModal from "@/components/EditProfileModal";
+import EditPostModal from "@/components/EditPostModal";
 import {
   Bell,
   Search,
@@ -27,6 +28,8 @@ import {
   Instagram,
   Twitter,
   LogOut,
+  MoreVertical,
+  Trash2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -144,6 +147,9 @@ export default function Profile() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [userPosts, setUserPosts] = useState<any[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  const [showPostMenu, setShowPostMenu] = useState<string | null>(null);
+  const [editingPost, setEditingPost] = useState<any>(null);
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
 
   const handleLogout = () => {
     logout();
@@ -162,6 +168,14 @@ export default function Profile() {
 
   const userInitials = user?.name ? getUserInitials(user.name) : 'U';
   const displayName = user?.name || 'User';
+  
+  // Load profile photo from localStorage on component mount
+  useEffect(() => {
+    const savedPhoto = localStorage.getItem(`profile_photo_${user?.id}`);
+    if (savedPhoto) {
+      setProfilePhoto(savedPhoto);
+    }
+  }, [user?.id]);
 
   // Fetch user data and posts
   useEffect(() => {
@@ -204,6 +218,63 @@ export default function Profile() {
 
     fetchUserData();
   }, [user?.id, toast]);
+  
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const photoData = event.target?.result as string;
+        setProfilePhoto(photoData);
+        // Store in localStorage with user ID
+        localStorage.setItem(`profile_photo_${user?.id}`, photoData);
+        toast({ title: 'Profile photo updated successfully!' });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    if (!confirm('Are you sure you want to delete this post?')) return;
+    
+    try {
+      await contentApi.deletePost(postId);
+      setUserPosts(prev => prev.filter(post => (post.id || post.postId) !== postId));
+      toast({
+        title: 'Post deleted successfully'
+      });
+    } catch (error) {
+      console.error('Failed to delete post:', error);
+      toast({
+        title: 'Failed to delete post',
+        variant: 'destructive'
+      });
+    }
+  };
+
+  const handleEditPost = (post: any) => {
+    console.log('Editing post:', post);
+    setEditingPost(post);
+  };
+
+  const handlePostUpdated = () => {
+    // Refresh posts after update
+    if (user?.id) {
+      const fetchUserData = async () => {
+        try {
+          const currentUser = await userApi.getMe();
+          const allPostsData = await contentApi.getPosts({});
+          const currentUserPosts = (allPostsData.posts || []).filter(
+            post => post.userId === currentUser.id
+          );
+          setUserPosts(currentUserPosts);
+        } catch (error) {
+          console.error('Failed to refresh posts:', error);
+        }
+      };
+      fetchUserData();
+    }
+  };
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-media-frozen-water via-white to-media-pearl-aqua text-media-dark-raspberry">
@@ -267,9 +338,17 @@ export default function Profile() {
               </button>
 
               <div className="flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-sm font-semibold text-media-dark-raspberry">
-                <span className="h-8 w-8 rounded-full bg-gradient-to-br from-media-pearl-aqua to-media-powder-blush text-sm font-bold text-white flex items-center justify-center">
-                  {userInitials}
-                </span>
+                {profilePhoto ? (
+                  <img
+                    src={profilePhoto}
+                    alt="Profile"
+                    className="h-8 w-8 rounded-full object-cover"
+                  />
+                ) : (
+                  <span className="h-8 w-8 rounded-full bg-gradient-to-br from-media-pearl-aqua to-media-powder-blush text-sm font-bold text-white flex items-center justify-center">
+                    {userInitials}
+                  </span>
+                )}
                 <span>{displayName}</span>
               </div>
             </div>
@@ -283,9 +362,17 @@ export default function Profile() {
             <div className="relative group">
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-media-powder-blush to-media-pearl-aqua blur-xl opacity-60 group-hover:opacity-80 transition-opacity" />
               <div className="relative rounded-full border-4 border-media-powder-blush bg-gradient-to-br from-media-pearl-aqua to-media-powder-blush p-1 shadow-2xl transition-transform group-hover:scale-105 group-hover:shadow-[0_0_30px_rgba(255,166,158,0.6)]">
-                <div className="h-32 w-32 rounded-full bg-gradient-to-br from-media-berry-crush to-media-dark-raspberry flex items-center justify-center text-4xl font-bold text-white">
-                  {userInitials}
-                </div>
+                {profilePhoto ? (
+                  <img
+                    src={profilePhoto}
+                    alt="Profile"
+                    className="h-32 w-32 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="h-32 w-32 rounded-full bg-gradient-to-br from-media-berry-crush to-media-dark-raspberry flex items-center justify-center text-4xl font-bold text-white">
+                    {userInitials}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -309,13 +396,16 @@ export default function Profile() {
                 <Edit3 className="h-4 w-4" />
                 Edit Profile
               </button>
-              <button 
-                onClick={() => alert("Change Photo feature coming soon!")}
-                className="flex items-center gap-2 rounded-full border-2 border-media-pearl-aqua bg-white/70 px-5 py-2.5 text-sm font-semibold text-media-dark-raspberry shadow-lg shadow-media-pearl-aqua/40 transition hover:bg-media-pearl-aqua/20 hover:scale-105"
-              >
+              <label className="flex items-center gap-2 rounded-full border-2 border-media-pearl-aqua bg-white/70 px-5 py-2.5 text-sm font-semibold text-media-dark-raspberry shadow-lg shadow-media-pearl-aqua/40 transition hover:bg-media-pearl-aqua/20 hover:scale-105 cursor-pointer">
                 <ImageIcon className="h-4 w-4" />
                 Change Photo
-              </button>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  className="hidden"
+                />
+              </label>
               <button 
                 onClick={() => navigate("/settings")}
                 className="flex items-center gap-2 rounded-full border-2 border-media-pearl-aqua bg-white/70 px-5 py-2.5 text-sm font-semibold text-media-dark-raspberry shadow-lg shadow-media-pearl-aqua/40 transition hover:bg-media-pearl-aqua/20 hover:scale-105"
@@ -421,6 +511,45 @@ export default function Profile() {
                       onMouseLeave={() => setHoveredPost(null)}
                       className="group relative overflow-hidden rounded-2xl border border-white/80 bg-white p-6 shadow-lg shadow-media-frozen-water/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-media-pearl-aqua/50"
                     >
+                      {/* Post Menu */}
+                      <div className="absolute right-4 top-4 z-10">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowPostMenu(showPostMenu === postId ? null : postId);
+                          }}
+                          className="rounded-full bg-white/80 p-2 text-media-dark-raspberry transition hover:bg-white hover:shadow-md"
+                        >
+                          <MoreVertical className="h-4 w-4" />
+                        </button>
+                        {showPostMenu === postId && (
+                          <div className="absolute right-0 top-12 z-20 min-w-[120px] rounded-xl border border-white/80 bg-white/95 p-2 shadow-xl backdrop-blur-sm">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                console.log('Edit button clicked for post:', post);
+                                handleEditPost(post);
+                                setShowPostMenu(null);
+                              }}
+                              className="w-full rounded-lg px-3 py-2 text-left text-sm font-semibold text-media-dark-raspberry transition hover:bg-media-pearl-aqua/20 flex items-center gap-2"
+                            >
+                              <Edit3 className="h-4 w-4" />
+                              Edit
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeletePost(postId);
+                                setShowPostMenu(null);
+                              }}
+                              className="w-full rounded-lg px-3 py-2 text-left text-sm font-semibold text-red-600 transition hover:bg-red-50 flex items-center gap-2"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                              Delete
+                            </button>
+                          </div>
+                        )}
+                      </div>
                       <div className="mb-4 flex h-48 items-center justify-center rounded-xl bg-gradient-to-br from-media-pearl-aqua/40 to-media-powder-blush/40 text-6xl shadow-inner">
                         {post.category === 'movie' ? '🎬' : post.category === 'book' ? '📚' : post.category === 'show' ? '📺' : '📝'}
                       </div>
@@ -667,7 +796,23 @@ export default function Profile() {
             }
           }}
         />
+
+        {/* Edit Post Modal */}
+        <EditPostModal
+          isOpen={!!editingPost}
+          onClose={() => setEditingPost(null)}
+          post={editingPost}
+          onPostUpdated={handlePostUpdated}
+        />
       </div>
+      
+      {/* Click outside to close menu */}
+      {showPostMenu && (
+        <div 
+          className="fixed inset-0 z-10" 
+          onClick={() => setShowPostMenu(null)}
+        />
+      )}
     </div>
   );
 }

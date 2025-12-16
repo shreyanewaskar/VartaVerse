@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Bell,
@@ -14,6 +14,9 @@ import {
   UserPlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { contentApi } from "@/lib/content-api";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 interface MediaData {
   id: string;
@@ -254,19 +257,81 @@ const similarPosts = [
 export default function MediaDetail() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const { isAuthenticated } = useAuth();
+  const { toast } = useToast();
   
-  // Try to get from mockMediaDetails first, then generate from data
-  const media = id 
-    ? (mockMediaDetails[id] ?? generateMediaDetail(id) ?? null)
-    : null;
+  const [media, setMedia] = useState<MediaData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [liked, setLiked] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [themeMode, setThemeMode] = useState<"day" | "night">("day");
+  const [userRating, setUserRating] = useState<number>(0);
+  const [hoveredStar, setHoveredStar] = useState<number | null>(null);
+  const [commentDraft, setCommentDraft] = useState("");
+  const [isRatingLoading, setIsRatingLoading] = useState(false);
+
+  const displayedRating = hoveredStar ?? userRating;
+
+  useEffect(() => {
+    const loadPostData = async () => {
+      if (!id) return;
+      
+      try {
+        setLoading(true);
+        const post = await contentApi.getPost(id);
+        
+        // Parse content to get additional details
+        let content;
+        try {
+          content = JSON.parse(post.content);
+        } catch {
+          content = {};
+        }
+        
+        // Transform post data to MediaData format
+        const mediaData: MediaData = {
+          id: post.id?.toString() || id,
+          title: post.title,
+          year: content.year || new Date().getFullYear(),
+          type: (post.category as "movie" | "show" | "book") || "movie",
+          genre: content.genre || "Drama",
+          rating: post.averageRating || 0,
+          director: content.director || "Various Directors",
+          cast: content.cast || "Various Cast Members",
+          author: content.author || "Various Authors",
+          synopsis: content.description || post.content || "No description available."
+        };
+        
+        setMedia(mediaData);
+        setUserRating(Math.round(mediaData.rating));
+      } catch (error) {
+        console.error('Failed to load post:', error);
+        toast({ title: "Failed to load content", variant: "destructive" });
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadPostData();
+  }, [id, toast]);
   
-  // If no media found, show error or redirect
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-media-frozen-water via-white to-media-pearl-aqua/30">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-media-berry-crush mx-auto mb-4"></div>
+          <p className="text-media-dark-raspberry/70">Loading content...</p>
+        </div>
+      </div>
+    );
+  }
+  
   if (!media) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-media-frozen-water via-white to-media-pearl-aqua/30">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-media-dark-raspberry mb-4">Media Not Found</h1>
-          <p className="text-media-dark-raspberry/70 mb-6">The media you're looking for doesn't exist.</p>
+          <h1 className="text-2xl font-bold text-media-dark-raspberry mb-4">Content Not Found</h1>
+          <p className="text-media-dark-raspberry/70 mb-6">The content you're looking for doesn't exist.</p>
           <button
             onClick={() => navigate("/feed")}
             className="px-6 py-2 rounded-lg bg-gradient-to-r from-media-pearl-aqua to-media-berry-crush text-white font-semibold hover:shadow-lg smooth-all"
@@ -278,14 +343,24 @@ export default function MediaDetail() {
     );
   }
 
-  const [liked, setLiked] = useState(false);
-  const [saved, setSaved] = useState(false);
-  const [themeMode, setThemeMode] = useState<"day" | "night">("day");
-  const [userRating, setUserRating] = useState<number>(Math.round(media.rating));
-  const [hoveredStar, setHoveredStar] = useState<number | null>(null);
-  const [commentDraft, setCommentDraft] = useState("");
+  const handleRatePost = async (rating: number) => {
+    if (!isAuthenticated) {
+      toast({ title: "Please login to rate", variant: "destructive" });
+      return;
+    }
 
-  const displayedRating = hoveredStar ?? userRating;
+    try {
+      setIsRatingLoading(true);
+      await contentApi.ratePost(media.id, { ratingValue: rating });
+      setUserRating(rating);
+      toast({ title: `Rated ${rating} stars!` });
+    } catch (error) {
+      console.error('Failed to rate post:', error);
+      toast({ title: "Failed to submit rating", variant: "destructive" });
+    } finally {
+      setIsRatingLoading(false);
+    }
+  };
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-media-frozen-water via-white to-media-pearl-aqua text-media-dark-raspberry">
@@ -401,8 +476,21 @@ export default function MediaDetail() {
                 </div>
 
                 <h1 className="text-4xl font-bold text-media-dark-raspberry">
-                  {media.title}: A Soft-Focus Masterpiece on Memory & Media
+                  {media.title}
                 </h1>
+                
+                <div className="flex items-center gap-4 text-sm text-media-dark-raspberry/70">
+                  <span className="capitalize">{media.type}</span>
+                  <span>•</span>
+                  <span>{media.year}</span>
+                  <span>•</span>
+                  <span>{media.genre}</span>
+                  <span>•</span>
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 fill-media-powder-blush text-media-powder-blush" />
+                    <span className="font-semibold">{media.rating.toFixed(1)}</span>
+                  </div>
+                </div>
 
                 <p className="text-base leading-relaxed text-media-dark-raspberry/80">
                   {media.synopsis}
@@ -437,7 +525,8 @@ export default function MediaDetail() {
                         key={star}
                         onMouseEnter={() => setHoveredStar(star)}
                         onMouseLeave={() => setHoveredStar(null)}
-                        onClick={() => setUserRating(star)}
+                        onClick={() => handleRatePost(star)}
+                        disabled={isRatingLoading}
                         className="transition hover:-translate-y-0.5"
                         aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}
                       >
@@ -460,8 +549,8 @@ export default function MediaDetail() {
 
                 <div className="rounded-2xl bg-white/70 p-4 shadow-lg shadow-media-frozen-water/70">
                   <p className="text-xs uppercase tracking-wide text-media-dark-raspberry/50">Community Score</p>
-                  <p className="mt-2 text-4xl font-bold text-media-berry-crush">{ratingStats.average}</p>
-                  <p className="text-xs text-media-dark-raspberry/60">{ratingStats.totalRatings.toLocaleString()} cozy critics</p>
+                  <p className="mt-2 text-4xl font-bold text-media-berry-crush">{media.rating.toFixed(1)}</p>
+                  <p className="text-xs text-media-dark-raspberry/60">Average Rating</p>
                   <div className="mt-4 space-y-3">
                     {ratingStats.distribution.map((item) => (
                       <div key={item.label}>

@@ -41,6 +41,10 @@ public interface PostService {
     
     List<CommentResponseDTO> getCommentsByPostId(Long postId);
     
+    Double getAverageRating(Long postId);
+
+    Integer getUserRating(Long postId, Long userId);
+    
     long getLikesCount(Long postId);
     
     long getCommentsCount(Long postId);

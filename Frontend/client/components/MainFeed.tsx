@@ -634,21 +634,30 @@ export default function MainFeed() {
   const loadPosts = async (pageNum = 1) => {
     try {
       setIsLoading(true);
-      console.log('Loading posts...');
-      const response = await contentApi.getPosts({ page: pageNum, limit: 10 });
-      console.log('Raw posts from backend:', response.posts);
+      const response = await contentApi.getPosts({ category: 'general', page: pageNum, limit: 10 });
       
-      // Convert post IDs to strings (backend returns numbers)
+      // Convert post IDs to strings and sort by creation date (newest first)
       const postsWithIds = (response.posts || []).map(post => {
         const postId = post.id || post.postId;
-        console.log('Post data:', { id: postId, title: post.title });
         return {
           ...post,
           id: postId ? String(postId) : undefined
         };
-      }).filter(post => post.id); // Remove posts without IDs
-      
-      console.log('Posts with valid IDs:', postsWithIds);
+      }).filter(post => post.id) // Remove posts without IDs
+        .sort((a, b) => {
+          const getTimestamp = (post: any) => {
+            const dateStr = post.createdAt || post.created_at || post.updatedAt;
+            if (!dateStr) return 0;
+            const timestamp = new Date(dateStr).getTime();
+            return isNaN(timestamp) ? 0 : timestamp;
+          };
+          
+          const timeA = getTimestamp(a);
+          const timeB = getTimestamp(b);
+          
+          // Sort oldest first (ascending order)
+          return timeA - timeB;
+        });
       
       if (pageNum === 1) {
         setPosts(postsWithIds);
@@ -660,16 +669,12 @@ export default function MainFeed() {
       // Check follow status for all unique users
       if (isAuthenticated) {
         const userIds = [...new Set(postsWithIds.map(post => post.userId?.toString()).filter(Boolean))];
-        console.log('Checking follow status for users:', userIds);
         
         const followPromises = userIds.map(async (userId) => {
           try {
-            console.log('Checking follow status for user:', userId);
             const isFollowing = await userApi.isFollowing(userId);
-            console.log('Follow status result for user', userId, ':', isFollowing);
             return { userId, isFollowing };
           } catch (error) {
-            console.error('Failed to check follow status for user', userId, ':', error);
             return { userId, isFollowing: false };
           }
         });
@@ -679,8 +684,6 @@ export default function MainFeed() {
         followResults.forEach(({ userId, isFollowing }) => {
           followMap[userId] = isFollowing;
         });
-        
-        console.log('Final follow map:', followMap);
         
         if (pageNum === 1) {
           setFollowingUsers(followMap);

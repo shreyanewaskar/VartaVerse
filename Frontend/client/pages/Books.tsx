@@ -201,30 +201,34 @@ export default function Books() {
           setFilteredBooks(bookmarkedBooks);
         } else {
           const response = await contentApi.getPosts({ category: 'book' });
-          const bookPosts = response.posts.map(post => {
-            try {
-              const content = JSON.parse(post.content);
-              return {
-                id: post.postId,
-                title: post.title,
-                author: content.author || 'Unknown Author',
-                genre: content.genre || 'Fiction',
-                year: parseInt(content.year) || 2024,
-                rating: 4.0,
-                description: content.description || ''
-              };
-            } catch {
-              return {
-                id: post.postId,
-                title: post.title,
-                author: 'Unknown Author',
-                genre: 'Fiction',
-                year: 2024,
-                rating: 4.0,
-                description: post.content
-              };
-            }
-          });
+          const bookPosts = await Promise.all(
+            response.posts.map(async (post) => {
+              try {
+                const content = JSON.parse(post.content);
+                const avgRating = await contentApi.getAverageRating(post.id?.toString() || post.postId?.toString()).catch(() => 0);
+                return {
+                  id: post.postId,
+                  title: post.title,
+                  author: content.author || 'Unknown Author',
+                  genre: content.genre || 'Fiction',
+                  year: parseInt(content.year) || 2024,
+                  rating: avgRating,
+                  description: content.description || ''
+                };
+              } catch {
+                const avgRating = await contentApi.getAverageRating(post.id?.toString() || post.postId?.toString()).catch(() => 0);
+                return {
+                  id: post.postId,
+                  title: post.title,
+                  author: 'Unknown Author',
+                  genre: 'Fiction',
+                  year: 2024,
+                  rating: avgRating,
+                  description: post.content
+                };
+              }
+            })
+          );
           setBookPosts(bookPosts);
           const allBooksData = [...createdBooks, ...bookPosts];
           setAllBooks(allBooksData);

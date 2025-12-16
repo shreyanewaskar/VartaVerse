@@ -103,28 +103,32 @@ export default function Shows() {
       try {
         setLoadingPosts(true);
         const response = await contentApi.getPosts({ category: 'show' });
-        const showPosts = response.posts.map(post => {
-          try {
-            const content = JSON.parse(post.content);
-            return {
-              id: post.postId,
-              title: post.title,
-              description: content.description || '',
-              genre: content.genre || 'Drama',
-              year: parseInt(content.year) || 2024,
-              rating: 4.0
-            };
-          } catch {
-            return {
-              id: post.postId,
-              title: post.title,
-              description: post.content,
-              genre: 'Drama',
-              year: 2024,
-              rating: 4.0
-            };
-          }
-        });
+        const showPosts = await Promise.all(
+          response.posts.map(async (post) => {
+            try {
+              const content = JSON.parse(post.content);
+              const avgRating = await contentApi.getAverageRating(post.id?.toString() || post.postId?.toString()).catch(() => 0);
+              return {
+                id: post.postId,
+                title: post.title,
+                description: content.description || '',
+                genre: content.genre || 'Drama',
+                year: parseInt(content.year) || 2024,
+                rating: avgRating
+              };
+            } catch {
+              const avgRating = await contentApi.getAverageRating(post.id?.toString() || post.postId?.toString()).catch(() => 0);
+              return {
+                id: post.postId,
+                title: post.title,
+                description: post.content,
+                genre: 'Drama',
+                year: 2024,
+                rating: avgRating
+              };
+            }
+          })
+        );
         setShowPosts(showPosts);
         const allShowsData = [...createdShows, ...showPosts];
         setAllShows(allShowsData);

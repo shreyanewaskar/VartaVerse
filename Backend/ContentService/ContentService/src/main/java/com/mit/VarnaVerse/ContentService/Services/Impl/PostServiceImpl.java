@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mit.VarnaVerse.ContentService.Entity.Comment;
 import com.mit.VarnaVerse.ContentService.Entity.Like;
 import com.mit.VarnaVerse.ContentService.Entity.Post;
+import com.mit.VarnaVerse.ContentService.Entity.Rating;
 import com.mit.VarnaVerse.ContentService.Exception.ResourceNotFoundException;
 import com.mit.VarnaVerse.ContentService.Payloads.CommentCreateDTO;
 import com.mit.VarnaVerse.ContentService.Payloads.CommentResponseDTO;
@@ -19,6 +20,7 @@ import com.mit.VarnaVerse.ContentService.Payloads.PostResponseDTO;
 import com.mit.VarnaVerse.ContentService.Repository.CommentRepository;
 import com.mit.VarnaVerse.ContentService.Repository.LikeRepository;
 import com.mit.VarnaVerse.ContentService.Repository.PostRepository;
+import com.mit.VarnaVerse.ContentService.Repository.RatingRepository;
 import com.mit.VarnaVerse.ContentService.Services.PostService;
 
 @Service
@@ -158,12 +160,34 @@ public class PostServiceImpl implements PostService {
     }
 
     // --- Rating ---
+    
+    @Autowired
+    private RatingRepository ratingRepository;
+    
     @Override
     public void ratePost(Long postId, Long userId, int ratingValue) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new ResourceNotFoundException("Post not found."));
-        // Simplified avg (in real, track all ratings)
-        post.setRatingAvg((post.getRatingAvg() + ratingValue) / 2.0f);
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
+
+        Optional<Rating> existing = ratingRepository.findByPostIdAndUserId(postId, userId);
+
+        if (existing.isPresent()) {
+            existing.get().setRatingValue(ratingValue);
+            ratingRepository.save(existing.get());
+        } else {
+            Rating rating = new Rating();
+            rating.setPostId(postId);
+            rating.setUserId(userId);
+            rating.setRatingValue(ratingValue);
+            ratingRepository.save(rating);
+        }
+
+        double avg = ratingRepository.findByPostId(postId).stream()
+                .mapToInt(Rating::getRatingValue)
+                .average()
+                .orElse(0.0);
+
+        post.setRatingAvg((float) avg);
         postRepository.save(post);
     }
 
@@ -188,4 +212,21 @@ public class PostServiceImpl implements PostService {
                 ))
                 .collect(Collectors.toList());
     }
+    @Override
+    public Double getAverageRating(Long postId) {
+        List<Rating> ratings = ratingRepository.findByPostId(postId);
+        if (ratings.isEmpty()) return 3.0; // default rating
+        return ratings.stream()
+                      .mapToInt(Rating::getRatingValue)
+                      .average()
+                      .orElse(3.0);
+    }
+
+    @Override
+    public Integer getUserRating(Long postId, Long userId) {
+        return ratingRepository.findByPostIdAndUserId(postId, userId)
+                               .map(Rating::getRatingValue)
+                               .orElse(0); // default rating
+    }
+
 }

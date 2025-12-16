@@ -1,56 +1,223 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Search } from "lucide-react";
 import TrendingCarousel from "@/components/TrendingCarousel";
 import MainFeed from "@/components/MainFeed";
-
-const trendingMovies = [
-  { id: "m1", title: "Inception", rank: 1, rating: 4.9, year: 2010, thumbnail: "🎬", type: "movie" as const },
-  { id: "m2", title: "The Matrix", rank: 2, rating: 4.8, year: 1999, thumbnail: "🎬", type: "movie" as const },
-  { id: "m3", title: "Dune", rank: 3, rating: 4.7, year: 2021, thumbnail: "🎬", type: "movie" as const },
-  { id: "m4", title: "Oppenheimer", rank: 4, rating: 4.6, year: 2023, thumbnail: "🎬", type: "movie" as const },
-  { id: "m5", title: "Parasite", rank: 5, rating: 4.8, year: 2019, thumbnail: "🎬", type: "movie" as const },
-  { id: "m6", title: "Interstellar", rank: 6, rating: 4.9, year: 2014, thumbnail: "🎬", type: "movie" as const },
-];
-
-const trendingBooks = [
-  { id: "b1", title: "The Midnight Library", rank: 1, rating: 4.8, year: 2020, thumbnail: "📚", type: "book" as const },
-  { id: "b2", title: "Project Hail Mary", rank: 2, rating: 4.9, year: 2021, thumbnail: "📚", type: "book" as const },
-  { id: "b3", title: "Dune", rank: 3, rating: 4.7, year: 1965, thumbnail: "📚", type: "book" as const },
-  { id: "b4", title: "Project Manager", rank: 4, rating: 4.5, year: 2022, thumbnail: "📚", type: "book" as const },
-  { id: "b5", title: "Atomic Habits", rank: 5, rating: 4.8, year: 2018, thumbnail: "📚", type: "book" as const },
-];
-
-const trendingShows = [
-  { id: "s1", title: "Stranger Things", rank: 1, rating: 4.7, year: 2016, thumbnail: "📺", type: "show" as const },
-  { id: "s2", title: "The Crown", rank: 2, rating: 4.6, year: 2016, thumbnail: "📺", type: "show" as const },
-  { id: "s3", title: "Quantum Dreams", rank: 3, rating: 4.8, year: 2023, thumbnail: "📺", type: "show" as const },
-  { id: "s4", title: "Breaking Bad", rank: 4, rating: 4.9, year: 2008, thumbnail: "📺", type: "show" as const },
-  { id: "s5", title: "The Mandalorian", rank: 5, rating: 4.7, year: 2019, thumbnail: "📺", type: "show" as const },
-];
-
-const allMediaForGrid = [
-  { id: "grid1", title: "Dune: Part Two", year: 2024, rating: 4.7, genre: "Sci-Fi", type: "movie" as const },
-  { id: "grid2", title: "Killers of the Flower Moon", year: 2023, rating: 4.6, genre: "Drama", type: "movie" as const },
-  { id: "grid3", title: "Poor Things", year: 2023, rating: 4.5, genre: "Romance", type: "movie" as const },
-  { id: "grid4", title: "The Iron Widow", year: 2023, rating: 4.8, genre: "Action", type: "book" as const },
-  { id: "grid5", title: "Lessons in Chemistry", year: 2022, rating: 4.7, genre: "Fiction", type: "book" as const },
-  { id: "grid6", title: "The Silent Patient", year: 2019, rating: 4.8, genre: "Mystery", type: "book" as const },
-  { id: "grid7", title: "Avatar: The Last Airbender", year: 2024, rating: 4.6, genre: "Action", type: "show" as const },
-  { id: "grid8", title: "Wednesday", year: 2022, rating: 4.7, genre: "Comedy", type: "show" as const },
-];
+import { contentApi } from "@/lib/content-api";
 
 type FilterTab = "all" | "trending" | "new" | "reviews";
 
 export default function Explore() {
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
+  const [trendingMovies, setTrendingMovies] = useState<any[]>([]);
+  const [trendingBooks, setTrendingBooks] = useState<any[]>([]);
+  const [trendingShows, setTrendingShows] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState<{movies: any[], books: any[], shows: any[]}>({ movies: [], books: [], shows: [] });
+  const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch movies with ratings
+        const moviesResponse = await contentApi.getPosts({ category: 'movie', limit: 6 });
+        const movies = await Promise.all(
+          (moviesResponse.posts || []).map(async (post, index) => {
+            let content;
+            try {
+              content = JSON.parse(post.content);
+            } catch {
+              content = { year: '2024' };
+            }
+            
+            let avgRating = 0;
+            try {
+              avgRating = await contentApi.getAverageRating(post.id?.toString() || post.postId?.toString());
+            } catch {
+              avgRating = post.averageRating || 0;
+            }
+            
+            return {
+              id: post.id || post.postId,
+              title: post.title,
+              rank: index + 1,
+              rating: avgRating,
+              year: content.year || 2024,
+              thumbnail: "🎬",
+              type: "movie" as const
+            };
+          })
+        );
+        
+        // Fetch books with ratings
+        const booksResponse = await contentApi.getPosts({ category: 'book', limit: 6 });
+        const books = await Promise.all(
+          (booksResponse.posts || []).map(async (post, index) => {
+            let content;
+            try {
+              content = JSON.parse(post.content);
+            } catch {
+              content = { year: '2024' };
+            }
+            
+            let avgRating = 0;
+            try {
+              avgRating = await contentApi.getAverageRating(post.id?.toString() || post.postId?.toString());
+            } catch {
+              avgRating = post.averageRating || 0;
+            }
+            
+            return {
+              id: post.id || post.postId,
+              title: post.title,
+              rank: index + 1,
+              rating: avgRating,
+              year: content.year || 2024,
+              thumbnail: "📚",
+              type: "book" as const
+            };
+          })
+        );
+        
+        // Fetch shows with ratings
+        const showsResponse = await contentApi.getPosts({ category: 'show', limit: 6 });
+        const shows = await Promise.all(
+          (showsResponse.posts || []).map(async (post, index) => {
+            let content;
+            try {
+              content = JSON.parse(post.content);
+            } catch {
+              content = { year: '2024' };
+            }
+            
+            let avgRating = 0;
+            try {
+              avgRating = await contentApi.getAverageRating(post.id?.toString() || post.postId?.toString());
+            } catch {
+              avgRating = post.averageRating || 0;
+            }
+            
+            return {
+              id: post.id || post.postId,
+              title: post.title,
+              rank: index + 1,
+              rating: avgRating,
+              year: content.year || 2024,
+              thumbnail: "📺",
+              type: "show" as const
+            };
+          })
+        );
+        
+        setTrendingMovies(movies);
+        setTrendingBooks(books);
+        setTrendingShows(shows);
+      } catch (error) {
+        console.error('Failed to load content:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadContent();
+  }, []);
+
+  const handleSearch = async (query: string) => {
+    if (!query.trim()) {
+      setSearchResults({ movies: [], books: [], shows: [] });
+      return;
+    }
+
+    try {
+      setIsSearching(true);
+      
+      // Search across all categories
+      const [movieResults, bookResults, showResults] = await Promise.all([
+        contentApi.searchPosts({ query: query.trim(), category: 'movie' }).catch(() => ({ posts: [] })),
+        contentApi.searchPosts({ query: query.trim(), category: 'book' }).catch(() => ({ posts: [] })),
+        contentApi.searchPosts({ query: query.trim(), category: 'show' }).catch(() => ({ posts: [] }))
+      ]);
+      
+      const allPosts = [
+        ...(movieResults.posts || []),
+        ...(bookResults.posts || []),
+        ...(showResults.posts || [])
+      ];
+      
+      const processResults = async (posts: any[], category: string) => {
+        return Promise.all(
+          posts.map(async (post, index) => {
+            let content;
+            try {
+              content = JSON.parse(post.content);
+            } catch {
+              content = { year: '2024' };
+            }
+
+            let avgRating = 0;
+            try {
+              avgRating = await contentApi.getAverageRating(post.id?.toString() || post.postId?.toString());
+            } catch {
+              avgRating = post.averageRating || 0;
+            }
+
+            return {
+              id: post.id || post.postId,
+              title: post.title,
+              rank: index + 1,
+              rating: avgRating,
+              year: content.year || 2024,
+              thumbnail: category === 'movie' ? '🎬' : category === 'book' ? '📚' : '📺',
+              type: category as "movie" | "show" | "book"
+            };
+          })
+        );
+      };
+      
+      const [movieItems, bookItems, showItems] = await Promise.all([
+        processResults(movieResults.posts || [], 'movie'),
+        processResults(bookResults.posts || [], 'book'),
+        processResults(showResults.posts || [], 'show')
+      ]);
+      
+      setSearchResults({ movies: movieItems, books: bookItems, shows: showItems });
+    } catch (error) {
+      console.error('Search failed:', error);
+      setSearchResults({ movies: [], books: [], shows: [] });
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      handleSearch(searchTerm);
+    }, 300);
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-media-frozen-water via-white to-media-pearl-aqua/30">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-8">
         {/* Header */}
         <div className="animate-fade-in">
-          <h1 className="text-4xl md:text-5xl font-bold text-media-dark-raspberry mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-media-dark-raspberry mb-6">
             Explore VartaVerse
           </h1>
+          
+          {/* Search Bar */}
+          <div className="relative mb-6">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-media-dark-raspberry/50" />
+            <input
+              type="text"
+              placeholder="Search movies, books, shows..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-media-frozen-water focus:border-media-pearl-aqua focus:ring-2 focus:ring-media-pearl-aqua/20 focus:outline-none smooth-all text-lg"
+            />
+          </div>
         </div>
 
         {/* Category Tabs */}
@@ -73,12 +240,47 @@ export default function Explore() {
           ))}
         </div>
 
-        {/* Trending Carousels */}
-        <div className="space-y-8">
-          <TrendingCarousel title="Trending Movies Now" items={trendingMovies} />
-          <TrendingCarousel title="Popular Books This Week" items={trendingBooks} />
-          <TrendingCarousel title="New Shows to Binge" items={trendingShows} />
-        </div>
+        {/* Search Results or Trending Carousels */}
+        {searchTerm ? (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-media-dark-raspberry">
+              Search Results for "{searchTerm}"
+            </h2>
+            {isSearching ? (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-media-berry-crush mx-auto mb-4"></div>
+                <p className="text-media-dark-raspberry/70">Searching...</p>
+              </div>
+            ) : (searchResults.movies.length > 0 || searchResults.books.length > 0 || searchResults.shows.length > 0) ? (
+              <div className="space-y-8">
+                {searchResults.movies.length > 0 && (
+                  <TrendingCarousel title="Movies" items={searchResults.movies} />
+                )}
+                {searchResults.books.length > 0 && (
+                  <TrendingCarousel title="Books" items={searchResults.books} />
+                )}
+                {searchResults.shows.length > 0 && (
+                  <TrendingCarousel title="Shows" items={searchResults.shows} />
+                )}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-media-dark-raspberry/70">No results found for "{searchTerm}"</p>
+              </div>
+            )}
+          </div>
+        ) : loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-media-berry-crush mx-auto mb-4"></div>
+            <p className="text-media-dark-raspberry/70">Loading content...</p>
+          </div>
+        ) : (
+          <div className="space-y-8">
+            <TrendingCarousel title="Trending Movies Now" items={trendingMovies} />
+            <TrendingCarousel title="Popular Books This Week" items={trendingBooks} />
+            <TrendingCarousel title="New Shows to Binge" items={trendingShows} />
+          </div>
+        )}
 
         {/* Personalized Feed Section */}
         <div className="space-y-6 animate-slide-up">

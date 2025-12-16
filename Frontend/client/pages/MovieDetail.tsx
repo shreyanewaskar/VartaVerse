@@ -22,7 +22,12 @@ export default function MovieDetail() {
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [editLoading, setEditLoading] = useState(false);
+  const [userRating, setUserRating] = useState<number>(0);
+  const [hoveredStar, setHoveredStar] = useState<number | null>(null);
+  const [isRatingLoading, setIsRatingLoading] = useState(false);
   const { user } = useAuth();
+
+  const displayedRating = hoveredStar ?? userRating;
 
   useEffect(() => {
     const loadMovie = async () => {
@@ -35,6 +40,17 @@ export default function MovieDetail() {
           contentApi.getComments(id)
         ]);
         
+        // Fetch user rating separately if authenticated
+        let userRating = 0;
+        if (user) {
+          try {
+            userRating = await contentApi.getUserRating(id);
+          } catch (error) {
+            console.log('Could not fetch user rating:', error);
+            userRating = 0;
+          }
+        }
+        
         try {
           const content = JSON.parse(post.content);
           const imageUrl = content.imageUrl ? localStorage.getItem(content.imageUrl) : null;
@@ -45,10 +61,11 @@ export default function MovieDetail() {
             description: content.description || '',
             genre: content.genre || 'Drama',
             year: parseInt(content.year) || 2024,
-            rating: 4.0,
+            rating: post.averageRating || 0,
             imageUrl: imageUrl,
             userId: post.userId
           };
+          setUserRating(userRating || 0);
           setMovie(movieData);
           setEditTitle(post.title);
           setEditDescription(content.description || '');
@@ -60,10 +77,11 @@ export default function MovieDetail() {
             description: post.content,
             genre: 'Drama',
             year: 2024,
-            rating: 4.0,
+            rating: post.averageRating || 0,
             imageUrl: null,
             userId: post.userId
           };
+          setUserRating(userRating || 0);
           setMovie(movieData);
           setEditTitle(post.title);
           setEditDescription(post.content);
@@ -174,6 +192,28 @@ export default function MovieDetail() {
 
   const isOwner = user?.id === movie?.userId;
 
+  const handleRateMovie = async (rating: number) => {
+    if (!user) {
+      toast.error("Please login to rate movies");
+      return;
+    }
+
+    if (!id) return;
+
+    try {
+      setIsRatingLoading(true);
+      await contentApi.ratePost(id, { ratingValue: rating });
+      setUserRating(rating);
+      setMovie(prev => ({ ...prev, rating: rating }));
+      toast.success(`Rated ${rating} stars!`);
+    } catch (error) {
+      console.error('Failed to rate movie:', error);
+      toast.error("Failed to submit rating");
+    } finally {
+      setIsRatingLoading(false);
+    }
+  };
+
   const handleAddComment = async () => {
     if (!newComment.trim() || !id) return;
     
@@ -259,8 +299,8 @@ export default function MovieDetail() {
                         {movie.year}
                       </div>
                       <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4" />
-                        {movie.rating}/5
+                        <Star className="w-4 h-4 fill-media-powder-blush text-media-powder-blush" />
+                        {movie.rating.toFixed(1)}/5
                       </div>
                       <span className="px-2 py-1 rounded-full bg-media-pearl-aqua/20 text-media-dark-raspberry text-xs font-semibold">
                         {movie.genre}
@@ -325,6 +365,33 @@ export default function MovieDetail() {
               </div>
 
             <div className="space-y-6">
+              <div>
+                <h3 className="font-semibold text-media-dark-raspberry mb-3">Rate this Movie</h3>
+                <div className="flex items-center gap-2 mb-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      onMouseEnter={() => setHoveredStar(star)}
+                      onMouseLeave={() => setHoveredStar(null)}
+                      onClick={() => handleRateMovie(star)}
+                      disabled={isRatingLoading}
+                      className="transition hover:-translate-y-0.5 disabled:opacity-50"
+                    >
+                      <Star
+                        className={`h-5 w-5 ${
+                          star <= displayedRating
+                            ? "fill-media-powder-blush text-media-powder-blush"
+                            : "text-media-berry-crush/20"
+                        }`}
+                      />
+                    </button>
+                  ))}
+                  <span className="ml-2 text-sm text-media-dark-raspberry">
+                    {displayedRating > 0 ? `${displayedRating}/5` : "Click to rate"}
+                  </span>
+                </div>
+              </div>
+              
               <div>
                 <h3 className="font-semibold text-media-dark-raspberry mb-3">Director</h3>
                 <p className="text-media-dark-raspberry/80">{movie.director}</p>

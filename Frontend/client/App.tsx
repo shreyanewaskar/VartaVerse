@@ -23,6 +23,7 @@ import NostalgicBooks from "./pages/NostalgicBooks";
 import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
 import Bookmarks from "./pages/Bookmarks";
+import Settings from "./pages/Settings";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import MediaManagement from "./pages/MediaManagement";
@@ -73,6 +74,7 @@ export default function App() {
               <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
               <Route path="/bookmarks" element={<ProtectedRoute><Bookmarks /></ProtectedRoute>} />
+              <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
               <Route path="/media/:id" element={<ProtectedRoute><AppLayout><MediaDetail /></AppLayout></ProtectedRoute>} />
               <Route path="/movie/:id" element={<ProtectedRoute><AppLayout><MovieDetail /></AppLayout></ProtectedRoute>} />
               <Route path="/show/:id" element={<ProtectedRoute><AppLayout><ShowDetail /></AppLayout></ProtectedRoute>} />

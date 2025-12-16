@@ -25,6 +25,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
             		.requestMatchers("/posts/**").permitAll()
             		.requestMatchers("/posts/*/comments").permitAll()
+            		.requestMatchers("/posts/*/rate").permitAll()
             		.requestMatchers("/posts/movies/search").permitAll()
                 .anyRequest().authenticated()
             );

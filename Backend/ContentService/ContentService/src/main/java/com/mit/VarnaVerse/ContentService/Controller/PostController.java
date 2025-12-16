@@ -139,117 +139,32 @@ public class PostController {
     
     // ---------------------- RATE POST ----------------------
     @PostMapping("/{postId}/rate")
-    public ResponseEntity<Void> ratePost(@PathVariable Long postId, @RequestBody Map<String, Integer> ratingData) {
-        Long userId = getUserIdFromUserService();
+    public ResponseEntity<Void> ratePost(@PathVariable Long postId,@RequestBody Map<String, Integer> ratingData) {
         Integer rating = ratingData.get("ratingValue");
-        if (rating == null || rating < 1 || rating > 5) return ResponseEntity.badRequest().build();
+        if (rating == null || rating < 1 || rating > 5) {
+            return ResponseEntity.badRequest().build();
+        }
 
+        Long userId = getUserIdFromUserService();   // ✅ REAL userId
         postService.ratePost(postId, userId, rating);
+
         return ResponseEntity.ok().build();
-        
     }
-    
-    private final String OMDB_API_KEY = "2095c90f"; // your key
-    private final String OMDB_BASE_URL = "http://www.omdbapi.com/";
-
-    @GetMapping("/movies/search")
-    public ResponseEntity<String> searchMovies(@RequestParam String title) {
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-            String url = OMDB_BASE_URL + "?s=" + title + "&apikey=" + OMDB_API_KEY;
-            String response = restTemplate.getForObject(url, String.class);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("{\"error\":\"Failed to fetch movies\"}");
-        }
+ // Get average rating for a post
+    @GetMapping("/{postId}/rating")
+    public ResponseEntity<Double> getAverageRating(@PathVariable Long postId) {
+        Double avgRating = postService.getAverageRating(postId);
+        return ResponseEntity.ok(avgRating);
     }
-    @GetMapping("/movies/default")
-    public ResponseEntity<String> getDefaultMovies() {
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-            StringBuilder allMovies = new StringBuilder();
-            allMovies.append("{\"Search\": [");
 
-            // Example: Use 5 popular keywords and 10 movies per page -> 50 movies
-            String[] keywords = {"Avengers", "Batman", "Spider", "Star", "Harry"};
-            boolean first = true;
-
-            for (String keyword : keywords) {
-                for (int page = 1; page <= 2; page++) { // 2 pages per keyword = 20 movies per keyword
-                    String url = OMDB_BASE_URL + "?s=" + keyword + "&page=" + page + "&apikey=" + OMDB_API_KEY;
-                    String response = restTemplate.getForObject(url, String.class);
-
-                    // Extract movies array from response
-                    String moviesArray = response.substring(response.indexOf("[") + 1, response.lastIndexOf("]"));
-
-                    if (!moviesArray.trim().isEmpty()) {
-                        if (!first) {
-                            allMovies.append(",");
-                        }
-                        allMovies.append(moviesArray);
-                        first = false;
-                    }
-                }
-            }
-
-            allMovies.append("]}");
-
-            return ResponseEntity.ok(allMovies.toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("{\"error\":\"Failed to fetch default movies\"}");
-        }
+    // Get rating of current user for a post
+    @GetMapping("/{postId}/rating/user")
+    public ResponseEntity<Integer> getUserRating(@PathVariable Long postId) {
+        Long userId = getUserIdFromUserService(); // fetch user from JWT
+        Integer rating = postService.getUserRating(postId, userId);
+        return ResponseEntity.ok(rating); // will return 3 if user hasn't rated
     }
-    private final String GOOGLE_BOOKS_API = "https://www.googleapis.com/books/v1/volumes?q=";
-    @GetMapping("/shows/default")
-    public ResponseEntity<String> getDefaultBooks() {
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-            StringBuilder allBooks = new StringBuilder();
-            allBooks.append("{\"books\": [");
-
-            String[] keywords = {"Harry Potter", "Avengers", "Star Wars", "Batman", "Lord of the Rings"};
-            boolean first = true;
-            int count = 0;
-
-            for (String keyword : keywords) {
-                String url = GOOGLE_BOOKS_API + keyword + "&maxResults=10";
-                String response = restTemplate.getForObject(url, String.class);
-
-                // Extract "items" array manually
-                int start = response.indexOf("\"items\": [");
-                if (start != -1) {
-                    int end = response.indexOf("]", start);
-                    if (end != -1) {
-                        String itemsArray = response.substring(start + 10, end); // extract content between [ ]
-                        String[] items = itemsArray.split("\\},\\{"); // split individual books
-
-                        for (String item : items) {
-                            if (!item.startsWith("{")) item = "{" + item;
-                            if (!item.endsWith("}")) item = item + "}";
-
-                            if (!first) allBooks.append(",");
-                            allBooks.append(item);
-                            first = false;
-                            count++;
-                            if (count >= 50) break;
-                        }
-                    }
-                }
-
-                if (count >= 50) break;
-            }
-
-            allBooks.append("]}");
-            return ResponseEntity.ok(allBooks.toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("{\"error\":\"Failed to fetch default books\"}");
-        }
-    }
+ 
        
  
 }

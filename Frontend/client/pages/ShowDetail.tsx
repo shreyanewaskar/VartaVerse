@@ -20,7 +20,12 @@ export default function ShowDetail() {
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [editLoading, setEditLoading] = useState(false);
+  const [userRating, setUserRating] = useState<number>(0);
+  const [hoveredStar, setHoveredStar] = useState<number | null>(null);
+  const [isRatingLoading, setIsRatingLoading] = useState(false);
   const { user } = useAuth();
+
+  const displayedRating = hoveredStar ?? userRating;
 
   useEffect(() => {
     const loadShow = async () => {
@@ -33,6 +38,17 @@ export default function ShowDetail() {
           contentApi.getComments(id)
         ]);
         
+        // Fetch user rating separately if authenticated
+        let userRating = 0;
+        if (user) {
+          try {
+            userRating = await contentApi.getUserRating(id);
+          } catch (error) {
+            console.log('Could not fetch user rating:', error);
+            userRating = 0;
+          }
+        }
+        
         try {
           const content = JSON.parse(post.content);
           const showData = {
@@ -41,10 +57,11 @@ export default function ShowDetail() {
             description: content.description || '',
             genre: content.genre || 'Drama',
             year: parseInt(content.year) || 2024,
-            rating: 4.0,
+            rating: post.averageRating || 0,
             userId: post.userId
           };
           setShow(showData);
+          setUserRating(userRating || 0);
           setEditTitle(post.title);
           setEditDescription(content.description || '');
         } catch {
@@ -54,10 +71,11 @@ export default function ShowDetail() {
             description: post.content,
             genre: 'Drama',
             year: 2024,
-            rating: 4.0,
+            rating: post.averageRating || 0,
             userId: post.userId
           };
           setShow(showData);
+          setUserRating(userRating || 0);
           setEditTitle(post.title);
           setEditDescription(post.content);
         }
@@ -164,6 +182,28 @@ export default function ShowDetail() {
 
   const isOwner = user?.id === show?.userId;
 
+  const handleRateShow = async (rating: number) => {
+    if (!user) {
+      toast.error("Please login to rate shows");
+      return;
+    }
+
+    if (!id) return;
+
+    try {
+      setIsRatingLoading(true);
+      await contentApi.ratePost(id, { ratingValue: rating });
+      setUserRating(rating);
+      setShow(prev => ({ ...prev, rating: rating }));
+      toast.success(`Rated ${rating} stars!`);
+    } catch (error) {
+      console.error('Failed to rate show:', error);
+      toast.error("Failed to submit rating");
+    } finally {
+      setIsRatingLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-media-frozen-water via-white to-media-pearl-aqua/30 flex items-center justify-center">
@@ -219,8 +259,8 @@ export default function ShowDetail() {
                       {show.year}
                     </div>
                     <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4" />
-                      {show.rating}/5
+                      <Star className="w-4 h-4 fill-media-powder-blush text-media-powder-blush" />
+                      {show.rating.toFixed(1)}/5
                     </div>
                     <span className="px-2 py-1 rounded-full bg-media-pearl-aqua/20 text-media-dark-raspberry text-xs font-semibold">
                       {show.genre}
@@ -272,6 +312,33 @@ export default function ShowDetail() {
             </div>
 
             <div className="space-y-6">
+              <div>
+                <h3 className="font-semibold text-media-dark-raspberry mb-3">Rate this Show</h3>
+                <div className="flex items-center gap-2 mb-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      onMouseEnter={() => setHoveredStar(star)}
+                      onMouseLeave={() => setHoveredStar(null)}
+                      onClick={() => handleRateShow(star)}
+                      disabled={isRatingLoading}
+                      className="transition hover:-translate-y-0.5 disabled:opacity-50"
+                    >
+                      <Star
+                        className={`h-5 w-5 ${
+                          star <= displayedRating
+                            ? "fill-media-powder-blush text-media-powder-blush"
+                            : "text-media-berry-crush/20"
+                        }`}
+                      />
+                    </button>
+                  ))}
+                  <span className="ml-2 text-sm text-media-dark-raspberry">
+                    {displayedRating > 0 ? `${displayedRating}/5` : "Click to rate"}
+                  </span>
+                </div>
+              </div>
+              
               <div>
                 <h3 className="font-semibold text-media-dark-raspberry mb-3">Description</h3>
                 {isEditing ? (

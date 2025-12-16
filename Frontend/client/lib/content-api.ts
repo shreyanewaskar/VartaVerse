@@ -177,6 +177,22 @@ export const contentApi = {
     });
   },
 
+  async getAverageRating(postId: string): Promise<number> {
+    logger.info('Fetching average rating', { postId });
+    return apiCall<number>(contentClient, {
+      method: 'GET',
+      url: `/posts/${postId}/rating`,
+    });
+  },
+
+  async getUserRating(postId: string): Promise<number> {
+    logger.info('Fetching user rating', { postId });
+    return apiCall<number>(contentClient, {
+      method: 'GET',
+      url: `/posts/${postId}/rating/user`,
+    });
+  },
+
   async bookmarkPost(postId: string): Promise<void> {
     logger.info('Bookmarking post', { postId });
     return apiCall<void>(contentClient, {

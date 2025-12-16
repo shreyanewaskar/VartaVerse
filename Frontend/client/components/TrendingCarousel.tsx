@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface CarouselItem {
@@ -19,6 +20,12 @@ interface TrendingCarouselProps {
 
 export default function TrendingCarousel({ title, items }: TrendingCarouselProps) {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const navigate = useNavigate();
+
+  const handleItemClick = (item: CarouselItem) => {
+    const path = `/${item.type}/${item.id}`;
+    navigate(path);
+  };
 
   const scroll = (direction: "left" | "right") => {
     const container = document.getElementById(`carousel-${title}`);
@@ -48,6 +55,7 @@ export default function TrendingCarousel({ title, items }: TrendingCarouselProps
             <div
               key={item.id}
               className="flex-shrink-0 w-64 animate-slide-up group/card cursor-pointer"
+              onClick={() => handleItemClick(item)}
             >
               {/* Card */}
               <div className="relative rounded-2xl overflow-hidden h-80 bg-gradient-to-br from-media-pearl-aqua to-media-powder-blush shadow-md hover:shadow-xl hover:-translate-y-2 smooth-all">

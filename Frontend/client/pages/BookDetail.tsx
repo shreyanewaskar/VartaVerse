@@ -22,7 +22,12 @@ export default function BookDetail() {
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [editLoading, setEditLoading] = useState(false);
+  const [userRating, setUserRating] = useState<number>(0);
+  const [hoveredStar, setHoveredStar] = useState<number | null>(null);
+  const [isRatingLoading, setIsRatingLoading] = useState(false);
   const { user } = useAuth();
+
+  const displayedRating = hoveredStar ?? userRating;
 
   useEffect(() => {
     const loadBook = async () => {
@@ -35,6 +40,17 @@ export default function BookDetail() {
           contentApi.getComments(id)
         ]);
         
+        // Fetch user rating separately if authenticated
+        let userRating = 0;
+        if (user) {
+          try {
+            userRating = await contentApi.getUserRating(id);
+          } catch (error) {
+            console.log('Could not fetch user rating:', error);
+            userRating = 0;
+          }
+        }
+        
         try {
           const content = JSON.parse(post.content);
           const bookData = {
@@ -44,10 +60,11 @@ export default function BookDetail() {
             description: content.description || '',
             genre: content.genre || 'Fiction',
             year: parseInt(content.year) || 2024,
-            rating: 4.0,
+            rating: post.averageRating || 0,
             userId: post.userId
           };
           setBook(bookData);
+          setUserRating(userRating || 0);
           setEditTitle(post.title);
           setEditDescription(content.description || '');
         } catch {
@@ -58,10 +75,11 @@ export default function BookDetail() {
             description: post.content,
             genre: 'Fiction',
             year: 2024,
-            rating: 4.0,
+            rating: post.averageRating || 0,
             userId: post.userId
           };
           setBook(bookData);
+          setUserRating(userRating || 0);
           setEditTitle(post.title);
           setEditDescription(post.content);
         }
@@ -165,6 +183,28 @@ export default function BookDetail() {
   };
 
   const isOwner = user?.id === book?.userId;
+
+  const handleRateBook = async (rating: number) => {
+    if (!user) {
+      toast.error("Please login to rate books");
+      return;
+    }
+
+    if (!id) return;
+
+    try {
+      setIsRatingLoading(true);
+      await contentApi.ratePost(id, { ratingValue: rating });
+      setUserRating(rating);
+      setBook(prev => ({ ...prev, rating: rating }));
+      toast.success(`Rated ${rating} stars!`);
+    } catch (error) {
+      console.error('Failed to rate book:', error);
+      toast.error("Failed to submit rating");
+    } finally {
+      setIsRatingLoading(false);
+    }
+  };
 
   const handleAddComment = async () => {
     if (!newComment.trim() || !id) return;
@@ -287,8 +327,8 @@ export default function BookDetail() {
                   {book.year}
                 </div>
                 <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4" />
-                  {book.rating}/5
+                  <Star className="w-4 h-4 fill-media-powder-blush text-media-powder-blush" />
+                  {book.rating.toFixed(1)}/5
                 </div>
                 <span className="px-2 py-1 rounded-full bg-media-pearl-aqua/20 text-media-dark-raspberry text-xs font-semibold">
                   {book.genre}
@@ -296,6 +336,33 @@ export default function BookDetail() {
               </div>
 
               <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold text-media-dark-raspberry mb-3">Rate this Book</h3>
+                  <div className="flex items-center gap-2 mb-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        onMouseEnter={() => setHoveredStar(star)}
+                        onMouseLeave={() => setHoveredStar(null)}
+                        onClick={() => handleRateBook(star)}
+                        disabled={isRatingLoading}
+                        className="transition hover:-translate-y-0.5 disabled:opacity-50"
+                      >
+                        <Star
+                          className={`h-5 w-5 ${
+                            star <= displayedRating
+                              ? "fill-media-powder-blush text-media-powder-blush"
+                              : "text-media-berry-crush/20"
+                          }`}
+                        />
+                      </button>
+                    ))}
+                    <span className="ml-2 text-sm text-media-dark-raspberry">
+                      {displayedRating > 0 ? `${displayedRating}/5` : "Click to rate"}
+                    </span>
+                  </div>
+                </div>
+                
                 <div>
                   <h3 className="font-semibold text-media-dark-raspberry mb-2">Author</h3>
                   <p className="text-media-dark-raspberry/80">{book.author}</p>
